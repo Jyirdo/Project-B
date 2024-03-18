@@ -1,5 +1,5 @@
 ﻿string? clientCode = null;
-List<ClientID> allLoggedClients = new List<ClientID>();
+List<Visitor> allLoggedClients = new List<Visitor>();
 
 while (true)
 {
@@ -18,7 +18,7 @@ while (true)
                     clientCode = Console.ReadLine();
                     if (int.TryParse(clientCode, out int clientCodeInt))
                     {   // Code to run
-                        ClientID newClient = new ClientID(clientCodeInt);
+                        Visitor newClient = new Visitor(clientCodeInt);
 
                         newClient.CreateTour();
                         allLoggedClients.Add(newClient);
@@ -43,11 +43,11 @@ while (true)
                     clientCode = Console.ReadLine();
                     if (int.TryParse(clientCode, out int clientCodeInt))
                     {   // Code to run
-                        foreach (ClientID timeRequest in allLoggedClients)
+                        foreach (Visitor timeRequest in allLoggedClients)
                         {
                             if (timeRequest.ticketID == clientCodeInt)
                             {
-                                Console.WriteLine(timeRequest.thisClientTour.tourTime);
+                                Console.WriteLine(timeRequest.visitorTour.tourStartTime);
                             }
                             break;
                         }
