@@ -43,11 +43,11 @@ while (true)
             }
             else if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
-                foreach (Visitor timeRequest in allLoggedClients)
+                foreach (Visitor timeRequestVisitor in allLoggedClients)
                 {
-                    if (timeRequest.ticketID == clientCodeInt)
+                    if (timeRequestVisitor.ticketID == clientCodeInt)
                     {
-                        Console.WriteLine(timeRequest.visitorTour.tourStartTime);
+                        Console.WriteLine(timeRequestVisitor.tourTime);
                     }
                     break;
                 }
@@ -139,7 +139,6 @@ while (true)
 
 
         Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {newClient.tourTime}");
-        break;
     }
 
     else // Capture wrong inputs
