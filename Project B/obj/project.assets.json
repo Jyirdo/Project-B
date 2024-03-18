@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
+      "projectUniqueName": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B-1\\Project B\\Project B.csproj",
       "projectName": "Project B",
-      "projectPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
+      "projectPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B-1\\Project B\\Project B.csproj",
       "packagesPath": "C:\\Users\\agwar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\obj\\",
+      "outputPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B-1\\Project B\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\agwar\\AppData\\Roaming\\NuGet\\NuGet.Config"
