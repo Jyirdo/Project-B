@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Mexpu\\.nuget\\packages\\": {}
+    "C:\\Users\\agwar\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\School\\Repos\\Project B\\Project-B\\Project B\\Project B.csproj",
+      "projectUniqueName": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
       "projectName": "Project B",
-      "projectPath": "D:\\School\\Repos\\Project B\\Project-B\\Project B\\Project B.csproj",
-      "packagesPath": "C:\\Users\\Mexpu\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\Repos\\Project B\\Project-B\\Project B\\obj\\",
+      "projectPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
+      "packagesPath": "C:\\Users\\agwar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mexpu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\agwar\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
