@@ -117,10 +117,10 @@ while (true)
             }
         }
 
-        else if (int.TryParse(clientCode, out int clientCodeInt)) // Add a visitor to a tour
-        {   // Code to run
-            DateTime selectedTime;
-            DateTime test = DateTime.Now;
+    else if (long.TryParse(clientCode, out long clientCodeInt)) // Add a visitor to a tour
+    {   // Code to run
+        DateTime selectedTime;
+        DateTime test = DateTime.Now;
 
             while (true)
             {

@@ -1,10 +1,10 @@
 class Visitor
 {
-    public int ticketID;
+    public long ticketID;
     public Tour? visitorTour;
     public DateTime tourTime;
 
-    public Visitor(int ticketid, DateTime tourtime)
+    public Visitor(long ticketid, DateTime tourtime)
     {
         ticketID = ticketid;
         tourTime = tourtime;
