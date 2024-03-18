@@ -12,3 +12,9 @@ D:\School\Repos\Project B\Project-B\Project B\obj\Debug\net7.0\refint\Project B.
 D:\School\Repos\Project B\Project-B\Project B\obj\Debug\net7.0\Project B.pdb
 D:\School\Repos\Project B\Project-B\Project B\obj\Debug\net7.0\Project B.genruntimeconfig.cache
 D:\School\Repos\Project B\Project-B\Project B\obj\Debug\net7.0\ref\Project B.dll
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Program.cs
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Project B.csproj
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\reservations.json
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Tour.cs
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\tour_times.json
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Visitor.cs

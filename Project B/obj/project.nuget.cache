@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9y50qCw670EaUPgs4PoBYILWlPxkjCElEwdYComoy+PpdHrQJjwJJ0k88k9oChr5lhET4zrnjKRJLA3YDIr+Og==",
+  "dgSpecHash": "Wc/WBZ8sw43HdgpT3tKOfNJoCvvBvA+Pa26VARVmtEC389pEVdCFisz2gfJDfuQ3wN0kQhlLxPZNIKxz1huECw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.17\\microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.17\\microsoft.windowsdesktop.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.17\\microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.17\\microsoft.netcore.app.host.win-x64.7.0.17.nupkg.sha512"
-  ],
+  "projectFilePath": "D:\\School\\Repos\\Project B\\Project-B\\Project B\\Project B.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
