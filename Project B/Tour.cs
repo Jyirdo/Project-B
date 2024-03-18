@@ -1,15 +1,25 @@
 class Tour
 {
-
     // Get time from file with all the tour times?
-    double time = 2.5;
-    public int clientID;
-    public double tourStartTime;
 
-    public Tour(int clientid)
+    public DateTime tourStartTime;
+    public int parttakers;
+
+    public Tour(DateTime time)
     {
-        clientID = clientid;
-
         tourStartTime = time;
+        parttakers = 0;
     }
+
+    public void AddVisitor()
+    {
+        parttakers++;
+    }
+
+    public void RemoveVisitor()
+    {
+        parttakers--;
+    }
+
+
 }

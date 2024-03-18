@@ -3,93 +3,147 @@ List<Visitor> allLoggedClients = new List<Visitor>();
 
 while (true)
 {
-    Console.WriteLine("Wat wilt u doen? \n1. Aanmelden bij een rondleiding \n2. Tijd van een rondleiding opvragen \n3. Toegang voor personeel");
-    while (true)
+    // Find out what time it is and greet the user appropriatly
+    int currentHour = Convert.ToInt16(DateTime.Now.ToString("HH"));
+    if (currentHour < 6)
     {
-        string? userInput = Console.ReadLine();
-        if (int.TryParse(userInput, out int userInt))
+        Console.Write("Goedennacht, ");
+    }
+    else if (currentHour < 12)
+    {
+        Console.Write("Goedemorgen, ");
+    }
+    else if (currentHour < 18)
+    {
+        Console.Write("Goedemiddag, ");
+    }
+    else if (currentHour < 24)
+    {
+        Console.Write("Goedenavond, ");
+    }
+    else
+    {
+        Console.Write("Welkom, ");
+    }
+
+    Console.WriteLine("geef uw code op op u aan te melden bij een rondleiding. \nOm de tijd van uw rondleidng te zien, toets 'T'. \nVoor hulp, toets 'H'.");
+
+    // Receive input and check if it's valid
+
+    clientCode = Console.ReadLine();
+    if (clientCode.ToLower() == "t") // Check tour time option
+    {
+        while (true)
         {
-            if (userInt == 1)
+            Console.WriteLine("Geef uw code op om de tijd van uw rondleiding te zien. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            clientCode = Console.ReadLine();
+            if (clientCode.ToLower() == "q")
             {
-
-                while (true)
-                {
-                    Console.WriteLine("Geef uw barcode op:"); // Receive input and check if it's valid
-                    clientCode = Console.ReadLine();
-                    if (int.TryParse(clientCode, out int clientCodeInt))
-                    {   // Code to run
-                        Visitor newClient = new Visitor(clientCodeInt);
-
-                        newClient.CreateTour();
-                        allLoggedClients.Add(newClient);
-
-                        Console.WriteLine("Succesvol aangemeld.");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
-                    }
-
-                }
                 break;
             }
-
-            if (userInt == 2)
-            {
-                while (true)
+            else if (int.TryParse(clientCode, out int clientCodeInt))
+            {   // Code to run
+                foreach (Visitor timeRequestVisitor in allLoggedClients)
                 {
-                    Console.WriteLine("Geef uw barcode op:"); // Receive input and check if it's valid
-                    clientCode = Console.ReadLine();
-                    if (int.TryParse(clientCode, out int clientCodeInt))
-                    {   // Code to run
-                        foreach (Visitor timeRequest in allLoggedClients)
-                        {
-                            if (timeRequest.ticketID == clientCodeInt)
-                            {
-                                Console.WriteLine(timeRequest.visitorTour.tourStartTime);
-                            }
-                            break;
-                        }
-
-                    }
-                    else
+                    if (timeRequestVisitor.ticketID == clientCodeInt)
                     {
-                        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+                        Console.WriteLine(timeRequestVisitor.tourTime);
                     }
                     break;
                 }
+
             }
-
-            if (userInt == 3)
-            {
-                while (true)
-                {
-                    Console.WriteLine("Geef uw barcode op:"); // Receive input and check if it's valid
-                    clientCode = Console.ReadLine();
-                    if (int.TryParse(clientCode, out int clientCodeInt))
-                    {   // Code to run
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
-                    }
-
-                }
-                break;
-            }
-
             else
             {
-                Console.WriteLine("Incorrecte invoer");
+                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+            }
+            break;
+        }
+    }
+
+    else if (clientCode.ToLower() == "h") // Assistance option
+    {
+        while (true)
+        {
+            Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            clientCode = Console.ReadLine();
+            if (clientCode.ToLower() == "q")
+            {
                 break;
             }
         }
     }
 
+    else if (clientCode.ToLower() == "p") // Access for staff
+    {
+        while (true)
+        {
+            Console.WriteLine("Geef uw personeelscode op: \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            clientCode = Console.ReadLine();
+            if (clientCode.ToLower() == "q")
+            {
+                break;
+            }
+            else if (int.TryParse(clientCode, out int clientCodeInt))
+            {   // Code to run
+                if (clientCodeInt == 456)
+                {
 
+                    Console.WriteLine("Druk op 'Q' om terug te gaan naar het hoofdmenu.");
+                    clientCode = Console.ReadLine();
+                    if (clientCode.ToLower() == "q")
+                    {
+                        break;
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine("Incorrecte personeelscode.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+            }
+
+        }
+    }
+
+    else if (int.TryParse(clientCode, out int clientCodeInt)) // Add a visitor to a tour
+    {   // Code to run
+        DateTime selectedTime;
+        DateTime test = DateTime.Now;
+
+        while (true)
+        {
+            Console.WriteLine("Bij welke rondleiding wilt u u aanmelden?");
+            Console.WriteLine($"1. {test}");
+
+            string chosenTour = Console.ReadLine();
+            if (chosenTour == "1")
+            {
+                selectedTime = test;
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Incorrecte invoer, probeer opnieuw.");
+            }
+        }
+
+        Visitor newClient = new Visitor(clientCodeInt, selectedTime);
+
+        newClient.CreateTour();
+        allLoggedClients.Add(newClient);
+
+
+        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {newClient.tourTime}");
+    }
+
+    else // Capture wrong inputs
+    {
+        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+    }
 
 }
-
-
