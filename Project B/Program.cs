@@ -1,6 +1,21 @@
 ﻿string? clientCode = null;
 List<Visitor> allLoggedClients = new List<Visitor>();
 
+int parttakers = 0;
+bool opentourspots = true;
+
+void MaxVisitor()
+{
+    if (parttakers < 3)
+    {
+        opentourspots = true;
+    }
+    else
+    {
+        opentourspots = false;
+    }
+}
+
 while (true)
 {
     // Find out what time it is and greet the user appropriatly
@@ -123,7 +138,6 @@ while (true)
 
             foreach (string line in File.ReadLines(jsonFilePath))
             {
-
                 Console.WriteLine($"{line}");
             }
 
@@ -139,13 +153,20 @@ while (true)
             }
         }
 
-        Visitor newClient = new Visitor(clientCodeInt, selectedTime);
+        if (opentourspots == true)
+        {
+            parttakers++;
+            MaxVisitor();
+            Visitor newClient = new Visitor(clientCodeInt, selectedTime);
 
-        newClient.CreateTour();
-        allLoggedClients.Add(newClient);
-
-
-        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {newClient.tourTime}");
+            newClient.CreateTour();
+            allLoggedClients.Add(newClient);
+            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {newClient.tourTime}");
+        }
+        else
+        {
+            Console.WriteLine("This Tour is full");
+        }
     }
 
     else // Capture wrong inputs
