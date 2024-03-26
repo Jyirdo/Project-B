@@ -18,3 +18,7 @@ D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\reservations.json
 D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Tour.cs
 D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\tour_times.json
 D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Visitor.cs
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\BarcodeGenerator.cs
+D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Newtonsoft.Json.dll
+D:\School\Repos\Project B\Project-B\Project B\obj\Debug\net7.0\Project B.csproj.AssemblyReference.cache
+D:\School\Repos\Project B\Project-B\Project B\obj\Debug\net7.0\Project B.csproj.CopyComplete
