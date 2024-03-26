@@ -18,3 +18,24 @@ D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\reservations.json
 D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Tour.cs
 D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\tour_times.json
 D:\School\Repos\Project B\Project-B\Project B\bin\Debug\net7.0\Visitor.cs
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Program.cs
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Project B.csproj
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\reservations.json
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Tour.cs
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\tour_times.json
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Visitor.cs
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\workspace.code-workspace
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Project B.exe
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Project B.deps.json
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Project B.runtimeconfig.json
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Project B.dll
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\bin\Debug\net7.0\Project B.pdb
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.AssemblyInfoInputs.cache
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.AssemblyInfo.cs
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.csproj.CoreCompileInputs.cache
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.dll
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\refint\Project B.dll
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.pdb
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\Project B.genruntimeconfig.cache
+C:\Users\agwar\OneDrive\Documenten\C#\Project-B\Project B\obj\Debug\net7.0\ref\Project B.dll
