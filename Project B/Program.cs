@@ -157,8 +157,6 @@ while (true)
         {
             parttakers++;
             MaxVisitor();
-            Console.WriteLine(parttakers);
-            Console.WriteLine(opentourspots);
             Visitor newClient = new Visitor(clientCodeInt, selectedTime);
 
             newClient.CreateTour();
