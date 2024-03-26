@@ -167,7 +167,7 @@ while (true)
         }
         else
         {
-            Console.WriteLine("Maximum tourcapacity reached");
+            Console.WriteLine("This Tour is full");
         }
     }
 

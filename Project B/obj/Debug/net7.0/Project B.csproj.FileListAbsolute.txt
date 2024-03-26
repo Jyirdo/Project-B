@@ -58,3 +58,23 @@ c:/Users/jobli/OneDrive/Bureaublad/UNI/HBO MOMENT/Project-B-1/Project B/obj/Debu
 /Users/joblimbeek/Desktop/Project B ofzo/Project-B/Project B/obj/Debug/net7.0/Project B.pdb
 /Users/joblimbeek/Desktop/Project B ofzo/Project-B/Project B/obj/Debug/net7.0/Project B.genruntimeconfig.cache
 /Users/joblimbeek/Desktop/Project B ofzo/Project-B/Project B/obj/Debug/net7.0/ref/Project B.dll
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Project B.csproj
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\reservations.json
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\tour_times.json
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Visitor.cs
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Program.cs
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Tour.cs
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Project B.exe
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Project B.deps.json
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Project B.runtimeconfig.json
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Project B.dll
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\bin\Debug\net7.0\Project B.pdb
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.AssemblyInfoInputs.cache
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.AssemblyInfo.cs
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.csproj.CoreCompileInputs.cache
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.dll
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\refint\Project B.dll
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.pdb
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\Project B.genruntimeconfig.cache
+C:\Users\jobli\OneDrive\Bureaublad\UNI\HBO MOMENT\Project-B-1\Project B\obj\Debug\net7.0\ref\Project B.dll
