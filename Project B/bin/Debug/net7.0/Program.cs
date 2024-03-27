@@ -7,6 +7,21 @@ BarcodeGenerator generator = new();
 // generator.GenerateBarcodes(25);
 // To generate codes for testing
 
+int parttakers = 0;
+bool opentourspots = true;
+
+void MaxVisitor()
+{
+    if (parttakers < 3)
+    {
+        opentourspots = true;
+    }
+    else
+    {
+        opentourspots = false;
+    }
+}
+
 while (true)
 {
 
@@ -164,24 +179,35 @@ while (true)
             {
                 foreach (var entry in tourTime)
                 {
-
                     if (Convert.ToInt32(entry.Key) == chosenTourInt)
                     {
-                        selectedTime = Convert.ToDateTime(entry.Value);
+                        if (opentourspots == true)
+                        {
+                            selectedTime = Convert.ToDateTime(entry.Value);
+                            parttakers++;
+                            MaxVisitor();
 
-                        Visitor newClient = new Visitor(clientCodeInt, selectedTime);
-                        newClient.CreateTour();
-                        allLoggedClients.Add(newClient);
-                        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}");
-
-                        goto End;
+                            Visitor newClient = new Visitor(clientCodeInt, selectedTime);
+                            newClient.CreateTour();
+                            allLoggedClients.Add(newClient);
+                            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}");
+                            goto End;
+                        }
+                        else
+                        {
+                            Console.WriteLine("This Tour is full");
+                        }
                     }
                 }
             }
         }
-
-    End: { }
-
     }
+
+    else // Capture wrong inputs
+    {
+        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+    }
+End:
+    { }
 
 }
