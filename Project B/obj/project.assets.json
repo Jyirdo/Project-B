@@ -8,24 +8,47 @@
     "net7.0": []
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\yordi\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\jobli\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
       "projectName": "Project B",
       "projectPath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
       "packagesPath": "C:\\Users\\yordi\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj",
+      "projectName": "Project B",
+      "projectPath": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj",
+      "packagesPath": "C:\\Users\\jobli\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\obj\\",
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\yordi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+        "C:\\Users\\jobli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -77,7 +100,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
       }
     }
   }
