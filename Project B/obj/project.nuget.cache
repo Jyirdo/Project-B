@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "krTODXNV8QeNzMl/lzsUaBOCQt1MKAgPjeg3F24vH8cp22MkHWrecYV44ot6opO7UnAcB3WWLYRikwmQ5yOrYw==",
+  "dgSpecHash": "9y50qCw670EaUPgs4PoBYILWlPxkjCElEwdYComoy+PpdHrQJjwJJ0k88k9oChr5lhET4zrnjKRJLA3YDIr+Og==",
   "success": true,
-  "projectFilePath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.17\\microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
+    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.17\\microsoft.windowsdesktop.app.ref.7.0.17.nupkg.sha512",
+    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.17\\microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512",
+    "C:\\Users\\yordi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.17\\microsoft.netcore.app.host.win-x64.7.0.17.nupkg.sha512"
+  ],
   "logs": []
 }
