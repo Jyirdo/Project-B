@@ -22,25 +22,8 @@ void MaxVisitor()
     }
 }
 
-int parttakers = 0;
-bool opentourspots = true;
-
-void MaxVisitor()
-{
-    if (parttakers < 3)
-    {
-        opentourspots = true;
-    }
-    else
-    {
-        opentourspots = false;
-    }
-}
-
 while (true)
 {
-
-
     // Find out what time it is and greet the user appropriatly
     int currentHour = Convert.ToInt16(DateTime.Now.ToString("HH"));
     if (currentHour < 6)
@@ -161,7 +144,6 @@ while (true)
             // Read the json and print appropriately
             using (StreamReader reader = new StreamReader("tour_times.json"))
             {
-<<<<<<< HEAD
                 var json = reader.ReadToEnd();
                 tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
                 foreach (var tourTime in tourTimes)
@@ -176,9 +158,6 @@ while (true)
 
                     }
                 }
-=======
-                Console.WriteLine($"{line}");
->>>>>>> main
             }
 
             int chosenTourInt = 0;
@@ -220,24 +199,6 @@ while (true)
                 }
             }
         }
-<<<<<<< HEAD
-=======
-
-        if (opentourspots == true)
-        {
-            parttakers++;
-            MaxVisitor();
-            Visitor newClient = new Visitor(clientCodeInt, selectedTime);
-
-            newClient.CreateTour();
-            allLoggedClients.Add(newClient);
-            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {newClient.tourTime}");
-        }
-        else
-        {
-            Console.WriteLine("This Tour is full");
-        }
->>>>>>> main
     }
 
     else // Capture wrong inputs
