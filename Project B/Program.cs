@@ -1,5 +1,26 @@
-﻿string? clientCode = null;
-List<Visitor> allLoggedClients = new List<Visitor>();
+﻿using System.ComponentModel.Design;
+using Newtonsoft.Json;
+
+string? clientCode = null;
+List<Visitor> allLoggedClients = new();
+BarcodeGenerator generator = new();
+// generator.GenerateBarcodes(25);
+// To generate codes for testing
+
+int parttakers = 0;
+bool opentourspots = true;
+
+void MaxVisitor()
+{
+    if (parttakers < 3)
+    {
+        opentourspots = true;
+    }
+    else
+    {
+        opentourspots = false;
+    }
+}
 
 int parttakers = 0;
 bool opentourspots = true;
@@ -18,6 +39,8 @@ void MaxVisitor()
 
 while (true)
 {
+
+
     // Find out what time it is and greet the user appropriatly
     int currentHour = Convert.ToInt16(DateTime.Now.ToString("HH"));
     if (currentHour < 6)
@@ -127,31 +150,78 @@ while (true)
 
     else if (long.TryParse(clientCode, out long clientCodeInt)) // Add a visitor to a tour
     {   // Code to run
-        DateTime selectedTime;
-        DateTime test = DateTime.Now;
-
         while (true)
         {
+            List<Dictionary<string, string>> tourTimes;
+            int tourAmount = 0;
+            DateTime selectedTime;
+
             Console.WriteLine("Bij welke rondleiding wilt u u aanmelden?");
 
-            string jsonFilePath = @"tour_times.json";
-
-            foreach (string line in File.ReadLines(jsonFilePath))
+            // Read the json and print appropriately
+            using (StreamReader reader = new StreamReader("tour_times.json"))
             {
+<<<<<<< HEAD
+                var json = reader.ReadToEnd();
+                tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
+                foreach (var tourTime in tourTimes)
+                {
+                    foreach (var entry in tourTime)
+                    {
+                        Console.WriteLine($"{entry.Key}; Rondleiding van {DateTime.Parse(entry.Value).ToString("dd-M-yyyy HH:mm")}");
+                        if (Convert.ToInt32(entry.Key) > tourAmount)
+                        {
+                            tourAmount = Convert.ToInt32(entry.Key);
+                        }
+
+                    }
+                }
+=======
                 Console.WriteLine($"{line}");
+>>>>>>> main
             }
 
-            string chosenTour = Console.ReadLine();
-            if (chosenTour == "1")
+            int chosenTourInt = 0;
+            while (chosenTourInt <= 0 || chosenTourInt > tourAmount)
             {
-                selectedTime = test;
-                break;
+                Console.WriteLine("Ik wil me aanmelden bij rondleiding:");
+                string chosenTour = Console.ReadLine();
+                int.TryParse(chosenTour, out chosenTourInt);
+
+                if (chosenTourInt <= 0 || chosenTourInt > tourAmount)
+                {
+                    Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+                }
             }
-            else
+
+            foreach (var tourTime in tourTimes)
             {
-                Console.WriteLine("Incorrecte invoer, probeer opnieuw.");
+                foreach (var entry in tourTime)
+                {
+                    if (Convert.ToInt32(entry.Key) == chosenTourInt)
+                    {
+                        if (opentourspots == true)
+                        {
+                            selectedTime = Convert.ToDateTime(entry.Value);
+                            parttakers++;
+                            MaxVisitor();
+
+                            Visitor newClient = new Visitor(clientCodeInt, selectedTime);
+                            newClient.CreateTour();
+                            allLoggedClients.Add(newClient);
+                            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}");
+                            goto End;
+                        }
+                        else
+                        {
+                            Console.WriteLine("This Tour is full");
+                        }
+                    }
+                }
             }
         }
+<<<<<<< HEAD
+=======
 
         if (opentourspots == true)
         {
@@ -167,11 +237,14 @@ while (true)
         {
             Console.WriteLine("This Tour is full");
         }
+>>>>>>> main
     }
 
     else // Capture wrong inputs
     {
         Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
     }
+End:
+    { }
 
 }
