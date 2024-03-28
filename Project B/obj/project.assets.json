@@ -1,0 +1,111 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net7.0": []
+  },
+  "packageFolders": {
+<<<<<<< HEAD
+    "C:\\Users\\yordi\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\jobli\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
+      "projectName": "Project B",
+      "projectPath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
+      "packagesPath": "C:\\Users\\yordi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj",
+      "projectName": "Project B",
+      "projectPath": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj",
+      "packagesPath": "C:\\Users\\jobli\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\obj\\",
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+<<<<<<< HEAD
+        "C:\\Users\\yordi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+        "C:\\Users\\jobli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.17, 7.0.17]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.17, 7.0.17]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.17, 7.0.17]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.17, 7.0.17]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+<<<<<<< HEAD
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+>>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+      }
+    }
+  }
+}
