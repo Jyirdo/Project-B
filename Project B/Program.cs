@@ -1,71 +1,84 @@
-﻿using System.ComponentModel.Design;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-string? clientCode = null;
-List<Visitor> allLoggedClients = new();
-BarcodeGenerator generator = new();
-// generator.GenerateBarcodes(25);
-// To generate codes for testing
-
-int parttakers = 0;
-bool opentourspots = true;
-
-void MaxVisitor()
+class Program
 {
-    if (parttakers < 3)
-    {
-        opentourspots = true;
-    }
-    else
-    {
-        opentourspots = false;
-    }
-}
+    List<Visitor> allLoggedClients = new();
+    BarcodeGenerator generator = new();
+    string? clientCode = null;
+    int parttakers = 0;
+    bool opentourspots = true;
 
-while (true)
-{
-    // Find out what time it is and greet the user appropriatly
-    int currentHour = Convert.ToInt16(DateTime.Now.ToString("HH"));
-    if (currentHour < 6)
+    public static void Main()
     {
-        Console.Write("Goedennacht, ");
-    }
-    else if (currentHour < 12)
-    {
-        Console.Write("Goedemorgen, ");
-    }
-    else if (currentHour < 18)
-    {
-        Console.Write("Goedemiddag, ");
-    }
-    else if (currentHour < 24)
-    {
-        Console.Write("Goedenavond, ");
-    }
-    else
-    {
-        Console.Write("Welkom, ");
+        Program test = new Program();
+        test.Robot();
     }
 
-    Console.WriteLine("geef uw code op om u aan te melden bij een rondleiding. \nOm de tijd van uw rondleidng te zien, toets 'T'. \nVoor hulp, toets 'H'.");
+    public void Robot()
+    {
+        while (true)
+        {
+            Greeting();
+            Console.WriteLine("geef uw code op om u aan te melden bij een rondleiding. \nOm de tijd van uw rondleidng te zien, toets 'T'. \nVoor hulp, toets 'H'.");
+            clientCode = Console.ReadLine();
+            if (clientCode.ToLower() == "t")
+            {
+                Check_Tour_Time();
+            }
+            else if (clientCode.ToLower() == "h")
+            {
+                Help();
+            }
+            else if (clientCode.ToLower() == "p")
+            {
+                Personeel();
+            }
+            else if (long.TryParse(clientCode, out long clientCodeInt))
+            {
+                Choose_Tour(clientCodeInt);
+            }
+            else // Capture wrong inputs
+            {
+                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+            }
+        }     
+    }
 
-    // Receive input and check if it's valid
+    public void Greeting()
+    {
+        // Find out what time it is and greet the user appropriatly
+        int currentHour = Convert.ToInt16(DateTime.Now.ToString("HH"));
+        if (currentHour < 6)
+        {
+            Console.Write("Goedennacht, ");
+        }
+        else if (currentHour < 12)
+        {
+            Console.Write("Goedemorgen, ");
+        }
+        else if (currentHour < 18)
+        {
+            Console.Write("Goedemiddag, ");
+        }
+        else if (currentHour < 24)
+        {
+            Console.Write("Goedenavond, ");
+        }
+        else
+        {
+            Console.Write("Welkom, ");
+        }
+    }
 
-    clientCode = Console.ReadLine();
-    if (clientCode.ToLower() == "t") // Check tour time option
+    public void Check_Tour_Time()
     {
         while (true)
         {
             Console.WriteLine("Geef uw code op om de tijd van uw rondleiding te zien. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
-            Console.WriteLine("Wilt u uw rondleiding annuleren? Toets 'A'")
             clientCode = Console.ReadLine();
             if (clientCode.ToLower() == "q")
             {
                 break;
-            }
-            else if (clientCode.ToLower() == "a")
-            {
-                continue;
             }
             else if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
@@ -73,7 +86,7 @@ while (true)
                 {
                     if (timeRequestVisitor.ticketID == clientCodeInt)
                     {
-                        Console.WriteLine(timeRequestVisitor.tourTime);
+                        Console.WriteLine($"{timeRequestVisitor.tourTime}\n");
                     }
                     break;
                 }
@@ -81,13 +94,13 @@ while (true)
             }
             else
             {
-                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer het opnieuw.");
+                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
             }
             break;
         }
     }
 
-    else if (clientCode.ToLower() == "h") // Assistance option
+    public void Help()
     {
         while (true)
         {
@@ -100,7 +113,7 @@ while (true)
         }
     }
 
-    else if (clientCode.ToLower() == "p") // Access for staff
+    public void Personeel()
     {
         while (true)
         {
@@ -122,7 +135,6 @@ while (true)
                         break;
                     }
                 }
-
                 else
                 {
                     Console.WriteLine("Incorrecte personeelscode.");
@@ -136,95 +148,81 @@ while (true)
         }
     }
 
-    else if (long.TryParse(clientCode, out long clientCodeInt)) // Add a visitor to a tour
-    {   // Code to run
-        while (true)
+    public void Choose_Tour(long clientCodeInt)
+    {
+        List<Dictionary<string, string>> tourTimes;
+        int tourAmount = 0;
+        DateTime selectedTime;
+
+        // Read the json
+        using (StreamReader reader = new StreamReader("tour_times.json"))
         {
-            List<Dictionary<string, string>> tourTimes;
-            int tourAmount = 0;
-            DateTime selectedTime;
-
+            var json = reader.ReadToEnd();
+            tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
             Console.WriteLine("Bij welke rondleiding wilt u u aanmelden?");
-
-            // Read the json and print appropriately
-            using (StreamReader reader = new StreamReader("../tour_times.json"))
-            {
-                var json = reader.ReadToEnd();
-                tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
-                foreach (var tourTime in tourTimes)
-                {
-                    foreach (var entry in tourTime)
-                    {
-                        Console.WriteLine($"{entry.Key}; Rondleiding van {DateTime.Parse(entry.Value).ToString("dd-M-yyyy HH:mm")}");
-                        if (Convert.ToInt32(entry.Key) > tourAmount)
-                        {
-                            tourAmount = Convert.ToInt32(entry.Key);
-                        }
-
-                    }
-                }
-            }
-
-            int chosenTourInt = 0;
-            while (chosenTourInt <= 0 || chosenTourInt > tourAmount)
-            {
-                Console.WriteLine("Ik wil me aanmelden bij rondleiding:");
-                string chosenTour = Console.ReadLine();
-                int.TryParse(chosenTour, out chosenTourInt);
-
-                if (chosenTourInt <= 0 || chosenTourInt > tourAmount)
-                {
-                    Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
-                }
-                else
-                    break;
-            }
-
             foreach (var tourTime in tourTimes)
             {
                 foreach (var entry in tourTime)
                 {
-                    if (Convert.ToInt32(entry.Key) == chosenTourInt)
+                    //Make a tour for every time
+                    Tour tour = new Tour(Convert.ToInt32(entry.Key), Convert.ToDateTime(entry.Value));
+                    //Print the Datetime per tour
+                    Console.WriteLine($"{entry.Key}; Rondleiding van {DateTime.Parse(entry.Value).ToString("dd-M-yyyy HH:mm")}");
+                    if (Convert.ToInt32(entry.Key) > tourAmount)
                     {
-                        if (opentourspots == true)
-                        {
-                            selectedTime = Convert.ToDateTime(entry.Value);
-                            parttakers++;
-                            MaxVisitor();
+                        tourAmount = Convert.ToInt32(entry.Key);
+                    }
+                }
+            }
+        }
 
-                            Visitor newClient = new Visitor(clientCodeInt, selectedTime);
-                            newClient.CreateTour();
-                            allLoggedClients.Add(newClient);
+        //Chosentour = id of tour chosen by visitor
+        int chosenTourInt = 0;
+        while (chosenTourInt <= 0 || chosenTourInt > tourAmount)
+        {
+            Console.WriteLine("Ik wil me aanmelden bij rondleiding:");
+            string chosenTour = Console.ReadLine();
+            int.TryParse(chosenTour, out chosenTourInt);
+            if (chosenTourInt <= 0 || chosenTourInt > tourAmount)
+            {
+                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+            }
+        }
 
-                            // Write the reservation to reservations.json
-                            using (var stream = new FileStream("../reservations.json", FileMode.Append, FileAccess.Write))
-                            using (var streamWriter = new StreamWriter(stream))
-                            {
-                                var reservations = new List<Reservation>();
-                                new Reservation { ReservationId = clientCodeInt, Time = selectedTime.ToString("dd-M-yyyy HH:mm:ss") };
-                                var serializedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-                                streamWriter.WriteLine(serializedJson);
-                                streamWriter.Flush();
-                            }
+        foreach (var tourTime in tourTimes)
+        {
+            foreach (var entry in tourTime)
+            {
+                if (Convert.ToInt32(entry.Key) == chosenTourInt)
+                {
+                    if (opentourspots == true)
+                    {
+                        selectedTime = Convert.ToDateTime(entry.Value);
+                        parttakers++;
+                        MaxVisitor();
 
-                            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}");
-                            goto End;
-                        }
-                        else
-                        {
-                            Console.WriteLine("This Tour is full");
-                        }
+                        Visitor newClient = new Visitor(clientCodeInt, selectedTime);
+                        allLoggedClients.Add(newClient);
+                        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("This Tour is full");
                     }
                 }
             }
         }
     }
 
-    else // Capture wrong inputs
+    public void MaxVisitor()
     {
-        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+        if (parttakers < 3)
+        {
+            opentourspots = true;
+        }
+        else
+        {
+            opentourspots = false;
+        }
     }
-End:
-    { }
-
 }

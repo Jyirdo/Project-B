@@ -2,12 +2,15 @@ class Tour
 {
     // Get time from file with all the tour times?
 
+    public List<Visitor> visitorsintour = new();
+    public int tour_id;
     public DateTime tourStartTime;
     public int parttakers;
     public bool opentourspots;
 
-    public Tour(DateTime time)
+    public Tour(int id, DateTime time)
     {
+        tour_id = id;
         tourStartTime = time;
         parttakers = 0;
         opentourspots = true;
@@ -46,7 +49,7 @@ class Tour
         {
             opentourspots = true;
         }
-        else 
+        else
         {
             opentourspots = false;
         }
