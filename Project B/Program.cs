@@ -57,10 +57,15 @@ while (true)
         while (true)
         {
             Console.WriteLine("Geef uw code op om de tijd van uw rondleiding te zien. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            Console.WriteLine("Wilt u uw rondleiding annuleren? Toets 'A'")
             clientCode = Console.ReadLine();
             if (clientCode.ToLower() == "q")
             {
                 break;
+            }
+            else if (clientCode.ToLower() == "a")
+            {
+                continue;
             }
             else if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
@@ -76,7 +81,7 @@ while (true)
             }
             else
             {
-                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer het opnieuw.");
             }
             break;
         }
@@ -142,7 +147,7 @@ while (true)
             Console.WriteLine("Bij welke rondleiding wilt u u aanmelden?");
 
             // Read the json and print appropriately
-            using (StreamReader reader = new StreamReader("tour_times.json"))
+            using (StreamReader reader = new StreamReader("../tour_times.json"))
             {
                 var json = reader.ReadToEnd();
                 tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
@@ -171,6 +176,8 @@ while (true)
                 {
                     Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
                 }
+                else
+                    break;
             }
 
             foreach (var tourTime in tourTimes)
@@ -188,6 +195,18 @@ while (true)
                             Visitor newClient = new Visitor(clientCodeInt, selectedTime);
                             newClient.CreateTour();
                             allLoggedClients.Add(newClient);
+
+                            // Write the reservation to reservations.json
+                            using (var stream = new FileStream("../reservations.json", FileMode.Append, FileAccess.Write))
+                            using (var streamWriter = new StreamWriter(stream))
+                            {
+                                var reservations = new List<Reservation>();
+                                new Reservation { ReservationId = clientCodeInt, Time = selectedTime.ToString("dd-M-yyyy HH:mm:ss") };
+                                var serializedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+                                streamWriter.WriteLine(serializedJson);
+                                streamWriter.Flush();
+                            }
+
                             Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}");
                             goto End;
                         }
