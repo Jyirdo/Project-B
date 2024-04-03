@@ -57,10 +57,15 @@ while (true)
         while (true)
         {
             Console.WriteLine("Geef uw code op om de tijd van uw rondleiding te zien. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            Console.WriteLine("Wilt u uw rondleiding annuleren? Toets 'A'")
             clientCode = Console.ReadLine();
             if (clientCode.ToLower() == "q")
             {
                 break;
+            }
+            else if (clientCode.ToLower() == "a")
+            {
+                continue;
             }
             else if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
@@ -76,7 +81,7 @@ while (true)
             }
             else
             {
-                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer het opnieuw.");
             }
             break;
         }
