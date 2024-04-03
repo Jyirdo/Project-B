@@ -131,7 +131,7 @@ while (true)
         }
     }
 
-    else if (long.TryParse(clientCode, out long clientCodeInt)) // Add a visitor to a tour
+    if (long.TryParse(clientCode, out long clientCodeInt)) // Add a visitor to a tour
     {   // Code to run
         while (true)
         {
@@ -200,7 +200,10 @@ while (true)
             }
         }
     }
-
+    else if (clientCode == '0313800960323')
+    {
+        return;
+    }
     else // Capture wrong inputs
     {
         Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");

@@ -1,49 +1,25 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj": {}
+    "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj": {
+    "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
+        "projectUniqueName": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
         "projectName": "Project B",
-        "projectPath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\Project B.csproj",
-        "packagesPath": "C:\\Users\\yordi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yordi\\Desktop\\Project-B\\Project B\\obj\\",
-=======
-    "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj",
-        "projectName": "Project B",
-        "projectPath": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\Project B.csproj",
-        "packagesPath": "C:\\Users\\jobli\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jobli\\OneDrive\\Bureaublad\\UNI\\HBO MOMENT\\Project-B-1\\Project B\\obj\\",
->>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+        "projectPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\Project B.csproj",
+        "packagesPath": "C:\\Users\\agwar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\agwar\\OneDrive\\Documenten\\C#\\Project-B\\Project-B\\Project B\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\yordi\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-          "C:\\Users\\jobli\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+          "C:\\Users\\agwar\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,6 +37,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -72,34 +54,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.17, 7.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.17, 7.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.17, 7.0.17]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.17, 7.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
->>>>>>> 6f9d4d1469e388647e05ef0eba71ffbd8159a533
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
