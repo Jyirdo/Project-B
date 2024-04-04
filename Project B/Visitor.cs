@@ -1,7 +1,6 @@
 class Visitor
 {
     public long ticketID;
-    public Tour? visitorTour;
     public DateTime tourTime;
 
     public Visitor(long ticketid, DateTime tourtime)
@@ -9,11 +8,4 @@ class Visitor
         ticketID = ticketid;
         tourTime = tourtime;
     }
-
-    public void CreateTour()
-    {
-        visitorTour = new(tourTime);
-    }
-
 }
-
