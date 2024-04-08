@@ -3,10 +3,10 @@
 class Program
 {
     List<Visitor> allLoggedClients = new();
+
+    List<Tour> listoftours = new();
     BarcodeGenerator generator = new();
     string? clientCode = null;
-    int parttakers = 0;
-    bool opentourspots = true;
 
     public static void Main()
     {
@@ -16,6 +16,7 @@ class Program
 
     public void Robot()
     {
+        Load_Tours();
         while (true)
         {
             Greeting();
@@ -148,31 +149,38 @@ class Program
         }
     }
 
-    public void Choose_Tour(long clientCodeInt)
+    public void Load_Tours()
     {
         List<Dictionary<string, string>> tourTimes;
-        int tourAmount = 0;
-        DateTime selectedTime;
 
         // Read the json
         using (StreamReader reader = new StreamReader("tour_times.json"))
         {
             var json = reader.ReadToEnd();
             tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
-            Console.WriteLine("Bij welke rondleiding wilt u u aanmelden?");
             foreach (var tourTime in tourTimes)
             {
                 foreach (var entry in tourTime)
                 {
-                    //Make a tour for every time
+                    //Make a tour for every tourtime and id
                     Tour tour = new Tour(Convert.ToInt32(entry.Key), Convert.ToDateTime(entry.Value));
-                    //Print the Datetime per tour
-                    Console.WriteLine($"{entry.Key}; Rondleiding van {DateTime.Parse(entry.Value).ToString("dd-M-yyyy HH:mm")}");
-                    if (Convert.ToInt32(entry.Key) > tourAmount)
-                    {
-                        tourAmount = Convert.ToInt32(entry.Key);
-                    }
+                    listoftours.Add(tour);
                 }
+            }
+        }
+    }
+
+    public void Choose_Tour(long clientCodeInt)
+    {
+        int tourAmount = 0;
+        DateTime selectedTime;
+
+        foreach (Tour tour in listoftours)
+        {
+            Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}");
+            if (Convert.ToInt32(tour.tour_id) > tourAmount)
+            {
+                tourAmount = Convert.ToInt32(tour.tour_id);
             }
         }
 
@@ -189,40 +197,27 @@ class Program
             }
         }
 
-        foreach (var tourTime in tourTimes)
+        // add visitor to their chosen tour
+        foreach (Tour tour in listoftours)
         {
-            foreach (var entry in tourTime)
+            if (tour.tour_id == chosenTourInt)
             {
-                if (Convert.ToInt32(entry.Key) == chosenTourInt)
+                // check if tour is full
+                if (tour.visitorsintour.Count < 3)
                 {
-                    if (opentourspots == true)
-                    {
-                        selectedTime = Convert.ToDateTime(entry.Value);
-                        parttakers++;
-                        MaxVisitor();
+                    selectedTime = Convert.ToDateTime(tour.tourStartTime);
+                    Visitor newClient = new Visitor(clientCodeInt, selectedTime);
+                    allLoggedClients.Add(newClient);
 
-                        Visitor newClient = new Visitor(clientCodeInt, selectedTime);
-                        allLoggedClients.Add(newClient);
-                        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
-                    }
-                    else
-                    {
-                        Console.WriteLine("This Tour is full");
-                    }
+                    // add visitor to the list in their tour
+                    tour.visitorsintour.Add(newClient);
+                    Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
+                }
+                else
+                {
+                    Console.WriteLine("This tour is full\n");
                 }
             }
-        }
-    }
-
-    public void MaxVisitor()
-    {
-        if (parttakers < 3)
-        {
-            opentourspots = true;
-        }
-        else
-        {
-            opentourspots = false;
         }
     }
 }
