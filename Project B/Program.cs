@@ -193,7 +193,7 @@ class Program
 
         foreach (Tour tour in listoftours)
         {
-            Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}");
+            Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}\n");
             if (Convert.ToInt32(tour.tour_id) > tourAmount)
             {
                 tourAmount = Convert.ToInt32(tour.tour_id);
