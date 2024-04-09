@@ -6,6 +6,10 @@ class Program
     List<Tour> listoftours = new();
     BarcodeGenerator generator = new();
     string? clientCode = null;
+    List<long> staffcodes = new()
+    {
+        0313800960323
+    };
 
     public static void Main()
     {
@@ -139,22 +143,61 @@ class Program
     {
         while (true)
         {
-            Console.WriteLine("Geef uw personeelscode op: \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            Console.WriteLine("Geef uw personeelscode op: \nToets 'Q' om terug te gaan."); // Ontvang invoer en controleer of deze geldig is
             clientCode = Console.ReadLine();
+            int tourAmount = 0;
             if (clientCode.ToLower() == "q")
             {
                 break;
             }
-            else if (int.TryParse(clientCode, out int clientCodeInt))
-            {   // Code to run
-                if (clientCodeInt == 456)
+            else if (long.TryParse(clientCode, out long clientCodeLong))
+            {   // Uit te voeren code
+                if (staffcodes.Contains(clientCodeLong))
                 {
-
-                    Console.WriteLine("Druk op 'Q' om terug te gaan naar het hoofdmenu.");
-                    clientCode = Console.ReadLine();
-                    if (clientCode.ToLower() == "q")
+                    foreach (Tour tour in listoftours)
+                    {
+                        Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}");
+                        if (Convert.ToInt32(tour.tour_id) > tourAmount)
+                        {
+                            tourAmount = Convert.ToInt32(tour.tour_id);
+                        }
+                    }
+                    Console.WriteLine("Voer de ID in van de tour die u wilt selecteren of druk op 'Q' om terug te gaan naar het hoofdmenu:");
+                    string selectedTourId = Console.ReadLine();
+                    if (selectedTourId.ToLower() == "q")
                     {
                         break;
+                    }
+                    else
+                    {
+                        int selectedTourIdInt;
+                        if (int.TryParse(selectedTourId, out selectedTourIdInt))
+                        {
+                            // Controleer of de ingevoerde tour ID geldig is
+                            if (selectedTourIdInt > 0 && selectedTourIdInt <= tourAmount)
+                            {
+                                // Hier worden reservation ID's voor de geselecteerde tour geprint
+                                string jsonFilePath = "reservations.json";
+                                string jsonText = File.ReadAllText(jsonFilePath);
+                                dynamic reservations = JsonConvert.DeserializeObject(jsonText);
+                                Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourId}:");
+                                foreach (var reservation in reservations)
+                                {
+                                    if (reservation.tour_number == selectedTourId)
+                                    {
+                                        Console.WriteLine(reservation.reservation_id);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ongeldige tour ID. Probeer opnieuw.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ongeldige invoer. Voer a.u.b. een numerieke waarde in.");
+                        }
                     }
                 }
                 else
@@ -166,7 +209,6 @@ class Program
             {
                 Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
             }
-
         }
     }
 
