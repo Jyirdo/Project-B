@@ -42,7 +42,7 @@ class Program
             {
                 Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
             }
-        }     
+        }
     }
 
     public void Greeting()
@@ -153,19 +153,14 @@ class Program
     {
         List<Dictionary<string, string>> tourTimes;
 
-        // Read the json
-        using (StreamReader reader = new StreamReader("tour_times.json"))
+        tourTimes = readFromJson("../../../tour_times.json");
+        foreach (var tourTime in tourTimes)
         {
-            var json = reader.ReadToEnd();
-            tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
-            foreach (var tourTime in tourTimes)
+            foreach (var entry in tourTime)
             {
-                foreach (var entry in tourTime)
-                {
-                    //Make a tour for every tourtime and id
-                    Tour tour = new Tour(Convert.ToInt32(entry.Key), Convert.ToDateTime(entry.Value));
-                    listoftours.Add(tour);
-                }
+                //Make a tour for every tourtime and id
+                Tour tour = new Tour(Convert.ToInt32(entry.Key), Convert.ToDateTime(entry.Value));
+                listoftours.Add(tour);
             }
         }
     }
@@ -206,8 +201,8 @@ class Program
                 if (tour.visitorsintour.Count < 3)
                 {
                     selectedTime = Convert.ToDateTime(tour.tourStartTime);
-                    Visitor newClient = new Visitor(clientCodeInt, selectedTime);
-                    allLoggedClients.Add(newClient);
+                    Visitor newClient = new Visitor(clientCodeInt, selectedTime, chosenTourInt);
+                    writeToReservationJson(newClient);
 
                     // add visitor to the list in their tour
                     tour.visitorsintour.Add(newClient);
@@ -219,5 +214,41 @@ class Program
                 }
             }
         }
+    }
+
+    public List<Dictionary<string, string>> readFromJson(string filepath)
+    {
+        List<Dictionary<string, string>> tourTimes;
+        using (StreamReader reader = new StreamReader(filepath))
+        {
+            var json = reader.ReadToEnd();
+            tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
+        }
+
+        if (tourTimes == null)
+            return new List<Dictionary<string, string>>();
+        else
+            return tourTimes;
+    }
+
+    public void writeToReservationJson(Visitor visitor)
+    {
+        var reservationObj = new
+        {
+            reservation_id = $"{visitor.ticketID}",
+            date_time = $"{visitor.tourTime}",
+            tour_number = $"{visitor.tourNumber}"
+        };
+
+        List<dynamic> reservations = new List<dynamic>();
+        if (File.Exists("../../../reservations.json"))
+        {
+            string existingJson = File.ReadAllText("../../../reservations.json");
+            reservations = JsonConvert.DeserializeObject<List<dynamic>>(existingJson) ?? new List<dynamic>();
+        }
+
+        reservations.Add(reservationObj);
+        string updatedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+        File.WriteAllText("../../../reservations.json", updatedJson);
     }
 }
