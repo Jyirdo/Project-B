@@ -3,7 +3,6 @@
 class Program
 {
     List<Visitor> allLoggedClients = new();
-
     List<Tour> listoftours = new();
     BarcodeGenerator generator = new();
     string? clientCode = null;
@@ -20,7 +19,7 @@ class Program
         while (true)
         {
             Greeting();
-            Console.WriteLine("geef uw code op om u aan te melden bij een rondleiding. \nOm de tijd van uw rondleidng te zien, toets 'T'. \nVoor hulp, toets 'H'.");
+            Console.WriteLine("geef uw code op om u aan te melden bij een rondleiding. \nOm de tijd van uw rondleidng te zien of om deze te annuleren, toets 'T'. \nVoor hulp, toets 'H'.");
             clientCode = Console.ReadLine();
             if (clientCode.ToLower() == "t")
             {
@@ -75,13 +74,10 @@ class Program
     {
         while (true)
         {
-            Console.WriteLine("Geef uw code op om de tijd van uw rondleiding te zien. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
+            Console.WriteLine("Geef uw code op om de tijd van uw rondleiding in te zien. Als u uw rondleiding wilt annuleren, toets 'A'.\nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
             clientCode = Console.ReadLine();
-            if (clientCode.ToLower() == "q")
-            {
-                break;
-            }
-            else if (int.TryParse(clientCode, out int clientCodeInt))
+
+            if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
                 foreach (Visitor timeRequestVisitor in allLoggedClients)
                 {
@@ -91,13 +87,38 @@ class Program
                     }
                     break;
                 }
-
             }
+
+            else if (clientCode.ToLower() == "a")
+            {
+                Console.WriteLine("Geef uw code op om uw reservering te annuleren");
+                clientCode = Console.ReadLine();
+                foreach(Visitor visitor in allLoggedClients)
+                {
+                    if (clientCode == Convert.ToString(visitor.ticketID))
+                    {
+                        allLoggedClients.Remove(visitor);
+                        foreach (Tour tour in listoftours)
+                        {
+                            tour.visitorsintour.Remove(visitor);
+                        }
+                        Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
+                        break;
+                    }
+                }
+            }
+
+            else if (clientCode.ToLower() == "q")
+            {
+                break;
+            }
+
             else
             {
                 Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+                continue;
             }
-            break;
+        break;
         }
     }
 
