@@ -72,10 +72,50 @@ class Program
 
     public void Check_Tour_Time()
     {
+        bool CheckInReservationJson(string reservationID)
+        {
+            string reservationJson = File.ReadAllText("../../../reservations.json");
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
+            foreach (Reservation booking in reservations)
+            {
+                if (Convert.ToString(booking.ReservationId) == reservationID)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         while (true)
         {
+
             Console.WriteLine("Geef uw code op om de tijd van uw rondleiding in te zien. Als u uw rondleiding wilt annuleren, toets 'A'.\nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
             clientCode = Console.ReadLine();
+
+            switch (clientCode)
+            {
+                case "a":
+                    {
+                        Cancel();
+                        break;
+                    }
+                case :
+                    {
+                        Cancel();
+                        break;
+                    }
+            }
+
+            void Cancel()
+            {
+                Console.WriteLine("Geef uw code op om uw reservering te annuleren");
+                clientCode = Console.ReadLine();
+
+                CheckInReservationJson(clientCode);
+
+                Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
+            }
 
             if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
@@ -89,24 +129,7 @@ class Program
                 }
             }
 
-            else if (clientCode.ToLower() == "a")
-            {
-                Console.WriteLine("Geef uw code op om uw reservering te annuleren");
-                clientCode = Console.ReadLine();
-                foreach(Visitor visitor in allLoggedClients)
-                {
-                    if (clientCode == Convert.ToString(visitor.ticketID))
-                    {
-                        allLoggedClients.Remove(visitor);
-                        foreach (Tour tour in listoftours)
-                        {
-                            tour.visitorsintour.Remove(visitor);
-                        }
-                        Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
-                        break;
-                    }
-                }
-            }
+
 
             else if (clientCode.ToLower() == "q")
             {
@@ -118,7 +141,7 @@ class Program
                 Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
                 continue;
             }
-        break;
+            break;
         }
     }
 
@@ -127,11 +150,9 @@ class Program
         while (true)
         {
             Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
-            clientCode = Console.ReadLine();
-            if (clientCode.ToLower() == "q")
-            {
+            if (Console.ReadLine().ToLower() == "q")
                 break;
-            }
+
         }
     }
 
@@ -140,11 +161,9 @@ class Program
         while (true)
         {
             Console.WriteLine("Geef uw personeelscode op: \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
-            clientCode = Console.ReadLine();
-            if (clientCode.ToLower() == "q")
-            {
+            if (Console.ReadLine().ToLower() == "q")
                 break;
-            }
+
             else if (int.TryParse(clientCode, out int clientCodeInt))
             {   // Code to run
                 if (clientCodeInt == 456)
@@ -219,14 +238,14 @@ class Program
             if (tour.tour_id == chosenTourInt)
             {
                 // check if tour is full
-                if (tour.visitorsintour.Count < 3)
+                if (tour.CheckTourFullness() == false)
                 {
                     selectedTime = Convert.ToDateTime(tour.tourStartTime);
                     Visitor newClient = new Visitor(clientCodeInt, selectedTime, chosenTourInt);
                     writeToReservationJson(newClient);
 
                     // add visitor to the list in their tour
-                    tour.visitorsintour.Add(newClient);
+                    tour.AddVisitorsToTour(true);
                     Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
                 }
                 else
