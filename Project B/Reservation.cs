@@ -1,7 +1,12 @@
+using Newtonsoft.Json;
 public class Reservation
 {
-    public long ReservationId { get; set; }
-    public string Time { get; set; }
+    [JsonProperty("reservation_id")]
+    public string ReservationId { get; set; }
 
-    public string tour_number { get; set; }
+    [JsonProperty("date_time")]
+    public string DateTime { get; set; }
+
+    [JsonProperty("tour_number")]
+    public string TourNumber { get; set; }
 }
