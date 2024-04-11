@@ -19,28 +19,15 @@ class Program
         while (true)
         {
             Greeting();
-            Console.WriteLine("geef uw code op om u aan te melden bij een rondleiding. \nOm de tijd van uw rondleidng te zien of om deze te annuleren, toets 'T'. \nVoor hulp, toets 'H'.");
-            clientCode = Console.ReadLine();
-            if (clientCode.ToLower() == "t")
+            string universalClientCode = Console.ReadLine();
+
+            if (long.TryParse(universalClientCode, out long universalClientCodeInt))
             {
-                Check_Tour_Time();
+                Choose_Tour(universalClientCodeInt);
             }
-            else if (clientCode.ToLower() == "h")
-            {
-                Help();
-            }
-            else if (clientCode.ToLower() == "p")
-            {
-                Personeel();
-            }
-            else if (long.TryParse(clientCode, out long clientCodeInt))
-            {
-                Choose_Tour(clientCodeInt);
-            }
-            else // Capture wrong inputs
-            {
-                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
-            }
+            else
+                Console.WriteLine("Incorrecte barcode");
+
         }
     }
 
@@ -68,93 +55,97 @@ class Program
         {
             Console.Write("Welkom, ");
         }
+
+        Console.WriteLine("scan uw barcode op om verder te gaan.");
     }
 
-    public void Check_Tour_Time()
+    public void Check_Tour_Time(long tourTimeInt)
     {
-        bool CheckInReservationJson(string reservationID)
+        GetTourTime(tourTimeInt);
+    }
+
+    public string? Menu1()
+    {
+        Console.WriteLine("Voor hulp, toets 'H' \nToets 'Q' om terug te gaan.");
+        string clientChoice = Console.ReadLine();
+        if (long.TryParse(clientChoice, out long ClientChoiceInt))
         {
-            string reservationJson = File.ReadAllText("../../../reservations.json");
-            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
-            foreach (Reservation booking in reservations)
-            {
-                if (Convert.ToString(booking.ReservationId) == reservationID)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return clientChoice;
         }
+        else
+        {
+            switch (clientChoice.ToLower())
+            {
+                case "h":
+                    {
+                        Help();
+                        break;
+                    }
+                case "p":
+                    {
+                        Personeel();
+                        break;
+                    }
+                case "q":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+                        break;
+                    }
+            }
+            return null;
+        }
+    }
 
+    public void Menu2()
+    {
+        Console.WriteLine("Toets 'T' om de tijd van uw rondleiding in te zien. \nAls u uw rondleiding wilt annuleren, toets 'A'. \nVoor hulp, toets 'H' \nToets 'Q' om terug te gaan.");
         while (true)
         {
-
-            Console.WriteLine("Geef uw code op om de tijd van uw rondleiding in te zien. Als u uw rondleiding wilt annuleren, toets 'A'.\nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
             clientCode = Console.ReadLine();
-
-            switch (clientCode)
+            switch (clientCode.ToLower())
             {
+                case "t":
+                    {
+                        Check_Tour_Time(Convert.ToInt64(clientCode));
+                        break;
+                    }
                 case "a":
                     {
                         Cancel();
                         break;
                     }
-                case :
+                case "h":
                     {
-                        Cancel();
+                        Help();
                         break;
                     }
-            }
-
-            void Cancel()
-            {
-                Console.WriteLine("Geef uw code op om uw reservering te annuleren");
-                clientCode = Console.ReadLine();
-
-                CheckInReservationJson(clientCode);
-
-                Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
-            }
-
-            if (int.TryParse(clientCode, out int clientCodeInt))
-            {   // Code to run
-                foreach (Visitor timeRequestVisitor in allLoggedClients)
-                {
-                    if (timeRequestVisitor.ticketID == clientCodeInt)
+                case "p":
                     {
-                        Console.WriteLine($"{timeRequestVisitor.tourTime}\n");
+                        Personeel();
+                        break;
                     }
-                    break;
-                }
+                case "q":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
+                        continue;
+                    }
             }
-
-
-
-            else if (clientCode.ToLower() == "q")
-            {
-                break;
-            }
-
-            else
-            {
-                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
-                continue;
-            }
-            break;
-            break;
         }
     }
 
     public void Help()
     {
-        while (true)
-        {
-            Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld. \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
-            if (Console.ReadLine().ToLower() == "q")
-                break;
-
-        }
+        Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld. \nToets 'Q' om terug te gaan.");
+        if (Console.ReadLine().ToLower() == "q")
+            return;
     }
 
     public void Personeel()
@@ -162,31 +153,18 @@ class Program
         while (true)
         {
             Console.WriteLine("Geef uw personeelscode op: \nToets 'Q' om terug te gaan."); // Receive input and check if it's valid
-            if (Console.ReadLine().ToLower() == "q")
-                break;
-
-            else if (int.TryParse(clientCode, out int clientCodeInt))
-            {   // Code to run
-                if (clientCodeInt == 456)
+            string staffCode = Console.ReadLine().ToLower();
+            if (int.TryParse(staffCode, out int staffCodeInt))
+            {
+                if (staffCodeInt == 456)
                 {
-
-                    Console.WriteLine("Druk op 'Q' om terug te gaan naar het hoofdmenu.");
-                    clientCode = Console.ReadLine();
-                    if (clientCode.ToLower() == "q")
-                    {
-                        break;
-                    }
+                    return;
                 }
                 else
                 {
-                    Console.WriteLine("Incorrecte personeelscode.");
+                    Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
                 }
             }
-            else
-            {
-                Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
-            }
-
         }
     }
 
@@ -194,7 +172,7 @@ class Program
     {
         List<Dictionary<string, string>> tourTimes;
 
-        tourTimes = readFromJson("../../../tour_times.json");
+        tourTimes = readFromTourJson("../../../tour_times.json");
         foreach (var tourTime in tourTimes)
         {
             foreach (var entry in tourTime)
@@ -225,11 +203,18 @@ class Program
         while (chosenTourInt <= 0 || chosenTourInt > tourAmount)
         {
             Console.WriteLine("Ik wil me aanmelden bij rondleiding:");
-            string chosenTour = Console.ReadLine();
-            int.TryParse(chosenTour, out chosenTourInt);
-            if (chosenTourInt <= 0 || chosenTourInt > tourAmount)
+            string chosenTour = Menu1();
+            if (chosenTour == null)
             {
                 Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+            }
+            else if (chosenTourInt <= 0 || chosenTourInt > tourAmount)
+            {
+                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+            }
+            else
+            {
+                int.TryParse(chosenTour, out chosenTourInt);
             }
         }
 
@@ -257,7 +242,55 @@ class Program
         }
     }
 
-    public List<Dictionary<string, string>> readFromJson(string filepath)
+    public void Cancel()
+    {
+        Console.WriteLine("Geef uw code op om uw reservering te annuleren");
+        string cancelCode = Console.ReadLine();
+
+        if (CheckInReservationJson(cancelCode))
+        {
+            // removeFromReservationJson();
+        }
+
+        Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
+    }
+
+    public void GetTourTime(long tourTimeRequest)
+    {
+        var reservations = readReservationJson("../../../reservations.json");
+        foreach (Reservation timeRequest in reservations)
+        {
+            Console.WriteLine(timeRequest);
+            if (timeRequest.ReservationId == tourTimeRequest)
+            {
+                Console.WriteLine($"{timeRequest.Time}\n");
+                break;
+            }
+        }
+    }
+
+    public bool CheckInReservationJson(string reservationID)
+    {
+        string reservationJson = File.ReadAllText("../../../reservations.json");
+        List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
+        foreach (Reservation booking in reservations)
+        {
+            if (Convert.ToString(booking.ReservationId) == reservationID)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public List<Reservation> readReservationJson(string filepath)
+    {
+        string reservationJson = File.ReadAllText(filepath);
+        List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
+        return reservations;
+    }
+
+    public List<Dictionary<string, string>> readFromTourJson(string filepath)
     {
         List<Dictionary<string, string>> tourTimes;
         using (StreamReader reader = new StreamReader(filepath))
@@ -289,6 +322,27 @@ class Program
         }
 
         reservations.Add(reservationObj);
+        string updatedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+        File.WriteAllText("../../../reservations.json", updatedJson);
+    }
+
+    public void removeFromReservationJson(Visitor visitor)
+    {
+        var reservationObj = new
+        {
+            reservation_id = $"{visitor.ticketID}",
+            date_time = $"{visitor.tourTime}",
+            tour_number = $"{visitor.tourNumber}"
+        };
+
+        List<dynamic> reservations = new List<dynamic>();
+        if (File.Exists("../../../reservations.json"))
+        {
+            string existingJson = File.ReadAllText("../../../reservations.json");
+            reservations = JsonConvert.DeserializeObject<List<dynamic>>(existingJson) ?? new List<dynamic>();
+        }
+
+        reservations.Remove(reservationObj);
         string updatedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
         File.WriteAllText("../../../reservations.json", updatedJson);
     }
