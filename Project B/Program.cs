@@ -142,6 +142,7 @@ class Program
                 continue;
             }
             break;
+            break;
         }
     }
 
