@@ -35,6 +35,7 @@ class Tour
     public bool opentourspots;
     public int limit;
 
+
     public Tour(int id, DateTime time)
     {
         tour_id = id;
