@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Media;
 
 class Program
 {
@@ -39,6 +40,10 @@ class Program
             else if (long.TryParse(universalClientCode, out long universalClientCodeInt))
             {
                 Choose_Tour(universalClientCodeInt);
+            }
+            else if (universalClientCode.ToLower() == "p")
+            {
+                Personeel();
             }
             else
                 Console.WriteLine("Incorrecte barcode");
@@ -157,6 +162,7 @@ class Program
         while (true)
         {
             Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld. \nToets 'Q' om terug te gaan.");
+            PlayJingle();
             string helpInput = Console.ReadLine().ToLower();
             if (helpInput == "q")
                 return;
@@ -191,11 +197,15 @@ class Program
                             tourAmount = Convert.ToInt32(tour.tour_id);
                         }
                     }
-                    Console.WriteLine("Voer de ID in van de tour die u wilt selecteren of druk op 'Q' om terug te gaan naar het hoofdmenu:");
+                    Console.WriteLine("Voer de ID in van de tour die u wilt selecteren. \nVoor advies over rondleidingen, toets 'A'. \nDruk op 'Q' om terug te gaan naar het hoofdmenu.");
                     string selectedTourId = Console.ReadLine();
                     if (selectedTourId.ToLower() == "q")
                     {
                         break;
+                    }
+                    else if (selectedTourId.ToLower() == "a")
+                    {
+                        Advise.CreateAdvise();
                     }
                     else
                     {
@@ -206,16 +216,65 @@ class Program
                             if (selectedTourIdInt > 0 && selectedTourIdInt <= tourAmount)
                             {
                                 // Hier worden reservation ID's voor de geselecteerde tour geprint
-                                string jsonFilePath = "reservations.json";
+                                string jsonFilePath = "../../../reservations.json";
                                 string jsonText = File.ReadAllText(jsonFilePath);
                                 dynamic reservations = JsonConvert.DeserializeObject(jsonText);
                                 Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourId}:");
+
+                                List<long> reservationIDS = new List<long>();
                                 foreach (var reservation in reservations)
                                 {
                                     if (reservation.tour_number == selectedTourId)
                                     {
                                         Console.WriteLine(reservation.reservation_id);
+                                        reservationIDS.Add(Convert.ToInt64(reservation.reservation_id));
                                     }
+                                }
+
+
+                                List<long> presenceList = CheckPresence(reservationIDS);
+                                if (presenceList == null)
+                                {
+                                    break;
+                                }
+                                else if (presenceList.Count() == 0)
+                                {
+                                    Console.WriteLine("Iedereen is aanwezig.");
+                                }
+                                else if (presenceList.Count() > 0)
+                                {
+                                    Console.WriteLine("Deze ID's zijn afwezig:\n");
+                                    foreach (long notpresent in presenceList)
+                                    {
+                                        int enumerator = 1;
+                                        Console.WriteLine($"{enumerator}. ({notpresent})");
+                                        enumerator++;
+                                    }
+                                }
+                                Console.WriteLine("Druk op 'S' om de tour te starten. \nDruk op 'Q' om terug te gaan.");
+                                switch (Console.ReadLine().ToLower())
+                                {
+                                    case "s":
+                                        {
+                                            foreach (Tour tour in listoftours)
+                                            {
+                                                if (tour.tour_id == selectedTourIdInt)
+                                                {
+                                                    writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));
+                                                }
+                                            }
+                                            Console.WriteLine("De tour is succesvol gestart");
+                                            break;
+                                        }
+                                    case "q":
+                                        {
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+                                            continue;
+                                        }
                                 }
                             }
                             else
@@ -236,6 +295,40 @@ class Program
             }
 
         }
+    }
+
+    public List<long>? CheckPresence(List<long> reservations)
+    {
+        while (true)
+        {
+            Console.WriteLine("Begin met barcodes scannen om te controleren of iedereen er is. \nDruk op 'K' wanneer u klaar bent. \nDruk op 'Q' om terug te gaan.");
+            string checkPresence = Console.ReadLine();
+            if (checkPresence.ToLower() == "q")
+            {
+                return null;
+            }
+            if (checkPresence.ToLower() == "k")
+            {
+                break;
+            }
+            else
+            {
+                if (long.TryParse(checkPresence, out long id))
+                {
+                    if (reservations.Contains(id))
+                    {
+                        reservations.Remove(id);
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Dat is geen correcte id.");
+                    continue;
+                }
+            }
+        }
+        return reservations;
     }
 
     public void Load_Tours()
@@ -417,6 +510,26 @@ class Program
         File.WriteAllText("../../../reservations.json", updatedJson);
     }
 
+    public void writeToStartedToursJson(int parttakers, string time)
+    {
+        var reservationObj = new
+        {
+            date_time = time,
+            presence = parttakers
+        };
+
+        List<dynamic> startedTours = new List<dynamic>();
+        if (File.Exists("../../../started_tours.json"))
+        {
+            string existingJson = File.ReadAllText("../../../started_tours.json");
+            startedTours = JsonConvert.DeserializeObject<List<dynamic>>(existingJson) ?? new List<dynamic>();
+        }
+
+        startedTours.Add(reservationObj);
+        string updatedJson = JsonConvert.SerializeObject(startedTours, Formatting.Indented);
+        File.WriteAllText("../../../started_tours.json", updatedJson);
+    }
+
     public void removeFromReservationJson(Visitor visitor)
     {
         string existingJson = File.ReadAllText("../../../reservations.json");
@@ -428,6 +541,12 @@ class Program
             string updatedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
             File.WriteAllText("../../../reservations.json", updatedJson);
         }
+    }
+
+    public void PlayJingle()
+    {
+        using (SoundPlayer soundPlayer = new SoundPlayer("../../../jingle.wav"))
+            soundPlayer.Play();
     }
 
 }
