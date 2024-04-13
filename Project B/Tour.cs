@@ -1,6 +1,5 @@
 class Tour
 {
-
     public void AddVisitorsToTour(bool add)
     {
         // Removes visitors if false, adds visitor if true.
@@ -28,6 +27,7 @@ class Tour
         }
         return false;
     }
+
 
     public int tour_id;
     public DateTime tourStartTime;
