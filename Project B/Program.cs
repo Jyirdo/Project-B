@@ -28,7 +28,7 @@ class Program
             {
                 string menu2 = Menu2();
 
-                if (menu2 == "a" || menu2 == "q") ;
+                if (menu2 == "a" || menu2 == "q")
                 {
                     continue;
                 }
@@ -42,7 +42,7 @@ class Program
                 Personeel();
             }
             else
-                Console.WriteLine("Incorrecte barcode");
+                Console.WriteLine("U heeft een incorrecte barcode gescand, probeer het opnieuw.");
 
         }
     }
@@ -72,12 +72,12 @@ class Program
             Console.Write("Welkom, ");
         }
 
-        Console.WriteLine("scan uw barcode op om verder te gaan.");
+        Console.WriteLine("scan uw barcode om verder te gaan.");
     }
 
     public string? Menu1()
     {
-        Console.WriteLine("Voor hulp, toets 'H' \nToets 'Q' om terug te gaan.");
+        Console.WriteLine("Voor hulp, toets 'H' \nOm terug te gaan, toets 'Q'");
         string clientChoice = Console.ReadLine();
         if (long.TryParse(clientChoice, out long ClientChoiceInt))
         {
@@ -103,7 +103,7 @@ class Program
                     }
                 default:
                     {
-                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                         break;
                     }
             }
@@ -116,7 +116,7 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("Toets 'T' om de tijd van uw rondleiding in te zien. \nAls u uw rondleiding wilt annuleren, toets 'A'. \nVoor hulp, toets 'H' \nToets 'Q' om terug te gaan.");
+            Console.WriteLine("Om de tijd van uw rondleiding in te zien, toets 'T' \nAls u uw rondleiding wilt annuleren, toets 'A' \nVoor hulp, toets 'H' \nOm terug te gaan, toets 'Q'");
             string clientChoice = Console.ReadLine();
             switch (clientChoice.ToLower())
             {
@@ -146,7 +146,7 @@ class Program
                     }
                 default:
                     {
-                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                         continue;
                     }
             }
@@ -157,14 +157,14 @@ class Program
     {
         while (true)
         {
-            Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld. \nToets 'Q' om terug te gaan.");
+            Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft. \nOm terug te gaan, toets 'Q'");
             PlayJingle();
             string helpInput = Console.ReadLine().ToLower();
             if (helpInput == "q")
                 return;
             else
             {
-                Console.WriteLine("Deze invoer herken ik niet.");
+                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                 continue;
             }
         }
@@ -207,7 +207,7 @@ class Program
         int chosenTourInt = 0;
         while (chosenTourInt <= 0 || chosenTourInt > tourAmount)
         {
-            Console.WriteLine("Toets het nummer van de rondleiding in op u aan te melden.");
+            Console.WriteLine("Toets het nummer van de rondleiding in waarvoor u zich wilt aanmelden:");
             string chosenTour = Menu1();
             if (chosenTour == null)
             {
@@ -221,7 +221,7 @@ class Program
             int.TryParse(chosenTour, out chosenTourInt);
             if (chosenTourInt <= 0 || chosenTourInt > tourAmount)
             {
-                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer opnieuw.");
+                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
             }
             else
             {
@@ -242,7 +242,7 @@ class Program
                         }
                         else
                         {
-                            Console.WriteLine("This tour is full\n");
+                            Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
                         }
                     }
                 }
@@ -262,7 +262,7 @@ class Program
                 return;
             }
             else
-                Console.WriteLine("Uw reservering is niet gevonden.");
+                Console.WriteLine("Uw reservering is helaas niet gevonden. Probeer het opnieuw.");
             return;
         }
     }
