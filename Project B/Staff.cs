@@ -1,42 +1,46 @@
 using Newtonsoft.Json;
+// Sometime in the future make these methods static somehow
 class Staff
 {
     string? clientCode;
-    List<long> staffCodes = new List<long>();
+    List<string> staffCodes = new List<string>();
     List<Tour> listoftours = new();
     int tourAmount = 0;
+    private string staffCode;
+
+    List<string> scannedIDS = new();
 
     public Staff()
     {
         using (StreamReader reader = new StreamReader("../../../staff_codes.txt"))
         {
-            while (reader.ReadLine() != null)
-                staffCodes.Add(Convert.ToInt64(reader.ReadLine()));
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                staffCodes.Add(line);
+            }
         }
-        Console.WriteLine(staffCodes[0]);
     }
 
     public void StaffMainMenu()
     {
         Console.WriteLine("Geef uw personeelscode op: \nToets 'Q' om terug te gaan."); // Ontvang invoer en controleer of deze geldig is
-        clientCode = Console.ReadLine();
-        if (long.TryParse(clientCode, out long clientCodeLong))
+        staffCode = Console.ReadLine();
+        if (staffCode.ToLower() == "q")
+            return;
+        else if (staffCodes.Contains(staffCode))
         {
-            StaffSubMenu(clientCodeLong);
+            StaffSubMenu(staffCode);
         }
-        else
-
-            switch (clientCode.ToLower())
-            {
-                case "q":
-                    {
-                        return;
-                    }
-            }
+        else if (!staffCodes.Contains(staffCode))
+        {
+            Console.WriteLine("Dat is geen correcte code.");
+        }
     }
-    public void PopulateListOfTours(long staffCodeLong)
+
+    public void PopulateListOfTours(string staffCode)
     {
-        if (staffCodes.Contains(staffCodeLong))
+        if (staffCodes.Contains(staffCode))
         {
             if (File.Exists("../../../tour_times.json"))
             {
@@ -52,9 +56,10 @@ class Staff
             }
         }
     }
-    private void StaffSubMenu(long staffCodeLong)
+
+    private void StaffSubMenu(string staffCode)
     {
-        PopulateListOfTours(staffCodeLong);
+        PopulateListOfTours(staffCode);
 
         foreach (Tour tour in listoftours)
         {
@@ -65,12 +70,12 @@ class Staff
             }
         }
 
+        scannedIDS.Clear();
         Console.WriteLine("Voer de ID in van de tour die u wilt selecteren. \nVoor advies over rondleidingen, toets 'A'. \nDruk op 'Q' om terug te gaan naar het hoofdmenu.");
         string selectedTourId = Console.ReadLine();
-        int selectedTourIdInt;
-        if (int.TryParse(selectedTourId, out selectedTourIdInt))
+        if (int.TryParse(selectedTourId, out int selectedTourIdInt))
         {
-
+            SelectTourAndCheckTour(selectedTourIdInt);
         }
         else
         {
@@ -78,7 +83,7 @@ class Staff
             {
                 case "q":
                     {
-                        return;
+                        break;
                     }
                 case "a":
                     {
@@ -89,8 +94,45 @@ class Staff
         }
     }
 
-    private void SelectTourAndCheckTour(int selectedTourIdInt, int selectedTourId)
+    public List<string>? CheckPresence(List<string> reservations)
     {
+        while (true)
+        {
+            Console.WriteLine("Begin met barcodes scannen om te controleren of iedereen er is. \nDruk op 'K' wanneer u klaar bent. \nDruk op 'Q' om terug te gaan.");
+            string checkPresence = Console.ReadLine();
+            if (checkPresence.ToLower() == "q")
+            {
+                return null;
+            }
+            if (checkPresence.ToLower() == "k")
+            {
+                return reservations;
+            }
+            else
+            {
+                if (long.TryParse(checkPresence, out long id))
+                {
+                    if (reservations.Contains(Convert.ToString(id)))
+                    {
+                        scannedIDS.Add(checkPresence);
+                        reservations.Remove(Convert.ToString(id));
+                        continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Dat is geen correcte id.");
+                    continue;
+                }
+            }
+        }
+
+    }
+
+
+    private void SelectTourAndCheckTour(int selectedTourIdInt)
+    {
+        List<string> reservationIDS = new List<string>();
         // Controleer of de ingevoerde tour ID geldig is
         if (selectedTourIdInt > 0 && selectedTourIdInt <= tourAmount)
         {
@@ -98,20 +140,25 @@ class Staff
             string jsonFilePath = "../../../reservations.json";
             string jsonText = File.ReadAllText(jsonFilePath);
             dynamic reservations = JsonConvert.DeserializeObject(jsonText);
-            Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourId}:");
+            Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourIdInt}:");
 
-            List<long> reservationIDS = new List<long>();
+
             foreach (var reservation in reservations)
             {
-                if (reservation.tour_number == selectedTourId)
+                if (reservation.tour_number == selectedTourIdInt)
                 {
-                    Console.WriteLine(reservation.reservation_id);
-                    reservationIDS.Add(Convert.ToInt64(reservation.reservation_id));
+                    Console.WriteLine(Convert.ToString(reservation.reservation_id));
+                    reservationIDS.Add(Convert.ToString(reservation.reservation_id));
                 }
             }
 
 
-            List<long> presenceList = CheckPresence(reservationIDS);
+        CheckThePresence:
+            List<string>? presenceList = CheckPresence(reservationIDS);
+
+            foreach (string scanned in scannedIDS)
+                presenceList.Remove(scanned);
+
             if (presenceList == null)
             {
                 return;
@@ -123,7 +170,7 @@ class Staff
             else if (presenceList.Count() > 0)
             {
                 Console.WriteLine("Deze ID's zijn afwezig:\n");
-                foreach (long notpresent in presenceList)
+                foreach (string notpresent in presenceList)
                 {
                     int enumerator = 1;
                     Console.WriteLine($"{enumerator}. ({notpresent})");
@@ -138,14 +185,18 @@ class Staff
                         foreach (Tour tour in listoftours)
                         {
                             if (tour.tour_id == selectedTourIdInt)
-                                writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));
+                            {
+                                Program program = new Program();
+                                program.writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));
+                                break;
+                            }
                         }
                         Console.WriteLine("De tour is succesvol gestart");
                         break;
                     }
                 case "q":
                     {
-                        break;
+                        goto CheckThePresence;
                     }
                 default:
                     {
@@ -155,51 +206,8 @@ class Staff
             }
         }
         else
-        {
             Console.WriteLine("Ongeldige tour ID. Probeer opnieuw.");
-        }
     }
-            else
-        {
-            Console.WriteLine("Ongeldige invoer. Voer a.u.b. een numerieke waarde in.");
-        }
-    }
-        else
-{
-    Console.WriteLine("U heeft een incorrecte code opgegeven, probeer opnieuw.");
 }
 
-public List<long>? CheckPresence(List<long> reservations)
-{
-    while (true)
-    {
-        Console.WriteLine("Begin met barcodes scannen om te controleren of iedereen er is. \nDruk op 'K' wanneer u klaar bent. \nDruk op 'Q' om terug te gaan.");
-        string checkPresence = Console.ReadLine();
-        if (checkPresence.ToLower() == "q")
-        {
-            return null;
-        }
-        if (checkPresence.ToLower() == "k")
-        {
-            break;
-        }
-        else
-        {
-            if (long.TryParse(checkPresence, out long id))
-            {
-                if (reservations.Contains(id))
-                {
-                    reservations.Remove(id);
 
-                    continue;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Dat is geen correcte id.");
-                continue;
-            }
-        }
-    }
-    return reservations;
-}

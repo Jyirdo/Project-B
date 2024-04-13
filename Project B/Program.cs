@@ -39,7 +39,8 @@ class Program
             }
             else if (universalClientCode.ToLower() == "p")
             {
-                Personeel();
+                Staff staff = new Staff();  // Fix staff methods to be static
+                staff.StaffMainMenu();
             }
             else
                 Console.WriteLine("U heeft een incorrecte barcode gescand, probeer het opnieuw.");
@@ -94,7 +95,8 @@ class Program
                     }
                 case "p":
                     {
-                        Personeel();
+                        Staff staff = new Staff();  // Fix staff methods to be static
+                        staff.StaffMainMenu();
                         break;
                     }
                 case "q":
@@ -137,7 +139,8 @@ class Program
                     }
                 case "p":
                     {
-                        Personeel();
+                        Staff staff = new Staff();  // Fix staff methods to be static
+                        staff.StaffMainMenu();
                         break;
                     }
                 case "q":
@@ -157,7 +160,7 @@ class Program
     {
         while (true)
         {
-            Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft. \nOm terug te gaan, toets 'Q'");
+            Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft. \nOm terug te gaan, toets 'Q'.");
             PlayJingle();
             string helpInput = Console.ReadLine().ToLower();
             if (helpInput == "q")
