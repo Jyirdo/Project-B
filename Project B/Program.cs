@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System.Media;
 
+
 class Program
 {
     List<Visitor> allLoggedClients = new();
     List<Tour> listoftours = new();
     BarcodeGenerator generator = new();
-    string? clientCode = null;
+    string clientCode = null;
 
     string universalClientCode; // The universalClientCode is the code the user gives at beginning. It makes sure the code only needs to be scanned once. It resets when the program asks for a new barcode.
 
@@ -76,7 +77,7 @@ class Program
         Console.WriteLine("scan uw barcode om verder te gaan.");
     }
 
-    public string? Menu1()
+    public string Menu1()
     {
         Console.WriteLine("Voor hulp, toets 'H' \nOm terug te gaan, toets 'Q'");
         string clientChoice = Console.ReadLine();
@@ -113,7 +114,7 @@ class Program
         }
     }
 
-    public string? Menu2()
+    public string Menu2()
     {
 
         while (true)
@@ -257,7 +258,7 @@ class Program
     {
         if (CheckInReservationJson(universalClientCode))
         {
-            Reservation? cancelReservation = GetReservationFromJson(universalClientCode);
+            Reservation cancelReservation = GetReservationFromJson(universalClientCode);
             if (cancelReservation != null)
             {
                 removeFromReservationJson(new Visitor(Convert.ToInt64(cancelReservation.ReservationId), Convert.ToDateTime(cancelReservation.DateTime), Convert.ToInt32(cancelReservation.TourNumber)));
@@ -298,7 +299,7 @@ class Program
         return false;
     }
 
-    public Reservation? GetReservationFromJson(string reservationID)
+    public Reservation GetReservationFromJson(string reservationID)
     {
         string reservationJson = File.ReadAllText("../../../reservations.json");
         List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
@@ -387,7 +388,7 @@ class Program
         }
     }
 
-    public void PlayJingle()
+    public void PlayJingle()  // Make check for os, only works on windows.
     {
         using (SoundPlayer soundPlayer = new SoundPlayer("../../../jingle.wav"))
             soundPlayer.Play();

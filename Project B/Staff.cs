@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
 class Staff
 {
-    string? clientCode;
+    string clientCode;
     List<string> staffCodes = new List<string>();
     List<Tour> listoftours = new();
     int tourAmount = 0;
@@ -94,7 +94,7 @@ class Staff
         }
     }
 
-    public List<string>? CheckPresence(List<string> reservations)
+    public List<string> CheckPresence(List<string> reservations)
     {
         while (true)
         {
@@ -154,7 +154,7 @@ class Staff
 
 
         CheckThePresence:
-            List<string>? presenceList = CheckPresence(reservationIDS);
+            List<string> presenceList = CheckPresence(reservationIDS);
 
             foreach (string scanned in scannedIDS)
                 presenceList.Remove(scanned);
