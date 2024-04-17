@@ -180,7 +180,7 @@ class Program
     {
         List<Dictionary<string, string>> tourTimes;
 
-        tourTimes = readFromTourJson("../../../tour_times.json");
+        tourTimes = readFromTourJson("../../../StorageFiles/tour_times.json");
         foreach (var tourTime in tourTimes)
         {
             foreach (var entry in tourTime)
@@ -273,7 +273,7 @@ class Program
 
     public string GetTourTime(long tourTimeRequest)
     {
-        var reservations = readReservationJson("../../../reservations.json");
+        var reservations = readReservationJson("../../../StorageFiles/reservations.json");
         foreach (Reservation timeRequest in reservations)
         {
             if (timeRequest.ReservationId == Convert.ToString(tourTimeRequest))
@@ -286,7 +286,7 @@ class Program
 
     public bool CheckInReservationJson(string reservationID)
     {
-        string reservationJson = File.ReadAllText("../../../reservations.json");
+        string reservationJson = File.ReadAllText("../../../StorageFiles/reservations.json");
         List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
         foreach (Reservation booking in reservations)
         {
@@ -301,7 +301,7 @@ class Program
 
     public Reservation GetReservationFromJson(string reservationID)
     {
-        string reservationJson = File.ReadAllText("../../../reservations.json");
+        string reservationJson = File.ReadAllText("../../../StorageFiles/reservations.json");
         List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
         foreach (Reservation booking in reservations)
         {
@@ -344,15 +344,15 @@ class Program
         };
 
         List<dynamic> reservations = new List<dynamic>();
-        if (File.Exists("../../../reservations.json"))
+        if (File.Exists("../../../StorageFiles/reservations.json"))
         {
-            string existingJson = File.ReadAllText("../../../reservations.json");
+            string existingJson = File.ReadAllText("../../../StorageFiles/reservations.json");
             reservations = JsonConvert.DeserializeObject<List<dynamic>>(existingJson) ?? new List<dynamic>();
         }
 
         reservations.Add(reservationObj);
         string updatedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-        File.WriteAllText("../../../reservations.json", updatedJson);
+        File.WriteAllText("../../../StorageFiles/reservations.json", updatedJson);
     }
 
     public void writeToStartedToursJson(int parttakers, string time)
@@ -364,33 +364,33 @@ class Program
         };
 
         List<dynamic> startedTours = new List<dynamic>();
-        if (File.Exists("../../../started_tours.json"))
+        if (File.Exists("../../../StorageFiles/started_tours.json"))
         {
-            string existingJson = File.ReadAllText("../../../started_tours.json");
+            string existingJson = File.ReadAllText("../../../StorageFiles/started_tours.json");
             startedTours = JsonConvert.DeserializeObject<List<dynamic>>(existingJson) ?? new List<dynamic>();
         }
 
         startedTours.Add(reservationObj);
         string updatedJson = JsonConvert.SerializeObject(startedTours, Formatting.Indented);
-        File.WriteAllText("../../../started_tours.json", updatedJson);
+        File.WriteAllText("../../../StorageFiles/started_tours.json", updatedJson);
     }
 
     public void removeFromReservationJson(Visitor visitor)
     {
-        string existingJson = File.ReadAllText("../../../reservations.json");
+        string existingJson = File.ReadAllText("../../../StorageFiles/reservations.json");
         List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(existingJson) ?? new List<Reservation>();
         var reservationToRemove = reservations.FirstOrDefault(r => r.ReservationId == visitor.ticketID.ToString());
         if (reservationToRemove != null)
         {
             reservations.Remove(reservationToRemove);
             string updatedJson = JsonConvert.SerializeObject(reservations, Formatting.Indented);
-            File.WriteAllText("../../../reservations.json", updatedJson);
+            File.WriteAllText("../../../StorageFiles/reservations.json", updatedJson);
         }
     }
 
     public void PlayJingle()  // Make check for os, only works on windows.
     {
-        using (SoundPlayer soundPlayer = new SoundPlayer("../../../jingle.wav"))
+        using (SoundPlayer soundPlayer = new SoundPlayer("../../../Audio/jingle.wav"))
             soundPlayer.Play();
     }
 
