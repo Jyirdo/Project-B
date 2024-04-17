@@ -12,7 +12,7 @@ class Staff
 
     public Staff()
     {
-        using (StreamReader reader = new StreamReader("../../../staff_codes.txt"))
+        using (StreamReader reader = new StreamReader("../../../StorageFiles/staff_codes.txt"))
         {
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -42,10 +42,10 @@ class Staff
     {
         if (staffCodes.Contains(staffCode))
         {
-            if (File.Exists("../../../tour_times.json"))
+            if (File.Exists("../../../StorageFiles/tour_times.json"))
             {
                 List<Dictionary<string, string>> tourTimes;
-                using (StreamReader reader = new StreamReader("../../../tour_times.json"))
+                using (StreamReader reader = new StreamReader("../../../StorageFiles/tour_times.json"))
                 {
                     var json = reader.ReadToEnd();
                     tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
@@ -79,7 +79,7 @@ class Staff
         }
         else
         {
-            switch (selectedTourId)
+            switch (selectedTourId.ToLower())
             {
                 case "q":
                     {
@@ -137,7 +137,7 @@ class Staff
         if (selectedTourIdInt > 0 && selectedTourIdInt <= tourAmount)
         {
             // Hier worden reservation ID's voor de geselecteerde tour geprint
-            string jsonFilePath = "../../../reservations.json";
+            string jsonFilePath = "../../../StorageFiles/reservations.json";
             string jsonText = File.ReadAllText(jsonFilePath);
             dynamic reservations = JsonConvert.DeserializeObject(jsonText);
             Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourIdInt}:");
