@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
-class Staff
+class Staff : Program
 {
     string clientCode;
     List<string> staffCodes = new List<string>();
@@ -9,7 +9,7 @@ class Staff
     private string staffCode;
 
     List<string> scannedIDS = new();
-
+    
     public Staff()
     {
         using (StreamReader reader = new StreamReader("../../../staff_codes.txt"))
@@ -71,7 +71,7 @@ class Staff
         }
 
         scannedIDS.Clear();
-        Console.WriteLine("Voer de ID in van de tour die u wilt selecteren. \nVoor advies over rondleidingen, toets 'A'. \nDruk op 'Q' om terug te gaan naar het hoofdmenu.");
+        Console.WriteLine("Voer de ID in van de tour die u wilt selecteren. \nVoor advies over rondleidingen, toets 'A'. \nOm een bezoeker toe te voegen druk op 'l'. \nDruk op 'Q' om terug te gaan naar het hoofdmenu.");
         string selectedTourId = Console.ReadLine();
         if (int.TryParse(selectedTourId, out int selectedTourIdInt))
         {
@@ -88,6 +88,11 @@ class Staff
                 case "a":
                     {
                         Advise.CreateAdvise();
+                        break;
+                    }
+                case "l":
+                    {
+                        AddLastMinuteVisitor();
                         break;
                     }
             }
@@ -207,6 +212,26 @@ class Staff
         }
         else
             Console.WriteLine("Ongeldige tour ID. Probeer opnieuw.");
+    }
+
+    private void AddLastMinuteVisitor()
+    {
+        Console.WriteLine("Kies de tour waar u een bezoeker aan toe wilt voegen");
+        string TourId = Console.ReadLine();
+        foreach (Tour tour in listoftours)
+        {
+            if (Convert.ToInt64(TourId) == tour.tour_id)
+            {
+                if (tour.CheckTourFullness() == false)
+                {
+                    Console.WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen");
+                    string bezoekerid = Console.ReadLine();
+                    Visitor newvisitor = new Visitor(Convert.ToInt64(bezoekerid), tour.tourStartTime, tour.tour_id);
+                    writeToReservationJson(newvisitor);
+                    Console.WriteLine($"Deze bezoeker is succesvol toegevoegd aan de rondleiding van {tour.tourStartTime}");
+                }
+            }
+        }
     }
 }
 
