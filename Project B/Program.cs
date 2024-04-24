@@ -195,15 +195,20 @@ class Program
     public void Choose_Tour(long clientCodeInt)
     {
         int tourAmount = 0;
+        int tour_id = 1;
         DateTime selectedTime;
         Console.WriteLine($"Bij deze rondleidingen kunt u zich aanmelden:\n");
 
         foreach (Tour tour in listoftours)
         {
-            Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}\n");
-            if (Convert.ToInt32(tour.tour_id) > tourAmount)
+            if (tour.tourStartTime > DateTime.Now)
             {
-                tourAmount = Convert.ToInt32(tour.tour_id);
+                Console.WriteLine($"{tour_id}; Rondleiding van {tour.tourStartTime}\n");
+                tour_id++;
+                if (Convert.ToInt32(tour.tour_id) > tourAmount)
+                {
+                    tourAmount = Convert.ToInt32(tour.tour_id);
+                }
             }
         }
 
