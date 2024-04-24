@@ -2,64 +2,65 @@ using Newtonsoft.Json;
 
 public static class Advise
 {
-    private static List<Dictionary<DateTime, int>> presenceList = new List<Dictionary<DateTime, int>>();
-    private static string? GetPresenceData()
+    private static List<StartedTour> dataList;
+    static string latestStartedTour = "1-1-1970";
+    private static string GetPresenceData()
     {
         if (File.Exists("../../../started_tours.json"))
         {
+            // Use only information from the past month of tours, to keep information up to date.
+            KeepStartedToursUpToDate();
+
             string json = File.ReadAllText("../../../started_tours.json");
-            List<PresenceData>? dataList = JsonConvert.DeserializeObject<List<PresenceData>>(json);
+            dataList = JsonConvert.DeserializeObject<List<StartedTour>>(json);
 
             if (dataList == null)
             {
-                Console.WriteLine("The file 'started_tours.json' could not be found.");
+                Console.WriteLine("The file 'started_tours.json' is empty.");
                 return null;
             }
 
-            else
-            {
-                foreach (var data in dataList)
-                {
-                    var dict = new Dictionary<DateTime, int>();
-                    dict.Add(Convert.ToDateTime(data.DateTime), data.Presence);
-                    presenceList.Add(dict);
-                }
-                return "";
-            }
+            return "";
         }
+
         else
         {
             Console.WriteLine("The file 'started_tours.json' could not be found.");
             return null;
         }
     }
+    private static void KeepStartedToursUpToDate()
+    {
+        string json = File.ReadAllText("../../../started_tours.json");
+        List<StartedTour> tempDataList = JsonConvert.DeserializeObject<List<StartedTour>>(json);
 
+        foreach (var data in tempDataList)
+            if (DateTime.Parse(data.date_time) > DateTime.Parse(latestStartedTour))
+                latestStartedTour = data.date_time;
+
+        List<StartedTour> startedList = JsonConvert.DeserializeObject<List<StartedTour>>(File.ReadAllText("../../../started_tours.json"));
+        startedList = startedList.Where(start => DateTime.Parse(start.date_time) > DateTime.Parse(latestStartedTour).AddDays(-30)).ToList();
+        string updatedStartedTours = JsonConvert.SerializeObject(startedList, Formatting.Indented);
+        File.WriteAllText("../../../started_tours.json", updatedStartedTours);
+    }
 
     public static void CreateAdvise()
     {
         List<string> timeListLarge = new List<string>();
         List<string> timeListSmall = new List<string>();
-        string? present = GetPresenceData();
+        string present = GetPresenceData();
         if (present == null)
             return;
 
         // Add day(s) and time(s) where there are more then 10 people or less then 5 to list.
         // This program checks by day (e.g. "Thursday") and not by date.
-
-        foreach (Dictionary<DateTime, int> item in presenceList)
+        foreach (StartedTour item in dataList)
         {
-            foreach (KeyValuePair<DateTime, int> kvp in item)
-            {
+            if (item.presence > 10)
+                timeListLarge.Add(DateTime.Parse(item.date_time).ToString($"dddd 'om' HH:mm"));
 
-                if (kvp.Value > 10)
-                {
-                    timeListLarge.Add(kvp.Key.ToString($"dddd 'om' HH:mm"));
-                }
-                else if (kvp.Value < 5)
-                {
-                    timeListSmall.Add(kvp.Key.ToString($"dddd 'om' HH:mm"));
-                }
-            }
+            else if (item.presence < 5)
+                timeListSmall.Add(DateTime.Parse(item.date_time).ToString($"dddd 'om' HH:mm"));
         }
 
         Dictionary<string, int> timeDictLarge = new Dictionary<string, int>();
@@ -78,12 +79,12 @@ public static class Advise
             timeDictSmall.Add(time, count);
         }
 
-        // If the amount of times a certain day and time has too little or too much visitors is greater than 20 percent of tours given, suggest extra or less tours.
-        using (StreamWriter writer = new StreamWriter("../../../Advise.txt", false))
+        // If the amount of times a certain day and time has too little or too much visitors exceeds twice in a month, suggest extra tour.
+        using (StreamWriter writer = new StreamWriter("../../../StorageFiles/Advise.txt", false))
         {
             foreach (KeyValuePair<string, int> kvp in timeDictLarge)
             {
-                if (kvp.Value >= presenceList.Count() * 0.20)
+                if (kvp.Value >= 2)
                 {
                     Console.WriteLine($"Er wordt aangeraden om extra rondleidingen te geven op {kvp.Key}.");
                     writer.WriteLine($"Er wordt aangeraden om extra rondleidingen te geven op {kvp.Key}.");
@@ -95,13 +96,18 @@ public static class Advise
 
             foreach (KeyValuePair<string, int> kvp in timeDictSmall)
             {
-                if (kvp.Value >= presenceList.Count() * 0.20)
+                if (kvp.Value >= 2)
                 {
                     Console.WriteLine($"Er wordt aangeraden om minder rondleidingen te geven op {kvp.Key}.");
                     writer.WriteLine($"Er wordt aangeraden om minder rondleidingen te geven op {kvp.Key}.");
                 }
             }
+
+            writer.WriteLine("\nAdvise created on:");
+            writer.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy")}");
         }
+
+
 
     }
 }
