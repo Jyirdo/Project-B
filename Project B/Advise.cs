@@ -80,7 +80,7 @@ public static class Advise
         }
 
         // If the amount of times a certain day and time has too little or too much visitors exceeds twice in a month, suggest extra tour.
-        using (StreamWriter writer = new StreamWriter("../../../StorageFiles/Advise.txt", false))
+        using (StreamWriter writer = new StreamWriter("../../../Advise.txt", false))
         {
             foreach (KeyValuePair<string, int> kvp in timeDictLarge)
             {

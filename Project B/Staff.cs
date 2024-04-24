@@ -9,7 +9,7 @@ class Staff : Program
     private string staffCode;
 
     List<string> scannedIDS = new();
-    
+
     public Staff()
     {
         using (StreamReader reader = new StreamReader("../../../staff_codes.txt"))
