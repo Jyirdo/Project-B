@@ -7,12 +7,27 @@ class Program
     List<Visitor> allLoggedClients = new();
     List<Tour> listoftours = new();
     BarcodeGenerator generator = new();
-    string clientCode = null;
 
     string universalClientCode; // The universalClientCode is the code the user gives at beginning. It makes sure the code only needs to be scanned once. It resets when the program asks for a new barcode.
 
     public static void Main()
     {
+        // ------------------------------------------------------
+
+        // Tour testTour = new Tour(2, DateTime.Now);
+        // for (int i = 1; i <= 13; i++)
+        // {
+        //     testTour.AddVisitorsToTour(true, new Visitor("922", DateTime.Now, i));
+        // }
+
+        // JsonTourIntegration.ToJson(testTour);
+        // List<Tour> toursFromJson = JsonTourIntegration.FromJson();
+        // foreach (Tour tour in toursFromJson)
+        //     foreach (Visitor v in tour.tourVisitorList)
+        //         Console.WriteLine(v.tourNumber);
+
+        // ------------------------------------------------------
+
         Program test = new Program();
         test.Robot();
     }
@@ -34,9 +49,9 @@ class Program
                     continue;
                 }
             }
-            else if (long.TryParse(universalClientCode, out long universalClientCodeInt))
+            else if (Valid(universalClientCode))
             {
-                Choose_Tour(universalClientCodeInt);
+                Choose_Tour(universalClientCode);
             }
             else if (universalClientCode.ToLower() == "p")
             {
@@ -174,7 +189,22 @@ class Program
         }
     }
 
+    public static bool Valid(string clientCode)
+    {
+        if (clientCode.Length == 13 && long.TryParse(clientCode, out _))
+            if (File.Exists("../../../barcodes/GeneratedBarcodes.txt"))
+            {
+                using (StreamReader reader = new("../../../barcodes/GeneratedBarcodes.txt"))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                        if (line == clientCode)
+                            return true;
+                }
+            }
 
+        return false;
+    }
 
     public void Load_Tours()
     {
@@ -187,18 +217,18 @@ class Program
             {
                 //Make a tour for every tourtime and id
                 Tour tour = new Tour(Convert.ToInt32(entry.Key), Convert.ToDateTime(entry.Value));
-                listoftours.Add(tour);
+                JsonTourIntegration.ToJson(tour);
             }
         }
     }
 
-    public void Choose_Tour(long clientCodeInt)
+    public void Choose_Tour(string clientCode)
     {
         int tourAmount = 0;
-        DateTime selectedTime;
         Console.WriteLine($"Bij deze rondleidingen kunt u zich aanmelden:\n");
 
-        foreach (Tour tour in listoftours)
+        List<Tour> listOfTours = JsonTourIntegration.FromJson();
+        foreach (Tour tour in listOfTours)
         {
             Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}\n");
             if (Convert.ToInt32(tour.tour_id) > tourAmount)
@@ -229,19 +259,17 @@ class Program
             }
             else
             {
-                foreach (Tour tour in listoftours)
+                foreach (Tour tour in listOfTours)
                 {
                     if (tour.tour_id == chosenTourInt)
                     {
                         // check if tour is full
                         if (tour.CheckTourFullness() == false)
                         {
-                            selectedTime = Convert.ToDateTime(tour.tourStartTime);
-                            Visitor newClient = new Visitor(clientCodeInt, selectedTime, chosenTourInt);
+                            Visitor newClient = new Visitor(clientCode, tour.tourStartTime, chosenTourInt);
                             writeToReservationJson(newClient);
+                            JsonTourIntegration.AddVisitorsToTourJson(newClient, tour.tour_id);
 
-                            // add visitor to the list in their tour
-                            tour.AddVisitorsToTour(true);
                             Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
                         }
                         else
@@ -258,10 +286,11 @@ class Program
     {
         if (CheckInReservationJson(universalClientCode))
         {
-            Reservation cancelReservation = GetReservationFromJson(universalClientCode);
-            if (cancelReservation != null)
+            Visitor cancelVisitor = GetReservationFromJson(universalClientCode);
+            if (cancelVisitor != null)
             {
-                removeFromReservationJson(new Visitor(Convert.ToInt64(cancelReservation.ReservationId), Convert.ToDateTime(cancelReservation.DateTime), Convert.ToInt32(cancelReservation.TourNumber)));
+                removeFromReservationJson(new Visitor(cancelVisitor.ticketID, Convert.ToDateTime(cancelVisitor.tourTime), Convert.ToInt32(cancelVisitor.tourNumber)));
+                JsonTourIntegration.RemoveVisitorsFromTourJson(cancelVisitor);
                 Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
                 return;
             }
@@ -299,13 +328,13 @@ class Program
         return false;
     }
 
-    public Reservation GetReservationFromJson(string reservationID)
+    public Visitor GetReservationFromJson(string reservationID)
     {
         string reservationJson = File.ReadAllText("../../../StorageFiles/reservations.json");
-        List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationJson);
-        foreach (Reservation booking in reservations)
+        List<Visitor> reservations = JsonConvert.DeserializeObject<List<Visitor>>(reservationJson);
+        foreach (Visitor booking in reservations)
         {
-            if (Convert.ToString(booking.ReservationId) == reservationID)
+            if (Convert.ToString(booking.ticketID) == reservationID)
             {
                 return booking;
             }
