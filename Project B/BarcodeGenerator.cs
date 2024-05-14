@@ -1,7 +1,7 @@
 class BarcodeGenerator
 {
-    public string? barcode;
-    private string? line;
+    public string barcode = "";
+    private string line = "";
 
     // Amount is the amount of barcodes it generates.
     public void GenerateBarcodes(int amount)
@@ -15,7 +15,7 @@ class BarcodeGenerator
                 barcode += rnd.Next(10).ToString();
             }
 
-            using (StreamReader sr = new StreamReader("../../../barcodes/GeneratedBarcodes.csv"))
+            using (StreamReader sr = new StreamReader("barcodes/GeneratedBarcodes.csv"))
             {
                 line = sr.ReadLine();
                 if (line == barcode)
@@ -26,7 +26,7 @@ class BarcodeGenerator
                 else
                 {
                     sr.Close();
-                    using (StreamWriter sw = File.AppendText("../../../barcodes/GeneratedBarcodes.csv"))
+                    using (StreamWriter sw = File.AppendText("barcodes/GeneratedBarcodes.csv"))
                     {
                         sw.WriteLine(barcode);
                         Console.WriteLine(barcode);
