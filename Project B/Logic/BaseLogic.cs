@@ -3,8 +3,8 @@ using Newtonsoft.Json.Linq;
 public class BaseLogic
 {
 
-    private static string filepath = "DataSources/Tours.json";
-    protected BaseAccess AccessLayer = new BaseAccess(filepath);
+    private static string filepath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Tours.json"));
+    protected BaseAccess AccessLayer = new BaseAccess();
 
     protected static List<TourModel> _items;
     public List<TourModel> GetAllTours() => _items;

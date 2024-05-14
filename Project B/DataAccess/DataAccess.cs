@@ -2,10 +2,9 @@ using Newtonsoft.Json;
 
 public class BaseAccess
 {
-    private string path;
-    public BaseAccess(string givenPath)
+    private string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Tours.json"));
+    public BaseAccess()
     {
-        path = givenPath;
     }
 
     public List<TourModel> loadAll()
