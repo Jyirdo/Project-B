@@ -1,10 +1,11 @@
 using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
-class Staff //: Program
+class Staff 
 {
-    string clientCode;
+
     List<string> staffCodes = new List<string>();
     List<Tour> listoftours = new();
+    private static BaseLogic baseLogic = new BaseLogic();
     int tourAmount = 0;
     private string staffCode;
 
@@ -12,7 +13,7 @@ class Staff //: Program
 
     public Staff()
     {
-        using (StreamReader reader = new StreamReader("../../../staff_codes.txt"))
+        using (StreamReader reader = new StreamReader("../../staff_codes.txt"))
         {
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -87,12 +88,13 @@ class Staff //: Program
                     }
                 case "a":
                     {
-                        Advise.CreateAdvise();
+                        //Advise.CreateAdvise();
                         break;
                     }
                 case "l":
                     {
-                        AddLastMinuteVisitor();
+                        long barcode = 12345678;
+                        AddLastMinuteVisitor(barcode);
                         break;
                     }
             }
@@ -214,21 +216,76 @@ class Staff //: Program
             Console.WriteLine("Ongeldige tour ID. Probeer opnieuw.");
     }
 
-    private void AddLastMinuteVisitor()
+    public static void Choose_Tour(long barcode)
     {
+        DateTime selectedTime;
+        List<TourModel> tours = baseLogic.GetAllTours();
+        //Chosentour = id of tour chosen by visitor
+
         Console.WriteLine("Kies de tour waar u een bezoeker aan toe wilt voegen");
-        string TourId = Console.ReadLine();
-        foreach (Tour tour in listoftours)
+        int tourId = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine(tours.Count());
+        if (tourId <= 0 || tourId > tours.Count())
         {
-            if (Convert.ToInt64(TourId) == tour.tour_id)
+            Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+        }
+        else
+        {
+            foreach (TourModel tour in tours)
             {
-                if (tour.CheckTourFullness() == false)
+                
+                if (tour.tourId == tourId)
                 {
-                    Console.WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen");
-                    string bezoekerid = Console.ReadLine();
-                    Visitor newvisitor = new Visitor(Convert.ToInt64(bezoekerid), tour.tourStartTime, tour.tour_id);
-                    //writeToReservationJson(newvisitor);
-                    Console.WriteLine($"Deze bezoeker is succesvol toegevoegd aan de rondleiding van {tour.tourStartTime}");
+                    // check if tour is full
+                    if (tour.parttakers < tour.limit)
+                    {
+                        selectedTime = Convert.ToDateTime(tour.dateTime);
+                        Visitor newClient = new Visitor(barcode, selectedTime, tourId);
+                        
+                        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
+                    }
+                }
+            }
+        }
+    }
+
+    private void AddLastMinuteVisitor(long barcode)
+    {
+        DateTime selectedTime;
+        List<TourModel> tours = baseLogic.GetAllTours();
+
+        Console.WriteLine("Kies de tour waar u een bezoeker aan toe wilt voegen");
+        int tourId = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine(tours.Count());
+        if (tourId <= 0 || tourId > tours.Count())
+        {
+            Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+        }
+        else
+        {
+            foreach (TourModel tour in tours)
+            {
+                
+                if (tour.tourId == tourId)
+                {
+                    // check if tour is full
+                    if (tour.parttakers < tour.limit)
+                    {
+                        selectedTime = Convert.ToDateTime(tour.dateTime);
+                        Visitor newClient = new Visitor(barcode, selectedTime, tourId);
+                        
+                        Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
+                    }
                 }
             }
         }

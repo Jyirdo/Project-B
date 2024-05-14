@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 public class BaseAccess
 {
-    private string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Tours.json"));
+    private string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"Tours.json"));
     public BaseAccess()
     {
     }
