@@ -1,7 +1,7 @@
 class BarcodeGenerator
 {
-    public string? barcode;
-    private string? line;
+    public string barcode = "";
+    private string line = "";
 
     // Amount is the amount of barcodes it generates.
     public void GenerateBarcodes(int amount)

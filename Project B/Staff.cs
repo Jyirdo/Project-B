@@ -2,18 +2,24 @@ using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
 class Staff 
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     List<string> staffCodes = new List<string>();
+    List<string> scannedIDS = new();
     List<Tour> listoftours = new();
     private static BaseLogic baseLogic = new BaseLogic();
     int tourAmount = 0;
     private string staffCode;
 
-    List<string> scannedIDS = new();
-
     public Staff()
     {
+<<<<<<< HEAD
         using (StreamReader reader = new StreamReader("../../staff_codes.txt"))
+=======
+        using (StreamReader reader = new StreamReader("staff_codes.txt"))
+>>>>>>> main
         {
             string line;
             while ((line = reader.ReadLine()) != null)
