@@ -6,12 +6,12 @@ public static class Advise
     static string latestStartedTour = "1-1-1970";
     private static string GetPresenceData()
     {
-        if (File.Exists("../../../started_tours.json"))
+        if (File.Exists("started_tours.json"))
         {
             // Use only information from the past month of tours, to keep information up to date.
             KeepStartedToursUpToDate();
 
-            string json = File.ReadAllText("../../../started_tours.json");
+            string json = File.ReadAllText("started_tours.json");
             dataList = JsonConvert.DeserializeObject<List<StartedTour>>(json);
 
             if (dataList == null)
@@ -31,17 +31,17 @@ public static class Advise
     }
     private static void KeepStartedToursUpToDate()
     {
-        string json = File.ReadAllText("../../../started_tours.json");
+        string json = File.ReadAllText("started_tours.json");
         List<StartedTour> tempDataList = JsonConvert.DeserializeObject<List<StartedTour>>(json);
 
         foreach (var data in tempDataList)
             if (DateTime.Parse(data.date_time) > DateTime.Parse(latestStartedTour))
                 latestStartedTour = data.date_time;
 
-        List<StartedTour> startedList = JsonConvert.DeserializeObject<List<StartedTour>>(File.ReadAllText("../../../started_tours.json"));
+        List<StartedTour> startedList = JsonConvert.DeserializeObject<List<StartedTour>>(File.ReadAllText("started_tours.json"));
         startedList = startedList.Where(start => DateTime.Parse(start.date_time) > DateTime.Parse(latestStartedTour).AddDays(-30)).ToList();
         string updatedStartedTours = JsonConvert.SerializeObject(startedList, Formatting.Indented);
-        File.WriteAllText("../../../started_tours.json", updatedStartedTours);
+        File.WriteAllText("started_tours.json", updatedStartedTours);
     }
 
     public static void CreateAdvise()
@@ -80,7 +80,7 @@ public static class Advise
         }
 
         // If the amount of times a certain day and time has too little or too much visitors exceeds twice in a month, suggest extra tour.
-        using (StreamWriter writer = new StreamWriter("../../../Advise.txt", false))
+        using (StreamWriter writer = new StreamWriter("Advise.txt", false))
         {
             foreach (KeyValuePair<string, int> kvp in timeDictLarge)
             {
