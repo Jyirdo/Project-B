@@ -1,12 +1,12 @@
-class Visitor
+public class Visitor
 {
-    public long ticketID;
+    public long barcode;
     public DateTime tourTime;
     public int tourNumber;
 
-    public Visitor(long ticketid, DateTime tourtime, int tournumber)
+    public Visitor(long barcode1, DateTime tourtime, int tournumber)
     {
-        ticketID = ticketid;
+        barcode = barcode1;
         tourTime = tourtime;
         tourNumber = tournumber;
     }

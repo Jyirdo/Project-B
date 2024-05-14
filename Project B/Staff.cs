@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
-class Staff : Program
+class Staff //: Program
 {
     string clientCode;
     List<string> staffCodes = new List<string>();
@@ -42,10 +42,10 @@ class Staff : Program
     {
         if (staffCodes.Contains(staffCode))
         {
-            if (File.Exists("../../../tour_times.json"))
+            if (File.Exists("tour_times.json"))
             {
                 List<Dictionary<string, string>> tourTimes;
-                using (StreamReader reader = new StreamReader("../../../tour_times.json"))
+                using (StreamReader reader = new StreamReader("tour_times.json"))
                 {
                     var json = reader.ReadToEnd();
                     tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
@@ -142,7 +142,7 @@ class Staff : Program
         if (selectedTourIdInt > 0 && selectedTourIdInt <= tourAmount)
         {
             // Hier worden reservation ID's voor de geselecteerde tour geprint
-            string jsonFilePath = "../../../reservations.json";
+            string jsonFilePath = "reservations.json";
             string jsonText = File.ReadAllText(jsonFilePath);
             dynamic reservations = JsonConvert.DeserializeObject(jsonText);
             Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourIdInt}:");
@@ -191,9 +191,9 @@ class Staff : Program
                         {
                             if (tour.tour_id == selectedTourIdInt)
                             {
-                                Program program = new Program();
-                                program.writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));
-                                break;
+                                // Program program = new Program();
+                                // program.writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));
+                                // break;
                             }
                         }
                         Console.WriteLine("De tour is succesvol gestart");
@@ -227,7 +227,7 @@ class Staff : Program
                     Console.WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen");
                     string bezoekerid = Console.ReadLine();
                     Visitor newvisitor = new Visitor(Convert.ToInt64(bezoekerid), tour.tourStartTime, tour.tour_id);
-                    writeToReservationJson(newvisitor);
+                    //writeToReservationJson(newvisitor);
                     Console.WriteLine($"Deze bezoeker is succesvol toegevoegd aan de rondleiding van {tour.tourStartTime}");
                 }
             }
