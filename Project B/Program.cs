@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+﻿Menu.ShowNotRegisteredMenu();
+=======
 ﻿using Newtonsoft.Json;
 using System.Media;
 
@@ -399,3 +402,4 @@ class Program
     }
 
 }
+>>>>>>> main
