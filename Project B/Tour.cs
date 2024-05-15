@@ -34,7 +34,7 @@ public class Tour
         List<TourModel> tours = baseLogic.GetAllTours();
         //Chosentour = id of tour chosen by visitor
         while (true)
-        {   
+        {
             Console.WriteLine("Toets het nummer van de rondleiding in waarvoor u zich wilt aanmelden:");
             int chosenTourId = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(tours.Count());
@@ -50,23 +50,21 @@ public class Tour
                             selectedTime = Convert.ToDateTime(tour.dateTime);
                             Visitor newClient = new Visitor(barcode, selectedTime, chosenTourId);
                             BaseLogic.AddVisitorsToTourJson(newClient, chosenTourId);
-                            
+
                             Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
+                            break;
                         }
                         else
                         {
                             Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
+                            continue;
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
-                    }
                 }
-                
+
             }
         }
-        
+
     }
 
     // public void Cancel()
