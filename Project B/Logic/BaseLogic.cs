@@ -14,40 +14,42 @@ public class BaseLogic
         _items = AccessLayer.loadAll();
     }
 
-    public static void AddVisitorsToTourJson(Visitor visitor, int tourId)
+    public static void AddVisitorsToTour(Visitor visitor)
     {
-        JArray existingArray = File.Exists(filepath) ? JArray.Parse(File.ReadAllText(filepath)) : new JArray();
-        var tourToModify = existingArray.FirstOrDefault(obj => obj["tour_id"].Value<int>() == tourId);
-        if (tourToModify != null)
+        BaseLogic logic = new();
+        List<TourModel> items = logic.GetAllTours();
+        foreach (TourModel item in items)
         {
-            JObject visitorObject = JObject.Parse(JsonConvert.SerializeObject(visitor));
-            JArray visitorList = (JArray)tourToModify["tourVisitorList"];
-            visitorList.Add(visitorObject);
-            tourToModify["parttakers"] = visitorList.Count;
-            File.WriteAllText(filepath, existingArray.ToString(Formatting.Indented));
+            if (item.tourId == visitor.tourNumber)
+            {
+                item.tourVisitorList.Add(visitor);
+                item.parttakers = item.tourVisitorList.Count();
+                BaseAccess.writeAll(items);
+            }
         }
-        else
-            return;
     }
 
-    public static void RemoveVisitorsFromTourJson(Visitor visitor)
+
+    public static void RemoveVisitorsFromTour(Visitor visitor)
     {
-        JArray existingArray = File.Exists(filepath) ? JArray.Parse(File.ReadAllText(filepath)) : new JArray();
-        var tourToModify = existingArray.FirstOrDefault(obj => obj["tour_id"].Value<string>() == Convert.ToString(Convert.ToInt32(visitor.barcode)));
-        if (tourToModify != null)
+        BaseLogic logic = new BaseLogic();
+        List<TourModel> items = logic.GetAllTours();
+
+        List<Visitor> visitorsToRemove = new List<Visitor>();
+
+        foreach (TourModel item in items)
+            if (item.tourId == visitor.tourNumber)
+                foreach (Visitor existingVisitor in item.tourVisitorList)
+                    if (existingVisitor.barcode == visitor.barcode)
+                        visitorsToRemove.Add(existingVisitor);
+
+        foreach (TourModel item in items)
         {
-            JArray visitorList = (JArray)tourToModify["tourVisitorList"];
-            var visitorToRemove = visitorList.FirstOrDefault(obj => obj["visitor_id"].Value<string>() == Convert.ToString(Convert.ToInt32(visitor.barcode)));
-            if (visitorToRemove != null)
-            {
-                visitorList.Remove(visitorToRemove);
-                tourToModify["parttakers"] = visitorList.Count;
-                File.WriteAllText(filepath, existingArray.ToString(Formatting.Indented));
-            }
-            else
-                return;
+            item.tourVisitorList.RemoveAll(visitorsToRemove.Contains);
+            item.parttakers = item.tourVisitorList.Count();
         }
-        else
-            return;
+
+        BaseAccess.writeAll(items);
     }
+
 }
