@@ -1,9 +1,8 @@
 public class Greeting
 {
-    public static string ShowGreeting()
+    public static string ShowGreeting(int currentHour)
     {
         // Find out what time it is and greet the user appropriatly
-        int currentHour = Convert.ToInt16(DateTime.Now.ToString("HH"));
         if (currentHour < 6)
         {
             return "Goedennacht, ";
@@ -20,9 +19,6 @@ public class Greeting
         {
             return "Goedenavond, ";
         }
-        else
-        {
-            return "Welkom, ";
-        }
+        return null;
     }
 }

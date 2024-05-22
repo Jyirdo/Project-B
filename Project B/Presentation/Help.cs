@@ -21,7 +21,7 @@ public class Help
 
     }
 
-    public static void PlayJingle()  // Make check for os, only works on windows.
+    public static void PlayJingle()
     {
         if (OperatingSystem.IsWindows())
         {
