@@ -64,10 +64,10 @@ class Staff
 
         foreach (Tour tour in listoftours)
         {
-            Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}");
-            if (Convert.ToInt32(tour.tour_id) > tourAmount)
+            Console.WriteLine($"{tour.tourId}; Rondleiding van {tour.tourStartTime}");
+            if (Convert.ToInt32(tour.tourId) > tourAmount)
             {
-                tourAmount = Convert.ToInt32(tour.tour_id);
+                tourAmount = Convert.ToInt32(tour.tourId);
             }
         }
 
@@ -191,7 +191,7 @@ class Staff
                     {
                         foreach (Tour tour in listoftours)
                         {
-                            if (tour.tour_id == selectedTourIdInt)
+                            if (tour.tourId == selectedTourIdInt)
                             {
                                 // Program program = new Program();
                                 // program.writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));

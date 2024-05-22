@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Text.Json;
 
 public class BaseAccess
 {
@@ -7,17 +8,26 @@ public class BaseAccess
     {
     }
 
-    public List<TourModel> loadAll()
+    public List<TourModel> LoadAll()
     {
         string json = File.ReadAllText(path);
         return JsonConvert.DeserializeObject<List<TourModel>>(json);
     }
 
-    public void writeAll(TourModel tour)
+    // public void WriteAll(List<TourModel> tours)
+    // {
+    //     string json = File.ReadAllText(path);
+    //     List<TourModel> addTourModel = JsonConvert.DeserializeObject<List<TourModel>>(json);
+    //     foreach(TourModel tour in tours)
+    //     {
+    //         addTourModel.Add(tour);
+    //     }
+    //     File.WriteAllText(path, JsonConvert.SerializeObject(addTourModel));
+    // }
+    public void WriteAll(List<TourModel> items)
     {
-        string json = File.ReadAllText(path);
-        List<TourModel> addTourModel = JsonConvert.DeserializeObject<List<TourModel>>(json);
-        addTourModel.Add(tour);
-        File.WriteAllText(path, JsonConvert.SerializeObject(addTourModel));
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string json = System.Text.Json.JsonSerializer.Serialize(items, options);
+        File.WriteAllText(path, json);
     }
 }

@@ -1,8 +1,6 @@
-using Newtonsoft.Json;
-
 public class Tour
 {
-    public int tour_id;
+    public int tourId;
     public DateTime tourStartTime;
     public static int parttakers;
     public static bool opentourspots;
@@ -11,7 +9,7 @@ public class Tour
 
     public Tour(int id, DateTime time)
     {
-        tour_id = id;
+        tourId = id;
         tourStartTime = time;
         parttakers = 0;
         opentourspots = true;
@@ -49,7 +47,7 @@ public class Tour
                         {
                             selectedTime = Convert.ToDateTime(tour.dateTime);
                             Visitor newClient = new Visitor(barcode, selectedTime, chosenTourId);
-                            BaseLogic.AddVisitorsToTourJson(newClient, chosenTourId);
+                            //BaseLogic.AddVisitorsToTourJson(newClient, chosenTourId);
                             
                             Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
                         }

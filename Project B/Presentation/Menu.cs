@@ -22,7 +22,7 @@ public class Menu
                 {
                     case "t":
                         {
-                            //Console.WriteLine(GetTourTime(Convert.ToInt64(universalClientCode)));
+                            Add_Remove.Remove();
                             break;
                         }
                     case "a":
