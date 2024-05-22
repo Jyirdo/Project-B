@@ -1,6 +1,6 @@
 public class Menu
 {
-    public static void ShowNotRegisteredMenu()
+    public static void Start()
     {
         Console.Write(Greeting.ShowGreeting());
         Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
