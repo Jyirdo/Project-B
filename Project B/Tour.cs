@@ -49,7 +49,7 @@ public class Tour
                         {
                             selectedTime = Convert.ToDateTime(tour.dateTime);
                             Visitor newClient = new Visitor(barcode, selectedTime, chosenTourId);
-                            BaseLogic.AddVisitorsToTourJson(newClient, chosenTourId);
+                            BaseLogic.AddVisitorsToTour(newClient);
 
                             Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
                             break;

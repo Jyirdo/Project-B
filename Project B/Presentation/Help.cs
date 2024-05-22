@@ -25,7 +25,7 @@ public class Help
     {
         if (OperatingSystem.IsWindows())
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer("jingle.wav"))
+            using (SoundPlayer soundPlayer = new SoundPlayer("DataSources/jingle.wav"))
             soundPlayer.Play();
         }
     }

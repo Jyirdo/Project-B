@@ -4,14 +4,13 @@ public class BaseLogic
 {
 
     private static string filepath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"Tours.json"));
-    protected BaseAccess AccessLayer = new BaseAccess();
 
     protected static List<TourModel> _items;
     public List<TourModel> GetAllTours() => _items;
 
     public BaseLogic()
     {
-        _items = AccessLayer.loadAll();
+        _items = BaseAccess.LoadAll();
     }
 
     public static void AddVisitorsToTour(Visitor visitor)
@@ -24,7 +23,7 @@ public class BaseLogic
             {
                 item.tourVisitorList.Add(visitor);
                 item.parttakers = item.tourVisitorList.Count();
-                BaseAccess.writeAll(items);
+                BaseAccess.WriteAll(items);
             }
         }
     }
@@ -49,7 +48,12 @@ public class BaseLogic
             item.parttakers = item.tourVisitorList.Count();
         }
 
-        BaseAccess.writeAll(items);
+        BaseAccess.WriteAll(items);
+    }
+
+    public static void AssignGuide()
+    {
+        GuideModel.
     }
 
 }
