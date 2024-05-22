@@ -2,8 +2,8 @@ public class Menu
 {
     public static void ShowNotRegisteredMenu()
     {
-        Greeting.ShowGreeting();
-        Console.WriteLine("Scan de barcode op uw entreebewijs en druk op ENTER.");
+        Console.Write(Greeting.ShowGreeting());
+        Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
         Console.WriteLine("Toets 'H' en druk ENTER voor hulp.");
         Console.WriteLine("Toets 'Q' en druk ENTER om het programma af te sluiten.");
 
