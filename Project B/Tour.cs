@@ -70,10 +70,12 @@ public class Tour
                         else
                         {
                             Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
+                            continue;
                         }
                     }
                 }
             }
+            break;
         }
     }
 }
