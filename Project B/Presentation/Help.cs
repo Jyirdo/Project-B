@@ -11,7 +11,7 @@ public class Help
             PlayJingle();
             string helpInput = Console.ReadLine().ToLower();
             if (helpInput == "q")
-                Menu.ShowNotRegisteredMenu();
+                Menu.Start();
             else
             {
                 Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");

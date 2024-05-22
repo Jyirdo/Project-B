@@ -1,1 +1,1 @@
-﻿Menu.ShowNotRegisteredMenu();
+﻿Menu.Start();
