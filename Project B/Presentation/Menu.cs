@@ -1,6 +1,6 @@
 public class Menu
 {
-    public static void ShowNotRegisteredMenu()
+    public static void Start()
     {
         Greeting.ShowGreeting();
         Console.WriteLine("Scan de barcode op uw entreebewijs en druk op ENTER.");
@@ -22,25 +22,19 @@ public class Menu
                 {
                     case "t":
                         {
-                            Console.WriteLine("Enter the id of the Tour you want to edit");
-                            int tourNumber = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Type de barcode van de bezoeker die u wilt verwijderen");
-                            string barcode = Console.ReadLine(); 
-                            Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tourNumber);
+                            Console.WriteLine("Scan de barcode op uw entreebewijs en druk op ENTER.");
+                            long input3 = Convert.ToInt64(Console.ReadLine());
+                            Console.WriteLine(Tour.GetTourTime(input3));
                             break;
                         }
                     case "a":
                         {
                             Console.WriteLine("Enter the id of the Tour you want to edit");
                             int tourNumber = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Type de barcode van de bezoeker die u wilt toevoegen");
+                            Console.WriteLine("Type de barcode van de bezoeker die u wilt verwijderen");
                             string barcode = Console.ReadLine(); 
-                            Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tourNumber);
-                            //Console.WriteLine("Scan de barcode op uw entreebewijs en druk op ENTER.");
-                            //long input3 = Convert.ToInt64(Console.ReadLine());
-                            //Console.WriteLine(Tour.GetTourTime(input3));
+                            Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tourNumber);
                             break;
-                            //Cancel();
                         }
                     case "h":
                         {
