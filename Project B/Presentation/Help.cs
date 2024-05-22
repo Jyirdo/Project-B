@@ -23,7 +23,10 @@ public class Help
 
     public static void PlayJingle()  // Make check for os, only works on windows.
     {
-        using (SoundPlayer soundPlayer = new SoundPlayer("jingle.wav"))
+        if (OperatingSystem.IsWindows())
+        {
+            using (SoundPlayer soundPlayer = new SoundPlayer("jingle.wav"))
             soundPlayer.Play();
+        }
     }
 }
