@@ -3,38 +3,42 @@ static class Add_Remove
     static private BaseLogic baseLogic = new BaseLogic();
     private static List<Visitor> fakeTourVisitorList = new List<Visitor>();
 
-    public static void Remove()
+    public static void Remove(Visitor visitor, int tourNumber)
     {
-        Console.WriteLine("Enter the id of the Tour you want to edit");
-        int id = Convert.ToInt32(Console.ReadLine());
-        TourModel tour = baseLogic.GetById(id);
-        if (tour != null)
-        {
-            // Just a quick example on a few things to update
-            // Properly code this in the project
-            Console.WriteLine("We are editing the Tour with the following visitors:");
-            foreach (Visitor visitor in tour.tourVisitorList)
+        BaseLogic logic = new BaseLogic();
+        List<TourModel> tours = logic.GetAllTours();
+
+        List<Visitor> visitorsToRemove = new List<Visitor>();
+
+        foreach (TourModel tour in tours)
+            if (tour.tourId == tourNumber)
             {
-                Console.WriteLine(visitor.barcode);
-                fakeTourVisitorList.Add(visitor);
+                foreach (Visitor existingVisitor in tour.tourVisitorList)
+                if (existingVisitor.barcode == visitor.barcode)
+                    visitorsToRemove.Add(existingVisitor);
             }
 
-            Console.WriteLine("Type de barcode van de bezoeker die u wilt verwijderen");
-            long barcode = Convert.ToInt64(Console.ReadLine());
-            foreach (Visitor visitor in fakeTourVisitorList)
-            {
-                if (visitor.barcode == barcode)
-                {
-                    tour.tourVisitorList.Remove(visitor);
-                }
-            }
-            baseLogic.UpdateList(tour);
-            Console.WriteLine("tour updated");
-        }
-        else
+        foreach (TourModel tour in tours)
         {
-            Console.WriteLine("No tour found with that id");
+            tour.tourVisitorList.RemoveAll(visitorsToRemove.Contains);
+            tour.parttakers = tour.tourVisitorList.Count();
         }
 
+        BaseAccess.WriteAll(tours);
+    }
+
+    public static void Add(Visitor visitor, int tourNumber)
+    {
+        BaseLogic logic = new();
+        List<TourModel> items = logic.GetAllTours();
+        foreach (TourModel item in items)
+        {
+            if (item.tourId == tourNumber)
+            {
+                item.tourVisitorList.Add(visitor);
+                item.parttakers = item.tourVisitorList.Count();
+                BaseAccess.WriteAll(items);
+            }
+        }
     }
 }
