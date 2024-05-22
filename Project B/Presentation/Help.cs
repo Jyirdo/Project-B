@@ -18,15 +18,15 @@ public class Help
                 continue;
             }
         }
-    
+
     }
 
     public static void PlayJingle()  // Make check for os, only works on windows.
     {
         if (OperatingSystem.IsWindows())
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer("jingle.wav"))
-            soundPlayer.Play();
+            using (SoundPlayer soundPlayer = new SoundPlayer())
+                soundPlayer.Play();
         }
     }
 }

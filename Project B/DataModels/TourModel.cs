@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 public class TourModel
 {
-    [JsonProperty("tour_id")]
+    [JsonProperty("tourId")]
     public int tourId { get; set; }
 
     [JsonProperty("tourStartTime")]

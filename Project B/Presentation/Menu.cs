@@ -22,13 +22,19 @@ public class Menu
                 {
                     case "t":
                         {
-                            //Console.WriteLine(GetTourTime(Convert.ToInt64(universalClientCode)));
+                            Console.WriteLine("Scan de barcode op uw entreebewijs en druk op ENTER.");
+                            long input3 = Convert.ToInt64(Console.ReadLine());
+                            Console.WriteLine(Tour.GetTourTime(input3));
                             break;
                         }
                     case "a":
                         {
-                            //Cancel();
-                            return;
+                            Console.WriteLine("Enter the id of the Tour you want to edit");
+                            int tourNumber = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Type de barcode van de bezoeker die u wilt verwijderen");
+                            string barcode = Console.ReadLine(); 
+                            Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tourNumber);
+                            break;
                         }
                     case "h":
                         {

@@ -1,8 +1,6 @@
-using Newtonsoft.Json;
-
 public class Tour
 {
-    public int tour_id;
+    public int tourId;
     public DateTime tourStartTime;
     public static int parttakers;
     public static bool opentourspots;
@@ -11,7 +9,7 @@ public class Tour
 
     public Tour(int id, DateTime time)
     {
-        tour_id = id;
+        tourId = id;
         tourStartTime = time;
         parttakers = 0;
         opentourspots = true;
@@ -28,11 +26,26 @@ public class Tour
         }
     }
 
-    public static string Choose_Tour(long barcode)
+    public static string GetTourTime(long barcode)
+    {
+        List<TourModel> tours = baseLogic.GetAllTours();
+        foreach (TourModel tour in tours)
+        {
+            foreach(Visitor visitor in tour.tourVisitorList)
+            {
+                if (visitor.barcode == barcode)
+                {
+                    return $"{(tour.dateTime).ToString("dd-M-yyyy HH:mm")}";
+                }
+            }
+        }
+        return "U heeft geen rondleiding geboekt";
+    }
+    
+    public static void Choose_Tour(long barcode)
     {
         DateTime selectedTime;
         List<TourModel> tours = baseLogic.GetAllTours();
-        Visitor newClient = null;
         //Chosentour = id of tour chosen by visitor
         while (true)
         {
@@ -48,9 +61,11 @@ public class Tour
                         if (tour.parttakers < tour.limit)
                         {
                             selectedTime = Convert.ToDateTime(tour.dateTime);
-                            newClient = new Visitor(barcode, selectedTime, chosenTourId);
-                            BaseLogic.AddVisitorsToTourJson(newClient, chosenTourId);
-                            break;
+                            Visitor newClient = new Visitor(barcode);
+                            Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
+
+                            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n");
+                            Menu.Start();
                         }
                         else
                         {
@@ -62,23 +77,5 @@ public class Tour
             }
             break;
         }
-        return $"Succesvol aangemeld bij de rondleiding van {newClient.tourTime.ToString("dd-M-yyyy HH:mm")}\n";
     }
-
-    // public void Cancel()
-    // {
-    //     if (CheckInReservationJson(universalClientCode))
-    //     {
-    //         Reservation cancelReservation = GetReservationFromJson(universalClientCode);
-    //         if (cancelReservation != null)
-    //         {
-    //             removeFromReservationJson(new Visitor(Convert.ToInt64(cancelReservation.ReservationId), Convert.ToDateTime(cancelReservation.DateTime), Convert.ToInt32(cancelReservation.TourNumber)));
-    //             Console.WriteLine("Succesvol afgemeld bij uw rondleiding. Prettige dag verder!");
-    //             return;
-    //         }
-    //         else
-    //             Console.WriteLine("Uw reservering is helaas niet gevonden. Probeer het opnieuw.");
-    //         return;
-    //     }
-    // }
 }
