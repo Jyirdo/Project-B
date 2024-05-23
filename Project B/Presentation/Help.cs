@@ -26,7 +26,7 @@ public class Help
         if (OperatingSystem.IsWindows())
         {
             using (SoundPlayer soundPlayer = new SoundPlayer())
-                soundPlayer.Play();
+            soundPlayer.Play();
         }
     }
 }
