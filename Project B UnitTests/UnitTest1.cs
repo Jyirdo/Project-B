@@ -14,14 +14,10 @@ public class UnitTest1
     public void VisitorTest()
     {
         long expectedBarcode = 1234567890;
-        DateTime expectedTourTime = new DateTime(2024, 5, 22, 14, 30, 0);
-        int expectedTourNumber = 1;
 
-        Visitor visitor = new Visitor(expectedBarcode, expectedTourTime, expectedTourNumber);
+        Visitor visitor = new Visitor(expectedBarcode);
 
         Assert.AreEqual(expectedBarcode, visitor.barcode);
-        Assert.AreEqual(expectedTourTime, visitor.tourTime);
-        Assert.AreEqual(expectedTourNumber, visitor.tourNumber);
     }
 
     [TestMethod]
