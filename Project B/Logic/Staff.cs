@@ -65,7 +65,6 @@ public class Staff
                 }
             }
         }
-
     }
 
 
@@ -85,6 +84,7 @@ public class Staff
                 foreach (Visitor visitor in tour.tourVisitorList)
                 {
                     Console.WriteLine(visitor.barcode);
+                    reservationIDS.Add(Convert.ToString(visitor.barcode));
                 }
 
 
@@ -118,7 +118,8 @@ public class Staff
                 {
                     case "s":
                         {
-                            Console.WriteLine("De tour is succesvol gestart");
+                            Console.WriteLine("De tour is succesvol gestart\n");
+                            Menu.MainMenu();
                             break;
                         }
                     case "q":
