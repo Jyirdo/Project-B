@@ -2,7 +2,7 @@
   {
     "tourId": 1,
     "tourStartTime": "2024-04-10T10:20:00",
-    "parttakers": 2,
+    "parttakers": 3,
     "opentourspots": true,
     "limit": 13,
     "tourVisitorList": [
@@ -11,6 +11,9 @@
       },
       {
         "barcode": 123456789
+      },
+      {
+        "barcode": 123
       }
     ]
   },

@@ -26,6 +26,21 @@ public class Tour
         }
     }
 
+    public static bool CheckIfReservation(long barcode)
+    {
+        List<TourModel> tours = baseLogic.GetAllTours();
+        foreach (TourModel tour in tours)
+        {
+            foreach(Visitor visitor in tour.tourVisitorList)
+            {
+                if (visitor.barcode == barcode)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public static string GetTourTime(long barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
