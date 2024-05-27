@@ -53,24 +53,17 @@ public class Tour
             int chosenTourId = Convert.ToInt32(Console.ReadLine());
             foreach (TourModel tour in tours)
             {
-                if (chosenTourId > 0 || chosenTourId < tours.Count())
+                if (chosenTourId > 0 || chosenTourId < tours.Count() && tour.tourId == chosenTourId && tour.parttakers < tour.limit)
                 {
-                    if (tour.tourId == chosenTourId)
-                    {
-                        // check if tour is full
-                        if (tour.parttakers < tour.limit)
-                        {
-                            selectedTime = Convert.ToDateTime(tour.dateTime);
-                            Visitor newClient = new Visitor(barcode);
-                            Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                            return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
-                        }
-                        else
-                        {
-                            Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
-                            continue;
-                        }
-                    }
+                    selectedTime = Convert.ToDateTime(tour.dateTime);
+                    Visitor newClient = new Visitor(barcode);
+                    Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
+                    return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                }
+                else
+                {
+                    Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
+                    continue;
                 }
             }
         }

@@ -65,9 +65,15 @@ public class UnitTest1
     }
 
     [TestMethod]
-    public void TestMethod3()
+    public void TestChoose_Tour()
     {
-        Assert.AreEqual(0,0);
+        int barcode = 1234567890;
+        Tour tour = new Tour(barcode, DateTime.Now);
+
+        string expected = $"Succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}";
+        string actual = Tour.Choose_Tour(barcode);
+
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]

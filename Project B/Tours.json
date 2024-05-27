@@ -1,32 +1,56 @@
 [
   {
-    "tour_id": 1,
+    "tourId": 1,
     "tourStartTime": "2024-04-10T10:20:00",
-    "parttakers": 13,
+    "parttakers": 11,
     "opentourspots": true,
     "limit": 13,
     "tourVisitorList": [
       {
-        "reservation_id": "4325"
+        "barcode": 1234
+      },
+      {
+        "barcode": 123456789
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
+      },
+      {
+        "barcode": 123
       }
     ]
   },
   {
-    "tour_id": 2,
+    "tourId": 2,
     "tourStartTime": "2024-04-10T10:40:00",
-    "parttakers": 1,
+    "parttakers": 0,
     "opentourspots": true,
     "limit": 13,
-    "tourVisitorList": [
-      {
-        "barcode": 123,
-        "tourTime": "2024-04-10T10:40:00",
-        "tourNumber": 2
-      }
-    ]
+    "tourVisitorList": []
   },
   {
-    "tour_id": 3,
+    "tourId": 3,
     "tourStartTime": "2024-04-10T11:00:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -34,7 +58,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 4,
+    "tourId": 4,
     "tourStartTime": "2024-04-10T11:20:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -42,7 +66,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 5,
+    "tourId": 5,
     "tourStartTime": "2024-04-10T10:40:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -50,7 +74,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 6,
+    "tourId": 6,
     "tourStartTime": "2024-04-10T12:00:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -58,7 +82,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 7,
+    "tourId": 7,
     "tourStartTime": "2024-04-10T12:20:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -66,7 +90,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 8,
+    "tourId": 8,
     "tourStartTime": "2024-04-10T12:40:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -74,7 +98,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 9,
+    "tourId": 9,
     "tourStartTime": "2024-04-10T13:00:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -82,7 +106,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 10,
+    "tourId": 10,
     "tourStartTime": "2024-04-10T13:20:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -90,7 +114,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 11,
+    "tourId": 11,
     "tourStartTime": "2024-04-10T13:40:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -98,7 +122,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 12,
+    "tourId": 12,
     "tourStartTime": "2024-04-10T14:00:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -106,7 +130,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 13,
+    "tourId": 13,
     "tourStartTime": "2024-04-10T14:20:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -114,7 +138,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 14,
+    "tourId": 14,
     "tourStartTime": "2024-04-10T14:40:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -122,7 +146,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 15,
+    "tourId": 15,
     "tourStartTime": "2024-04-10T15:00:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -130,7 +154,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 16,
+    "tourId": 16,
     "tourStartTime": "2024-04-10T15:20:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -138,7 +162,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 17,
+    "tourId": 17,
     "tourStartTime": "2024-04-10T15:40:00",
     "parttakers": 0,
     "opentourspots": true,
@@ -146,7 +170,7 @@
     "tourVisitorList": []
   },
   {
-    "tour_id": 18,
+    "tourId": 18,
     "tourStartTime": "2024-04-10T16:00:00",
     "parttakers": 0,
     "opentourspots": true,
