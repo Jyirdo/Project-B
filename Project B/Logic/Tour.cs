@@ -46,18 +46,18 @@ public class Tour
         List<TourModel> tours = baseLogic.GetAllTours();
         foreach (TourModel tour in tours)
         {
-            foreach(Visitor visitor in tour.tourVisitorList)
+            foreach (Visitor visitor in tour.tourVisitorList)
             {
                 if (visitor.barcode == barcode)
                 {
-                    return $"{(tour.dateTime).ToString("dd-M-yyyy HH:mm")}";
+                    return $"{tour.dateTime.ToString("dd-M-yyyy HH:mm")}";
                 }
             }
         }
         return "U heeft geen rondleiding geboekt";
     }
-    
-    public static void Choose_Tour(long barcode)
+
+    public static string Choose_Tour(long barcode)
     {
         DateTime selectedTime;
         List<TourModel> tours = baseLogic.GetAllTours();
@@ -78,9 +78,7 @@ public class Tour
                             selectedTime = Convert.ToDateTime(tour.dateTime);
                             Visitor newClient = new Visitor(barcode);
                             Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-
-                            Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n");
-                            Menu.MainMenu();
+                            return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
                         }
                         else
                         {
@@ -90,7 +88,6 @@ public class Tour
                     }
                 }
             }
-            break;
         }
     }
 }

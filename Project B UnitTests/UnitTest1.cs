@@ -14,14 +14,10 @@ public class UnitTest1
     public void VisitorTest()
     {
         long expectedBarcode = 1234567890;
-        DateTime expectedTourTime = new DateTime(2024, 5, 22, 14, 30, 0);
-        int expectedTourNumber = 1;
 
-        Visitor visitor = new Visitor(expectedBarcode, expectedTourTime, expectedTourNumber);
+        Visitor visitor = new Visitor(expectedBarcode);
 
         Assert.AreEqual(expectedBarcode, visitor.barcode);
-        Assert.AreEqual(expectedTourTime, visitor.tourTime);
-        Assert.AreEqual(expectedTourNumber, visitor.tourNumber);
     }
 
     [TestMethod]
@@ -71,67 +67,67 @@ public class UnitTest1
     [TestMethod]
     public void TestMethod3()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod4()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod5()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod6()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod7()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod8()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod9()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod10()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod11()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod12()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod13()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
 }
