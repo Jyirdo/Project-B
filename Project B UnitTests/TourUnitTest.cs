@@ -1,3 +1,6 @@
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 [TestBase]
 public class TestBaseLogic : IBaseLogic
 {
