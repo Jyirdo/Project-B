@@ -50,22 +50,31 @@ public class Tour
         while (true)
         {
             Console.WriteLine("Toets het nummer van de rondleiding in waarvoor u zich wilt aanmelden:");
-            int chosenTourId = Convert.ToInt32(Console.ReadLine());
-            foreach (TourModel tour in tours)
+            string input = Console.ReadLine();
+            int chosenTourId = 0;
+            if (chosenTourId > 0 && int.TryParse(input, out chosenTourId))
             {
-                if (chosenTourId > 0 || chosenTourId < tours.Count() && tour.tourId == chosenTourId && tour.parttakers < tour.limit)
+                foreach (TourModel tour in tours)
                 {
-                    selectedTime = Convert.ToDateTime(tour.dateTime);
-                    Visitor newClient = new Visitor(barcode);
-                    Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                    return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
-                }
-                else
-                {
-                    Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
-                    continue;
+                    if (chosenTourId < tours.Count() && tour.tourId == chosenTourId && tour.parttakers < tour.limit)
+                    {
+                        selectedTime = Convert.ToDateTime(tour.dateTime);
+                        Visitor newClient = new Visitor(barcode);
+                        Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
+                        return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                    }
+                    else
+                    {
+                        Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
+                        continue;
+                    }
                 }
             }
+            else
+            {
+                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+            }
+            
         }
     }
 }
