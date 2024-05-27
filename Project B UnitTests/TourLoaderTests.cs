@@ -8,7 +8,7 @@ public class TourLoaderTests
     [TestMethod]
     public void Load_Tours_ShouldPrintToursToConsole()
     {
-        IBaseLogic testBaseLogic = new TestBaseLogic.TestBaseLogic();
+        IBaseLogic testBaseLogic = new TestBaseLogic();
 
         using (var sw = new StringWriter())
         {
