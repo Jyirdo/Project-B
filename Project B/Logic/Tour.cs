@@ -57,21 +57,19 @@ public class Tour
         return "U heeft geen rondleiding geboekt";
     }
 
-    public static string Choose_Tour(long barcode)
+    public static string ChooseTour(long barcode)
     {
         DateTime selectedTime;
         List<TourModel> tours = baseLogic.GetAllTours();
         //Chosentour = id of tour chosen by visitor
         while (true)
         {
-            Console.WriteLine("Toets het nummer van de rondleiding in waarvoor u zich wilt aanmelden:");
             string input = Console.ReadLine();
-            int chosenTourId = 0;
-            if (chosenTourId > 0 && int.TryParse(input, out chosenTourId))
+            if (int.TryParse(input, out int chosenTourId) && chosenTourId > 0 && chosenTourId < tours.Count())
             {
                 foreach (TourModel tour in tours)
                 {
-                    if (chosenTourId < tours.Count() && tour.tourId == chosenTourId && tour.parttakers < tour.limit)
+                    if (tour.tourId == chosenTourId && tour.parttakers < tour.limit)
                     {
                         selectedTime = Convert.ToDateTime(tour.dateTime);
                         Visitor newClient = new Visitor(barcode);
@@ -87,9 +85,26 @@ public class Tour
             }
             else
             {
-                Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
+                continue;
             }
-            
         }
+    }
+
+    public static string CancelReservation(long barcode)
+    {
+        List<TourModel> tours = baseLogic.GetAllTours();
+        foreach (TourModel tour in tours)
+        {
+            foreach (Visitor visitor in tour.tourVisitorList)
+            {
+                if (visitor.barcode == barcode)
+                {
+                    Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
+                    return $"Uw tour van {tour.dateTime} is geannuleerd";
+                }
+            }
+        }
+        return "U heeft nog geen tour ingepland";
     }
 }
