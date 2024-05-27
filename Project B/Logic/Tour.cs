@@ -26,6 +26,21 @@ public class Tour
         }
     }
 
+    public static bool CheckIfReservation(long barcode)
+    {
+        List<TourModel> tours = baseLogic.GetAllTours();
+        foreach (TourModel tour in tours)
+        {
+            foreach(Visitor visitor in tour.tourVisitorList)
+            {
+                if (visitor.barcode == barcode)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public static string GetTourTime(long barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
@@ -65,7 +80,7 @@ public class Tour
                             Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
 
                             Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n");
-                            Menu.Start();
+                            Menu.MainMenu();
                         }
                         else
                         {
