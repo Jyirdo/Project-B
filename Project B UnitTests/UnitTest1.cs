@@ -67,6 +67,7 @@ public class UnitTest1
     [TestMethod]
     public void TestChoose_Tour()
     {
+<<<<<<< HEAD
         int barcode = 1234567890;
         Tour tour = new Tour(barcode, DateTime.Now);
 
@@ -74,66 +75,69 @@ public class UnitTest1
         string actual = Tour.Choose_Tour(barcode);
 
         Assert.AreEqual(expected, actual);
+=======
+        Assert.AreEqual(0, 0);
+>>>>>>> main
     }
 
     [TestMethod]
     public void TestMethod4()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod5()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod6()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod7()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod8()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod9()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod10()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod11()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod12()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
     [TestMethod]
     public void TestMethod13()
     {
-        Assert.AreEqual(0,0);
+        Assert.AreEqual(0, 0);
     }
 
 }

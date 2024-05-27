@@ -26,12 +26,27 @@ public class Tour
         }
     }
 
-    public static string GetTourTime(long barcode)
+    public static bool CheckIfReservation(long barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
         foreach (TourModel tour in tours)
         {
             foreach(Visitor visitor in tour.tourVisitorList)
+            {
+                if (visitor.barcode == barcode)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static string GetTourTime(long barcode)
+    {
+        List<TourModel> tours = baseLogic.GetAllTours();
+        foreach (TourModel tour in tours)
+        {
+            foreach (Visitor visitor in tour.tourVisitorList)
             {
                 if (visitor.barcode == barcode)
                 {
@@ -41,7 +56,7 @@ public class Tour
         }
         return "U heeft geen rondleiding geboekt";
     }
-    
+
     public static string Choose_Tour(long barcode)
     {
         DateTime selectedTime;
