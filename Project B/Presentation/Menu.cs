@@ -2,14 +2,14 @@ public class Menu
 {
     public static void MainMenu()
     {
-        int currenthour = Convert.ToInt16(DateTime.Now.ToString("HH"));
-        Console.Write(Greeting.ShowGreeting(currenthour));
-        Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
-        Console.WriteLine("Toets 'H' en druk ENTER voor hulp.");
-        Console.WriteLine("Toets 'Q' en druk ENTER om het programma af te sluiten.");
-
         while (true)
         {
+            int currenthour = Convert.ToInt16(DateTime.Now.ToString("HH"));
+            Console.Write(Greeting.ShowGreeting(currenthour));
+            Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
+            Console.WriteLine("Toets 'H' en druk ENTER voor hulp.");
+            Console.WriteLine("Toets 'Q' en druk ENTER om het programma af te sluiten.");
+
             string input = Console.ReadLine();
             long.TryParse(input, out long barcode);
             if (Tour.CheckIfReservation(barcode) == true) 
@@ -18,7 +18,8 @@ public class Menu
             }
             else if (long.TryParse(input, out long barcode2))
             {
-                SelectTour.Select_A_Tour(barcode2);
+                Console.WriteLine(SelectTour.Select_A_Tour(barcode));
+                continue;
             }
             else
             {
