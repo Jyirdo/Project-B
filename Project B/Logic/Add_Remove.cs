@@ -1,4 +1,4 @@
-static class Add_Remove
+public static class Add_Remove
 {
     static private BaseLogic baseLogic = new BaseLogic();
     private static List<Visitor> fakeTourVisitorList = new List<Visitor>();
