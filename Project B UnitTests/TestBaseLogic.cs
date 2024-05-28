@@ -15,6 +15,8 @@ namespace Project.Tests
                 {
                     tourId = 1,
                     dateTime = new DateTime(2023, 6, 1, 10, 0, 0),
+                    parttakers = 0,
+                    limit = 10,
                     tourVisitorList = new List<Visitor>
                     {
                         new Visitor(1234567890),
@@ -25,9 +27,11 @@ namespace Project.Tests
                 {
                     tourId = 2,
                     dateTime = new DateTime(2023, 6, 2, 14, 0, 0),
+                    parttakers = 10,
+                    limit = 10,
                     tourVisitorList = new List<Visitor>
                     {
-                        new Visitor(5555555555)
+                        new Visitor(1122334455)
                     }
                 }
             };

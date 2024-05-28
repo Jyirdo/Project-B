@@ -13,6 +13,7 @@ namespace Project.Tests
         public void Setup()
         {
             TourLoader.baseLogic = new TestBaseLogic();
+            Tour.Initialize(testBaseLogic);
         }
 
         [TestMethod]
@@ -65,6 +66,73 @@ namespace Project.Tests
             bool result = Tour.CheckIfReservation(5555555555);
 
             Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void ChooseTour_ValidTourId_ShouldReturnSuccessMessage()
+        {
+            string input = "1";
+            using (var inputReader = new StringReader(input))
+            {
+                Console.SetIn(inputReader);
+                using (var sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+                    long barcode = 1234567890;
+
+                    string result = TourLoader.ChooseTour(barcode);
+
+                    var expectedOutput = $"Succesvol aangemeld bij de rondleiding van 01-6-2023 10:00\n";
+                    Assert.AreEqual(expectedOutput, result);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ChooseTour_InvalidTourId_ShouldReturnErrorMessage()
+        {
+            // Arrange
+            string input = "99\n1";
+            using (var inputReader = new StringReader(input))
+            {
+                Console.SetIn(inputReader);
+                using (var sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+                    long barcode = 1234567890;
+
+                    TourLoader.ChooseTour(barcode);
+
+                    var expectedOutput1 = "U heeft een incorrect tournummer opgegeven, probeer het opnieuw.";
+                    Assert.IsTrue(sw.ToString().Contains(expectedOutput1));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ChooseTour_FullTour_ShouldReturnFullMessage()
+        {
+            // Arrange
+            string input = "2";
+            using (var inputReader = new StringReader(input))
+            {
+                Console.SetIn(inputReader);
+                using (var sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+                    long barcode = 1234567890;
+
+                    var baseLogic = new TestBaseLogic();
+                    var tours = baseLogic.GetAllTours();
+                    tours[1].parttakers = tours[1].limit;
+
+                    TourLoader.Initialize(baseLogic);
+                    TourLoader.ChooseTour(barcode);
+
+                    var expectedOutput = "Deze tour is helaas vol, probeer een andere optie.\n";
+                    Assert.IsTrue(sw.ToString().Contains(expectedOutput));
+                }
+            }
         }
     }
 }

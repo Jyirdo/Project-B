@@ -6,6 +6,12 @@ public class Tour
     public static bool opentourspots;
     public static int limit;
     private static BaseLogic baseLogic = new BaseLogic();
+    private static IBaseLogic baseLogic;
+
+    public static void Initialize(IBaseLogic logic)
+    {
+        baseLogic = logic;
+    }
 
     public Tour(int id, DateTime time)
     {

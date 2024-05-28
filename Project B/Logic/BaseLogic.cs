@@ -1,17 +1,17 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-public class BaseLogic
+using System.Collections.Generic;
+using Project.Models;
+
+public class BaseLogic : IBaseLogic
 {
     protected static List<TourModel> _items;
-    public List<TourModel> GetAllTours() => _items;
 
     public BaseLogic()
     {
         _items = BaseAccess.LoadAll();
     }
-    
-    public static void AssignGuide()
+
+    public List<TourModel> GetAllTours()
     {
-        
+        return _items;
     }
 }
