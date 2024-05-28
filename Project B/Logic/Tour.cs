@@ -19,7 +19,6 @@ public class Tour
     public static void Load_Tours()
     {
         List<TourModel> tours = baseLogic.GetAllTours();
-        Console.WriteLine($"Bij deze rondleidingen kunt u zich aanmelden:\n");
         foreach (TourModel tour in tours)
         {
             Console.WriteLine($"{tour.tourId}: Rondleiding van {tour.dateTime}");
