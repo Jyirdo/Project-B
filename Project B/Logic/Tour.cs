@@ -41,6 +41,7 @@ public class Tour
         }
         return false;
     }
+    
     public static string GetTourTime(long barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
