@@ -12,8 +12,8 @@ public class Menu
 
             string input = Console.ReadLine();
             long.TryParse(input, out long barcode);
-            if (Tour.CheckIfReservation(barcode) == true) 
-            {   
+            if (Tour.CheckIfReservation(barcode) == true)
+            {
                 SubMenu(barcode);
             }
             else if (long.TryParse(input, out long barcode2))
@@ -27,7 +27,8 @@ public class Menu
                 {
                     case "h":
                         {
-                            Help.ShowHelp();
+                            Help helpMenu = new();
+                            helpMenu.ShowHelp(null);
                             break;
                         }
                     case "p":
@@ -70,13 +71,20 @@ public class Menu
                         Console.WriteLine("Enter the id of the Tour you want to edit");
                         int tourNumber = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Type de barcode van de bezoeker die u wilt verwijderen");
-                        string barcode1 = Console.ReadLine(); 
+                        string barcode1 = Console.ReadLine();
                         Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode1)), tourNumber);
                         break;
                     }
                 case "h":
                     {
-                        Help.ShowHelp();
+
+                        Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
+                        Console.WriteLine("Toets 'Q' en ENTER om terug te gaan naar het menu.");
+                        Help helpMenu = new();
+                    Start:
+                        string message = helpMenu.ShowHelp(null);
+                        if (message != null)
+                            goto Start;
                         break;
                     }
                 case "p":
@@ -102,7 +110,7 @@ public class Menu
     {
         while (true)
         {
-            Console.WriteLine("Geef uw personeelscode op:"); 
+            Console.WriteLine("Geef uw personeelscode op:");
             Console.WriteLine("Toets 'Q' om terug te gaan.");
             string staffcode = Console.ReadLine();
 
