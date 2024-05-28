@@ -50,5 +50,21 @@ namespace Project.Tests
 
             Assert.AreEqual("U heeft geen rondleiding geboekt", result);
         }
+
+        [TestMethod]
+        public void CheckIfReservation_ValidBarcode_ShouldReturnTrue()
+        {
+            bool result = Tour.CheckIfReservation(1234567890);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void CheckIfReservation_InvalidBarcode_ShouldReturnFalse()
+        {
+            bool result = Tour.CheckIfReservation(5555555555);
+
+            Assert.IsFalse(result);
+        }
     }
 }

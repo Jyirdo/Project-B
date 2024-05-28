@@ -31,7 +31,7 @@ public class Tour
         List<TourModel> tours = baseLogic.GetAllTours();
         foreach (TourModel tour in tours)
         {
-            foreach(Visitor visitor in tour.tourVisitorList)
+            foreach (Visitor visitor in tour.tourVisitorList)
             {
                 if (visitor.barcode == barcode)
                 {
