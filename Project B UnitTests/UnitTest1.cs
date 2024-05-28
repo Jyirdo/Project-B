@@ -63,15 +63,15 @@ public class UnitTest1
     }
 
     [TestMethod]
-    public void TestChoose_Tour()
+    public void TestChooseTour()
     {
         int tourId = 1;
         long barcode = 1234;
         DateTime time = DateTime.Parse("2024-04-10T10:20:00");
         Tour tour = new Tour(tourId, time);
 
-        string expected = $"Succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}";
-        string actual = Tour.ChooseTour(barcode);
+        string expected = $"Succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
+        string actual = Tour.ChooseTour(barcode, "1");
 
         Assert.AreEqual(expected, actual);
     }

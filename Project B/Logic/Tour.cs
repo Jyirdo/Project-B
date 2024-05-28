@@ -58,15 +58,13 @@ public class Tour
         return "U heeft geen rondleiding geboekt";
     }
 
-    public static string ChooseTour(long barcode)
+    public static string ChooseTour(long barcode, string input)
     {
         DateTime selectedTime;
         List<TourModel> tours = baseLogic.GetAllTours();
         //Chosentour = id of tour chosen by visitor
         while (true)
         {
-            Console.WriteLine("\nToets het nummer in van de tour waaraan u wilt deelnemen:");
-            string input = Console.ReadLine();
             if (int.TryParse(input, out int chosenTourId) && chosenTourId > 0 && chosenTourId < tours.Count())
             {
                 foreach (TourModel tour in tours)
