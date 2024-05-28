@@ -12,8 +12,8 @@ public class Menu
 
             string input = Console.ReadLine();
             long.TryParse(input, out long barcode);
-            if (Tour.CheckIfReservation(barcode) == true) 
-            {   
+            if (Tour.CheckIfReservation(barcode) == true)
+            {
                 SubMenu(barcode);
             }
             else if (long.TryParse(input, out long barcode2))
@@ -28,7 +28,8 @@ public class Menu
                 {
                     case "h":
                         {
-                            Help.ShowHelp();
+                            Help helpMenu = new();
+                            helpMenu.ShowHelp(null);
                             break;
                         }
                     case "p":
@@ -73,7 +74,14 @@ public class Menu
                     }
                 case "h":
                     {
-                        Help.ShowHelp();
+
+                        Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
+                        Console.WriteLine("Toets 'Q' en ENTER om terug te gaan naar het menu.");
+                        Help helpMenu = new();
+                    Start:
+                        string message = helpMenu.ShowHelp(null);
+                        if (message != null)
+                            goto Start;
                         break;
                     }
                 case "p":

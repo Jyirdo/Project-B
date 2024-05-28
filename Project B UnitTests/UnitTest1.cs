@@ -1,6 +1,4 @@
 namespace Project_B_UnitTests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 [TestClass]
 public class UnitTest1
