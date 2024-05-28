@@ -5,10 +5,7 @@ public class Staff
 {
     public static List<string> staffCodes = new List<string>();
     public static List<string> scannedIDS = new();
-    public static List<Tour> listoftours = new();
     private static BaseLogic baseLogic = new BaseLogic();
-    int tourAmount = 0;
-    private string staffCode;
 
     public Staff()
     {
@@ -35,9 +32,6 @@ public class Staff
     {
         while (true)
         {
-            Console.WriteLine("Begin met barcodes scannen om te controleren of iedereen er is.");
-            Console.WriteLine("Druk op 'K' wanneer u klaar bent. ");
-            Console.WriteLine("Druk op 'Q' om terug te gaan.");
             string checkPresence = Console.ReadLine();
             if (checkPresence.ToLower() == "q")
             {
@@ -49,18 +43,18 @@ public class Staff
             }
             else
             {
-                if (long.TryParse(checkPresence, out long id))
+                if (long.TryParse(checkPresence, out long barcode))
                 {
-                    if (reservations.Contains(Convert.ToString(id)))
+                    if (reservations.Contains(Convert.ToString(barcode)))
                     {
                         scannedIDS.Add(checkPresence);
-                        reservations.Remove(Convert.ToString(id));
+                        reservations.Remove(Convert.ToString(barcode));
                         continue;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Dat is geen correcte id.");
+                    Console.WriteLine("Dat is geen correcte barcode.");
                     continue;
                 }
             }
@@ -112,8 +106,9 @@ public class Staff
                         enumerator++;
                     }
                 }
-                Console.WriteLine("Druk op 'S' om de tour te starten. \nDruk op 'Q' om terug te gaan.");
 
+                Console.WriteLine("Druk op 'S' om de tour te starten.");
+                Console.WriteLine("Druk op 'Q' om terug te gaan.");
                 switch (Console.ReadLine().ToLower())
                 {
                     case "s":
@@ -138,32 +133,48 @@ public class Staff
         }
     }
 
-    public static string AddLastMinuteVisitor(long barcode, int tourId)
+    public static string AddLastMinuteVisitor(int tourId)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
 
-        foreach (TourModel tour in tours)
+        while (true)
         {
-            if (tour.tourId == tourId)
+            string input = Console.ReadLine();
+            if (long.TryParse(input, out long barcode))
             {
-                // check if tour is full
-                if (tour.parttakers < tour.limit)
+                foreach (TourModel tour in tours)
                 {
-                    Add_Remove.Add(new Visitor(barcode), tourId);
-
-                    return $"Succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n";
+                    if (tour.tourId == tourId)
+                    {
+                        // check if tour is full
+                        if (tour.parttakers < tour.limit)
+                        {
+                            Add_Remove.Add(new Visitor(barcode), tourId);
+                            return $"{barcode} succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n";
+                        }
+                        else
+                        {
+                            Console.WriteLine("Deze tour is helaas vol, probeer een andere tour.\n");
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("U heeft een ongeldig tournummer ingevoerd");
+                        continue;
+                    }
                 }
-                else
-                {
-                    return "Deze tour is helaas vol, probeer een andere optie.\n";
-                }
+            }
+            else if(input.ToLower() == "q")
+            {
+                return"";
             }
             else
             {
-                return "U heeft een ongeldig tournummer ingevoerd";
+               Console.WriteLine("U heeft een ongeldige barcode ingevoerd");
+                continue; 
             }
         }
-        return "";
     }
 }
 

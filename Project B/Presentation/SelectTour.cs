@@ -1,8 +1,8 @@
 public class SelectTour
 {
-    public static string Select_A_Tour(long barcode)
+    public static string SelectATour(long barcode)
     {
         Tour.Load_Tours();
-        return Tour.Choose_Tour(barcode);
+        return Tour.ChooseTour(barcode);
     }
 }
