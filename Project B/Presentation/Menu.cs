@@ -18,7 +18,6 @@ public class Menu
             }
             else if (long.TryParse(input, out long barcode2))
             {
-                Console.WriteLine("Toets het nummer van de rondleiding in waarvoor u zich wilt aanmelden:");
                 Console.WriteLine(SelectTour.SelectATour(barcode2));
                 continue;
             }
@@ -70,6 +69,7 @@ public class Menu
                 case "a":
                     {
                         Console.WriteLine(Tour.CancelReservation(barcode));
+                        MainMenu();
                         break;
                     }
                 case "h":

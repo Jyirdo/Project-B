@@ -64,6 +64,7 @@ public class Tour
         //Chosentour = id of tour chosen by visitor
         while (true)
         {
+            Console.WriteLine("\nToets het nummer in van de tour waaraan u wilt deelnemen:");
             string input = Console.ReadLine();
             if (int.TryParse(input, out int chosenTourId) && chosenTourId > 0 && chosenTourId < tours.Count())
             {
@@ -76,12 +77,9 @@ public class Tour
                         Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
                         return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
                     }
-                    else
-                    {
-                        Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
-                        continue;
-                    }
-                }
+                }              
+                Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.");
+                continue;
             }
             else
             {
