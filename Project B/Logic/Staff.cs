@@ -133,13 +133,12 @@ public class Staff
         }
     }
 
-    public static string AddLastMinuteVisitor(int tourId)
+    public static string AddLastMinuteVisitor(int tourId, string input)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
 
         while (true)
         {
-            string input = Console.ReadLine();
             if (long.TryParse(input, out long barcode))
             {
                 foreach (TourModel tour in tours)

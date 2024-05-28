@@ -142,7 +142,8 @@ public class Menu
                                 {
                                     Console.WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen aan de rondleiding");
                                     Console.WriteLine("Toets 'Q' en druk ENTER om terug te gaan.");
-                                    Console.WriteLine(Staff.AddLastMinuteVisitor(tourIdInt));
+                                    string input1 = Console.ReadLine();
+                                    Console.WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
                                     break;
                                 }
                             case "c":

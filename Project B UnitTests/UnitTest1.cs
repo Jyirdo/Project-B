@@ -74,22 +74,40 @@ public class UnitTest1
         Assert.AreEqual(expected, actual);
     }
 
-    [TestMethod]
-    public void TestMethod4()
+    public void TestCorrectStaffCode_True()
     {
-        Assert.AreEqual(0, 0);
+        string staffcode = "1234567891011";
+        Staff staff = new Staff();
+
+        bool expected = true;
+        bool actual = Staff.CorrectStaffCode(staffcode);
+
+        Assert.AreEqual(expected, actual);
+    }
+
+    public void TestCorrectStaffCode_False()
+    {
+        string staffcode = "0000000000";
+        Staff staff = new Staff();
+
+        bool expected = false;
+        bool actual = Staff.CorrectStaffCode(staffcode);
+
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
-    public void TestMethod5()
+    public void TestAddLastMinuteVisitor()
     {
-        Assert.AreEqual(0, 0);
-    }
+        Staff staff = new Staff();
+        int tourId = 1;
+        string input = "1234";
+        Tour tour = new Tour(tourId, DateTime.Now);
 
-    [TestMethod]
-    public void TestMethod6()
-    {
-        Assert.AreEqual(0, 0);
+        string expected = $"{input} succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
+        string actual = Staff.AddLastMinuteVisitor(tourId, input);
+
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
