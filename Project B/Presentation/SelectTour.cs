@@ -1,9 +1,10 @@
 public class SelectTour
 {
-    public static void Select_A_Tour(long barcode)
+    public static string SelectATour(long barcode)
     {
         Tour.Load_Tours();
-        Console.WriteLine(Tour.Choose_Tour(barcode));
-        Menu.Start();
+        Console.WriteLine("\nToets het nummer in van de tour waaraan u wilt deelnemen:");
+        string input = Console.ReadLine();
+        return Tour.ChooseTour(barcode, input);
     }
 }
