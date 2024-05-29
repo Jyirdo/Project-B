@@ -54,18 +54,13 @@ public class Menu
     {
         while (true)
         {
-            Console.WriteLine("Toets 'T' en druk ENTER om de starttijd van uw rondleiding te zien.");
+            Console.WriteLine(Tour.GetTourTime(barcode));
             Console.WriteLine("Toets 'A' en druk ENTER om uw rondleiding te annuleren.");
             Console.WriteLine("Toets 'H' en druk ENTER voor hulp.");
             Console.WriteLine("Toets 'Q' en druk ENTER om het programma af te sluiten.");
             string input2 = Console.ReadLine();
             switch (input2.ToLower())
             {
-                case "t":
-                    {
-                        Console.WriteLine(Tour.GetTourTime(barcode));
-                        break;
-                    }
                 case "a":
                     {
                         Console.WriteLine(Tour.CancelReservation(barcode));
@@ -96,7 +91,7 @@ public class Menu
                     }
                 default:
                     {
-                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.\n");
                         continue;
                     }
             }

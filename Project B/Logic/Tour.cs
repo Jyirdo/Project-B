@@ -50,11 +50,11 @@ public class Tour
             {
                 if (visitor.barcode == barcode)
                 {
-                    return $"{tour.dateTime.ToString("dd-M-yyyy HH:mm")}";
+                    return $"U heeft een rondleiding geboekt om {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
                 }
             }
         }
-        return "U heeft geen rondleiding geboekt";
+        return "U heeft nog geen rondleiding geboekt\n";
     }
 
     public static string ChooseTour(long barcode, string input)
@@ -76,12 +76,12 @@ public class Tour
                         return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
                     }
                 }              
-                Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.");
+                Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
                 continue;
             }
             else
             {
-                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
+                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.\n");
                 return SelectTour.SelectATour(barcode);
             }
         }
@@ -97,10 +97,10 @@ public class Tour
                 if (visitor.barcode == barcode)
                 {
                     Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                    return $"Uw tour van {tour.dateTime} is geannuleerd";
+                    return $"Uw tour van {tour.dateTime} is geannuleerd\n";
                 }
             }
         }
-        return "U heeft nog geen tour ingepland";
+        return "U heeft nog geen tour ingepland\n";
     }
 }
