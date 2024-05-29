@@ -21,7 +21,7 @@ public class Tour
         List<TourModel> tours = baseLogic.GetAllTours();
         foreach (TourModel tour in tours)
         {
-            Console.WriteLine($"{tour.tourId}: Rondleiding van {tour.dateTime}");
+            Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m");
         }
     }
 
