@@ -66,7 +66,7 @@ public class UnitTest1
     public void TestChooseTour()
     {
         int tourId = 1;
-        long barcode = 1234;
+        long barcode = 1;
         DateTime time = DateTime.Parse("2024-04-10T10:20:00");
         Tour tour = new Tour(tourId, time);
 
@@ -102,7 +102,7 @@ public class UnitTest1
     public void TestAddLastMinuteVisitor()
     {
         int tourId = 1;
-        string input = "1234";
+        string input = "2";
         DateTime time = DateTime.Parse("2024-04-10T10:20:00");
         Tour tour = new Tour(tourId, time);
 
@@ -115,7 +115,7 @@ public class UnitTest1
     [TestMethod]
     public void TestCheckIfReservation_True()
     {
-        long barcode = 1234;
+        long barcode = 3;
         Add_Remove.Add(new Visitor(barcode), 1);
 
         bool expected = true;
@@ -139,12 +139,12 @@ public class UnitTest1
     [TestMethod]
     public void TestGetTourTime_True()
     {
-        long barcode = 1234;
-        int tourId = 2;
+        long barcode = 4;
+        int tourId = 1;
         Add_Remove.Add(new Visitor(barcode), tourId);
         DateTime time = DateTime.Parse("2024-04-10T10:20:00");
         Tour tour = new Tour(tourId, time);
-        
+
         string expected = $"{tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}";
         string actual = Tour.GetTourTime(barcode);
 
@@ -154,9 +154,9 @@ public class UnitTest1
     [TestMethod]
     public void TestGetTourTime_False()
     {
-        long barcode = 1234;
+        long barcode = 5;
         Tour.CancelReservation(barcode);
-        
+
         string expected = "U heeft geen rondleiding geboekt";
         string actual = Tour.GetTourTime(barcode);
 
@@ -166,12 +166,12 @@ public class UnitTest1
     [TestMethod]
     public void TestCancelReservation_True()
     {
-        long barcode = 1234;
+        long barcode = 6;
         int tourId = 1;
         Add_Remove.Add(new Visitor(barcode), tourId);
         DateTime time = DateTime.Parse("2024-04-10T10:20:00");
         Tour tour = new Tour(tourId, time);
-        
+
         string expected = $"Uw tour van {tour.tourStartTime} is geannuleerd";
         string actual = Tour.CancelReservation(barcode);
 
@@ -181,9 +181,9 @@ public class UnitTest1
     [TestMethod]
     public void TestCancelReservation_False()
     {
-        long barcode = 1234;
+        long barcode = 7;
         Tour.CancelReservation(barcode);
-        
+
         string expected = "U heeft nog geen tour ingepland";
         string actual = Tour.CancelReservation(barcode);
 
