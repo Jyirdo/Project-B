@@ -50,7 +50,7 @@ public class Tour
             {
                 if (visitor.barcode == barcode)
                 {
-                    return $"U heeft een rondleiding geboekt om {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                    return $"U heeft een rondleiding geboekt om \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                 }
             }
         }
@@ -73,7 +73,7 @@ public class Tour
                         selectedTime = Convert.ToDateTime(tour.dateTime);
                         Visitor newClient = new Visitor(barcode);
                         Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                        return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                        return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                     }
                 }              
                 Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.\n");
@@ -97,7 +97,7 @@ public class Tour
                 if (visitor.barcode == barcode)
                 {
                     Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                    return $"Uw tour van {tour.dateTime} is geannuleerd\n";
+                    return $"Uw tour van \x1b[32m{tour.dateTime}\x1b[0m is geannuleerd\n";
                 }
             }
         }
