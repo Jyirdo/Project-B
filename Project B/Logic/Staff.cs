@@ -103,6 +103,7 @@ public class Staff
                     {
                         int enumerator = 1;
                         Console.WriteLine($"{enumerator}. ({notpresent})");
+                        Add_Remove.Remove(new Visitor(Convert.ToInt64(notpresent)), tourId);
                         enumerator++;
                     }
                 }
@@ -164,14 +165,14 @@ public class Staff
                     }
                 }
             }
-            else if(input.ToLower() == "q")
+            else if (input.ToLower() == "q")
             {
-                return"";
+                return "";
             }
             else
             {
-               Console.WriteLine("U heeft een ongeldige barcode ingevoerd");
-                continue; 
+                Console.WriteLine("U heeft een ongeldige barcode ingevoerd");
+                continue;
             }
         }
     }
