@@ -82,7 +82,7 @@ public class Tour
             else
             {
                 Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
-                continue;
+                return SelectTour.SelectATour(barcode);
             }
         }
     }
