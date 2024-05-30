@@ -19,9 +19,19 @@ public class Tour
     public static void Load_Tours()
     {
         List<TourModel> tours = baseLogic.GetAllTours();
+        int currentTourID = 1;
+
         foreach (TourModel tour in tours)
         {
-            Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m");
+            if (tour.dateTime > DateTime.Now)
+            {
+                Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m");
+                currentTourID++;
+            }
+            else
+            {
+                continue;
+            }
         }
     }
 
