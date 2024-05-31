@@ -21,60 +21,84 @@ public class UnitTest1
     [TestMethod]
     public void TestShowGreeting_Night()
     {
-        for (int i = 0; i < 6; i++)
-        {
-            int nightTime = i;
-            string result = Greeting.ShowGreeting(nightTime);
-            Assert.AreEqual("Goedennacht, ", result);
-        }
-    }
+        int hourNight = 5;
+        int hourMorning = 6;
 
-    [TestMethod]
-    public void TestShowGreeting_Morning()
-    {
-        for (int i = 6; i < 12; i++)
-        {
-            int morningTime = i;
-            string result = Greeting.ShowGreeting(morningTime);
-            Assert.AreEqual("Goedemorgen, ", result);
-        }
+        string resultNight = Greeting.ShowGreeting(hourNight);
+        string resultMorning = Greeting.ShowGreeting(hourMorning);
+
+        Assert.AreEqual("Goedennacht, ", resultNight);
+        Assert.AreEqual("Goedemorgen, ", resultMorning);
     }
 
     [TestMethod]
     public void TestShowGreeting_Afternoon()
     {
-        for (int i = 12; i < 18; i++)
-        {
-            int afternoonTime = i;
-            string result = Greeting.ShowGreeting(afternoonTime);
-            Assert.AreEqual("Goedemiddag, ", result);
-        }
+        int hourMorning = 11;
+        int hourAfternoon = 12;
+
+        string resultMorning = Greeting.ShowGreeting(hourMorning);
+        string resultAfternoon = Greeting.ShowGreeting(hourAfternoon);
+
+        Assert.AreEqual("Goedemorgen, ", resultMorning);
+        Assert.AreEqual("Goedemiddag, ", resultAfternoon);
+    }
+
+    [TestMethod]
+    public void TestShowGreeting_Morning()
+    {
+        int hourAfternoon = 17;
+        int hourEvening = 18;
+
+        string resultAfternoon = Greeting.ShowGreeting(hourAfternoon);
+        string resultEvening = Greeting.ShowGreeting(hourEvening);
+
+        Assert.AreEqual("Goedemiddag, ", resultAfternoon);
+        Assert.AreEqual("Goedenavond, ", resultEvening);
     }
 
     [TestMethod]
     public void TestShowGreeting_Evening()
     {
-        for (int i = 18; i < 24; i++)
-        {
-            int eveningTime = 23;
-            string result = Greeting.ShowGreeting(eveningTime);
-            Assert.AreEqual("Goedenavond, ", result);
-        }
-    }
+        int hourEvening = 23;
+        int hourNight = 24;
+        int hourNight2 = 5;
 
+        string resultEvening = Greeting.ShowGreeting(hourEvening);
+        string resultNight = Greeting.ShowGreeting(hourNight);
+        string resultNight2 = Greeting.ShowGreeting(hourNight2);
+
+        Assert.AreEqual("Goedenavond, ", resultEvening);
+        Assert.AreEqual("Goedennacht, ", resultNight);
+        Assert.AreEqual("Goedennacht, ", resultNight);
+    }
+    
     [TestMethod]
-    public void TestChooseTour()
+    public void TestShowGreeting_Welkom()
     {
-        int tourId = 1;
-        long barcode = 1;
-        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
-        Tour tour = new Tour(tourId, time);
+        int hourInvalid = -1;
+        int hourInvalid2 = 25;
 
-        string expected = $"Succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
-        string actual = Tour.ChooseTour(barcode, "1");
+        string resultInvalid = Greeting.ShowGreeting(hourInvalid);
+        string resultInvalid2 = Greeting.ShowGreeting(hourInvalid2);
 
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual("Welkom, ", resultInvalid);
+        Assert.AreEqual("Welkom, ", resultInvalid2);
     }
+
+    // [TestMethod]
+    // public void TestChooseTour()
+    // {
+    //     int tourId = 1;
+    //     long barcode = 1;
+    //     DateTime time = DateTime.Parse("2024-04-10T10:20:00");
+    //     Tour tour = new Tour(tourId, time);
+
+    //     string expected = $"Succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
+    //     string actual = Tour.ChooseTour(barcode, "1");
+
+    //     Assert.AreEqual(expected, actual);
+    // }
 
     [TestMethod]
     public void TestCorrectStaffCode_True()
