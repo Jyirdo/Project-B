@@ -5,6 +5,9 @@ public class Tour
     public static int parttakers;
     public static bool opentourspots;
     public static int limit;
+
+    public static int currentTourID = 1;
+    public static int pastTourCounter;
     private static BaseLogic baseLogic = new BaseLogic();
 
     public Tour(int id, DateTime time)
@@ -19,17 +22,20 @@ public class Tour
     public static void Load_Tours()
     {
         List<TourModel> tours = baseLogic.GetAllTours();
-        int currentTourID = 1;
+        currentTourID = 1;
+        pastTourCounter = 0;
 
+        Console.WriteLine("\nBij deze rondleidingen kunt u zich op dit moment aanmelden:");
         foreach (TourModel tour in tours)
         {
-            if (tour.dateTime > DateTime.Now)
+            if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
             {
                 Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m");
                 currentTourID++;
             }
             else
             {
+                pastTourCounter++;
                 continue;
             }
         }
@@ -67,27 +73,28 @@ public class Tour
         return "U heeft geen rondleiding geboekt";
     }
 
-    public static string ChooseTour(long barcode, string input)
+    public static string ChooseTour(long barcode)
     {
-        DateTime selectedTime;
         List<TourModel> tours = baseLogic.GetAllTours();
-        //Chosentour = id of tour chosen by visitor
         while (true)
         {
-            if (int.TryParse(input, out int chosenTourId) && chosenTourId > 0 && chosenTourId < tours.Count())
+            // request user input
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int chosenTourID) && chosenTourID > 0 && chosenTourID < currentTourID)
             {
+                chosenTourID += pastTourCounter;
                 foreach (TourModel tour in tours)
                 {
-                    if (tour.tourId == chosenTourId && tour.parttakers < tour.limit)
+                    for (int i = 1; i <= currentTourID; i++)
                     {
-                        selectedTime = Convert.ToDateTime(tour.dateTime);
-                        Visitor newClient = new Visitor(barcode);
-                        Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                        return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                        if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
+                        {
+                            Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
+                            return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                        }
                     }
-                }              
-                Console.WriteLine("Deze tour is helaas vol, probeer een andere optie.");
-                continue;
+                }
             }
             else
             {
@@ -107,7 +114,7 @@ public class Tour
                 if (visitor.barcode == barcode)
                 {
                     Add_Remove.Remove(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                    return $"Uw tour van {tour.dateTime} is geannuleerd";
+                    return $"Uw tour van \x1b[32m{tour.dateTime}\x1b[0m is geannuleerd. Nog een prettige dag verder!";
                 }
             }
         }
