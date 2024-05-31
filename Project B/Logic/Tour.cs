@@ -91,7 +91,7 @@ public class Tour
                         if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                         {
                             Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                            return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                            return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                         }
                     }
                 }
