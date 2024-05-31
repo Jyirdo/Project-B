@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 public class BaseLogic
 {
     protected static List<TourModel> _items;
@@ -8,10 +6,5 @@ public class BaseLogic
     public BaseLogic()
     {
         _items = BaseAccess.LoadAll();
-    }
-    
-    public static void AssignGuide()
-    {
-        
     }
 }
