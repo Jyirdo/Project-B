@@ -98,7 +98,7 @@ public class Staff
                 }
                 else if (presenceList.Count() > 0)
                 {
-                    Console.WriteLine("Deze ID's zijn afwezig:\n");
+                    Console.WriteLine("Deze ID's zijn afwezig:");
                     foreach (string notpresent in presenceList)
                     {
                         int enumerator = 1;

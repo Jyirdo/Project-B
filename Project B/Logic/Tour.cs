@@ -66,11 +66,11 @@ public class Tour
             {
                 if (visitor.barcode == barcode)
                 {
-                    return $"{tour.dateTime.ToString("dd-M-yyyy HH:mm")}";
+                    return $"U heeft een rondleiding geboekt om \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                 }
             }
         }
-        return "U heeft geen rondleiding geboekt";
+        return "U heeft nog geen rondleiding geboekt\n";
     }
 
     public static string ChooseTour(long barcode)
@@ -78,7 +78,6 @@ public class Tour
         List<TourModel> tours = baseLogic.GetAllTours();
         while (true)
         {
-            // request user input
             string input = Console.ReadLine();
 
             if (int.TryParse(input, out int chosenTourID) && chosenTourID > 0 && chosenTourID < currentTourID)
@@ -91,14 +90,14 @@ public class Tour
                         if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                         {
                             Add_Remove.Add(new Visitor(Convert.ToInt64(barcode)), tour.tourId);
-                            return $"Succesvol aangemeld bij de rondleiding van {tour.dateTime.ToString("dd-M-yyyy HH:mm")}\n";
+                            return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                         }
                     }
                 }
             }
             else
             {
-                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
+                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.\n");
                 return SelectTour.SelectATour(barcode);
             }
         }
@@ -118,6 +117,6 @@ public class Tour
                 }
             }
         }
-        return "U heeft nog geen tour ingepland";
+        return "U heeft nog geen tour ingepland\n";
     }
 }
