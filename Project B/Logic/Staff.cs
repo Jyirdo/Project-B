@@ -7,10 +7,6 @@ public class Staff
     public static List<string> scannedIDS = new();
     private static BaseLogic baseLogic = new BaseLogic();
 
-    public Staff()
-    {
-    }
-
     public static bool CorrectStaffCode(string staffcode)
     {
         using (StreamReader reader = new StreamReader("DataSources/staff_codes.txt"))
