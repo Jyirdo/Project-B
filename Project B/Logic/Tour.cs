@@ -25,7 +25,7 @@ public class Tour
         currentTourID = 1;
         pastTourCounter = 0;
 
-        Console.WriteLine("\nBij deze rondleidingen kunt u zich op dit moment aanmelden:");
+        Console.WriteLine("Bij deze rondleidingen kunt u zich op dit moment aanmelden:");
         foreach (TourModel tour in tours)
         {
             if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)

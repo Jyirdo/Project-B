@@ -19,7 +19,6 @@ public class Help : IInput
 
     public string ShowHelp(string input) // Input null for normal function and string for testing.
     {
-
         PlayJingle();
         if (input == null)
         {
