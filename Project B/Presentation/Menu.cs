@@ -8,17 +8,21 @@ public class Menu
             Console.Write(Greeting.ShowGreeting(currenthour));
             Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
             Console.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om het programma af te sluiten.");
 
             string input = Console.ReadLine();
             long.TryParse(input, out long barcode);
             if (Tour.CheckIfReservation(barcode) == true)
-            {
+            {   
+                Console.Clear();
                 SubMenu(barcode);
             }
             else if (long.TryParse(input, out long barcode2))
             {
+                Console.Clear();
                 Console.WriteLine(SelectTour.SelectATour(barcode2));
+                Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+                Console.ReadLine();
+                Console.Clear();
                 continue;
             }
             else
@@ -29,15 +33,13 @@ public class Menu
                         {
                             Help helpMenu = new();
                             helpMenu.ShowHelp(null);
+                            Console.Clear();
                             break;
                         }
                     case "p":
                         {
+                            Console.Clear();
                             StaffMenu();
-                            break;
-                        }
-                    case "q":
-                        {
                             break;
                         }
                     default:
@@ -57,13 +59,16 @@ public class Menu
             Console.WriteLine(Tour.GetTourTime(barcode));
             Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
             Console.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om het programma af te sluiten.");
+            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan naar het hoofdmenu.");
             string input2 = Console.ReadLine();
             switch (input2.ToLower())
             {
                 case "a":
                     {
                         Console.WriteLine(Tour.CancelReservation(barcode));
+                        Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+                        Console.ReadLine();
+                        Console.Clear();
                         MainMenu();
                         break;
                     }
@@ -77,15 +82,18 @@ public class Menu
                         string message = helpMenu.ShowHelp(null);
                         if (message != null)
                             goto Start;
+                        Console.Clear();
                         break;
                     }
                 case "p":
                     {
+                        Console.Clear();
                         StaffMenu();
                         break;
                     }
                 case "q":
                     {
+                        Console.Clear();
                         MainMenu();
                         break;
                     }
@@ -108,13 +116,16 @@ public class Menu
 
             if (staffcode.ToLower() == "q")
             {
+                Console.Clear();
                 MainMenu();
             }
             else if (Staff.CorrectStaffCode(staffcode) == true)
             {
+                Console.Clear();
                 Tour.Load_Tours();
                 Console.WriteLine("Voer de ID in van de tour die u wilt selecteren en druk ENTER.");
                 Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER voor advies over rondleidingen.");
+                Console.WriteLine("Toets \x1b[31m'Z'\x1b[0m en druk ENTER om het programma af te sluiten.");
                 Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
 
                 string tourId = Console.ReadLine();
@@ -130,6 +141,7 @@ public class Menu
                         {
                             case "q":
                                 {
+                                    Console.Clear();
                                     StaffMenu();
                                     break;
                                 }
@@ -163,12 +175,18 @@ public class Menu
                     {
                         case "q":
                             {
+                                Console.Clear();
                                 MainMenu();
                                 break;
                             }
                         case "a":
                             {
                                 //Advise.CreateAdvise();
+                                break;
+                            }
+                        case "z":
+                            {
+                                Environment.Exit(0);
                                 break;
                             }
                     }
