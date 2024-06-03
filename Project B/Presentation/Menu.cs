@@ -1,16 +1,15 @@
-public class Menu
+public class Menu : Presentation
 {
     public static void MainMenu()
     {
         while (true)
         {
             int currenthour = Convert.ToInt16(DateTime.Now.ToString("HH"));
-            Console.Write(Greeting.ShowGreeting(currenthour));
-            Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
-            Console.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om het programma af te sluiten.");
+            WriteLine($"{Greeting.ShowGreeting(currenthour)}scan de barcode op uw entreebewijs en druk op ENTER.");
+            WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
+            WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om het programma af te sluiten.");
 
-            string input = Console.ReadLine();
+            string input = ReadLine();
             long.TryParse(input, out long barcode);
             if (Tour.CheckIfReservation(barcode) == true)
             {
@@ -18,7 +17,7 @@ public class Menu
             }
             else if (long.TryParse(input, out long barcode2))
             {
-                Console.WriteLine(SelectTour.SelectATour(barcode2));
+                WriteLine(SelectTour.SelectATour(barcode2));
                 continue;
             }
             else
@@ -42,7 +41,7 @@ public class Menu
                         }
                     default:
                         {
-                            Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+                            WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                             continue;
                         }
                 }
@@ -54,24 +53,24 @@ public class Menu
     {
         while (true)
         {
-            Console.WriteLine(Tour.GetTourTime(barcode));
-            Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
-            Console.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om het programma af te sluiten.");
-            string input2 = Console.ReadLine();
+            WriteLine(Tour.GetTourTime(barcode));
+            WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
+            WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
+            WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om het programma af te sluiten.");
+            string input2 = ReadLine();
             switch (input2.ToLower())
             {
                 case "a":
                     {
-                        Console.WriteLine(Tour.CancelReservation(barcode));
+                        WriteLine(Tour.CancelReservation(barcode));
                         MainMenu();
                         break;
                     }
                 case "h":
                     {
 
-                        Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
-                        Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
+                        WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
+                        WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
                         Help helpMenu = new();
                     Start:
                         string message = helpMenu.ShowHelp(null);
@@ -91,7 +90,7 @@ public class Menu
                     }
                 default:
                     {
-                        Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.\n");
+                        WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.\n");
                         continue;
                     }
             }
@@ -102,9 +101,9 @@ public class Menu
     {
         while (true)
         {
-            Console.WriteLine("Geef uw personeelscode op:"); 
-            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-            string staffcode = Console.ReadLine();
+            WriteLine("Geef uw personeelscode op:");
+            WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+            string staffcode = ReadLine();
 
             if (staffcode.ToLower() == "q")
             {
@@ -113,19 +112,19 @@ public class Menu
             else if (Staff.CorrectStaffCode(staffcode) == true)
             {
                 Tour.Load_Tours();
-                Console.WriteLine("Voer de ID in van de tour die u wilt selecteren en druk ENTER.");
-                Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER voor advies over rondleidingen.");
-                Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                WriteLine("Voer de ID in van de tour die u wilt selecteren en druk ENTER.");
+                WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER voor advies over rondleidingen.");
+                WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
 
-                string tourId = Console.ReadLine();
+                string tourId = ReadLine();
                 if (int.TryParse(tourId, out int tourIdInt))
                 {
                     while (true)
                     {
-                        Console.WriteLine("Toets \x1b[33m'L'\x1b[0m en druk ENTER om een bezoeker toe te voegen aan een rondleiding.");
-                        Console.WriteLine("Toets \x1b[33m'C'\x1b[0m en druk ENTER om de bezoekers in de tour te checken.");
-                        Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-                        string input = Console.ReadLine();
+                        WriteLine("Toets \x1b[33m'L'\x1b[0m en druk ENTER om een bezoeker toe te voegen aan een rondleiding.");
+                        WriteLine("Toets \x1b[33m'C'\x1b[0m en druk ENTER om de bezoekers in de tour te checken.");
+                        WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                        string input = ReadLine();
                         switch (input.ToLower())
                         {
                             case "q":
@@ -135,23 +134,23 @@ public class Menu
                                 }
                             case "l":
                                 {
-                                    Console.WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen aan de rondleiding");
-                                    Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-                                    string input1 = Console.ReadLine();
-                                    Console.WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
+                                    WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen aan de rondleiding");
+                                    WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                                    string input1 = ReadLine();
+                                    WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
                                     break;
                                 }
                             case "c":
                                 {
-                                    Console.WriteLine("Begin met barcodes scannen om te controleren of iedereen er is.");
-                                    Console.WriteLine("Toets \x1b[33m'K'\x1b[0m en druk ENTER wanneer u klaar bent.");
-                                    Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                                    WriteLine("Begin met barcodes scannen om te controleren of iedereen er is.");
+                                    WriteLine("Toets \x1b[33m'K'\x1b[0m en druk ENTER wanneer u klaar bent.");
+                                    WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
                                     Staff.SelectTourAndCheckTour(tourIdInt);
                                     break;
                                 }
                             default:
                                 {
-                                    Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+                                    WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                                     continue;
                                 }
                         }
@@ -176,7 +175,7 @@ public class Menu
             }
             else
             {
-                Console.WriteLine("Dat is geen correcte code.");
+                WriteLine("Dat is geen correcte code.");
                 continue;
             }
         }

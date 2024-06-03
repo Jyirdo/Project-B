@@ -1,5 +1,3 @@
-namespace Project_B_UnitTests;
-
 [TestClass]
 public class UnitTest1
 {
@@ -72,7 +70,7 @@ public class UnitTest1
         Assert.AreEqual("Goedennacht, ", resultNight);
         Assert.AreEqual("Goedennacht, ", resultNight);
     }
-    
+
     [TestMethod]
     public void TestShowGreeting_Welkom()
     {
@@ -215,9 +213,19 @@ public class UnitTest1
     }
 
     [TestMethod]
-    public void TestSelectTourAndCheckTour()
+    public void SysteemTestTourReserveren()
     {
-        Assert.AreEqual(0, 0);
+        FakeWorld fakeworld = new();
+        Program.World = fakeworld;
+        int tourId = 1;
+        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
+        Tour tour = new Tour(tourId, time);
+
+        fakeworld.LinesToRead.Add("1");
+        fakeworld.LinesToRead.Add("1");
+        string actual = fakeworld.LinesWritten.Last();
+        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+        Assert.AreEqual(expected, actual);
     }
 
 }
