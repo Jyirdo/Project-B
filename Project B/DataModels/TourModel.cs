@@ -17,6 +17,11 @@ public class TourModel
     public GuideModel guide { get; set; }
 
     [JsonProperty("tourVisitorList")]
-    public List<Visitor> tourVisitorList { get; set; }
+    public List<Visitor> tourVisitorList { get; set; } = new();
 
+    public TourModel(int tourid, DateTime datetime)
+    {
+        tourId = tourid;
+        dateTime = datetime;
+    }
 }
