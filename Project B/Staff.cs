@@ -1,17 +1,20 @@
 using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
-class Staff 
+// Implement 3 layer architecture here
+class Staff
 {
     List<string> staffCodes = new List<string>();
     List<string> scannedIDS = new();
-    List<Tour> listoftours = new();
+    List<TourModel> listoftours = new();
     private static BaseLogic baseLogic = new BaseLogic();
     int tourAmount = 0;
     private string staffCode;
 
+    private static List<TourModel> dataList;
+
     public Staff()
     {
-        using (StreamReader reader = new StreamReader("../../staff_codes.txt"))
+        using (StreamReader reader = new StreamReader("DataSources/staff_codes.txt"))
         {
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -41,16 +44,14 @@ class Staff
     {
         if (staffCodes.Contains(staffCode))
         {
-            if (File.Exists("tour_times.json"))
+            if (File.Exists("DataSources/Tours.json"))
             {
-                List<Dictionary<string, string>> tourTimes;
-                using (StreamReader reader = new StreamReader("tour_times.json"))
+                using (StreamReader reader = new StreamReader("DataSources/Tours.json"))
                 {
                     var json = reader.ReadToEnd();
-                    tourTimes = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(json);
-                    foreach (Dictionary<string, string> tour in tourTimes)
-                        foreach (KeyValuePair<string, string> kvp in tour)
-                            listoftours.Add(new Tour(Convert.ToInt32(kvp.Key), Convert.ToDateTime(kvp.Value)));
+                    dataList = JsonConvert.DeserializeObject<List<TourModel>>(json);
+                    foreach (TourModel tour in dataList)
+                        listoftours.Add(tour);
                 }
             }
         }
@@ -60,12 +61,12 @@ class Staff
     {
         PopulateListOfTours(staffCode);
 
-        foreach (Tour tour in listoftours)
+        foreach (TourModel tour in listoftours)
         {
-            Console.WriteLine($"{tour.tour_id}; Rondleiding van {tour.tourStartTime}");
-            if (Convert.ToInt32(tour.tour_id) > tourAmount)
+            Console.WriteLine($"{tour.tourId}; Rondleiding van {tour.dateTime}");
+            if (Convert.ToInt32(tour.tourId) > tourAmount)
             {
-                tourAmount = Convert.ToInt32(tour.tour_id);
+                tourAmount = Convert.ToInt32(tour.tourId);
             }
         }
 
@@ -86,7 +87,7 @@ class Staff
                     }
                 case "a":
                     {
-                        //Advise.CreateAdvise();
+                        Advise.CreateAdvise();
                         break;
                     }
                 case "l":
@@ -142,18 +143,17 @@ class Staff
         if (selectedTourIdInt > 0 && selectedTourIdInt <= tourAmount)
         {
             // Hier worden reservation ID's voor de geselecteerde tour geprint
-            string jsonFilePath = "reservations.json";
-            string jsonText = File.ReadAllText(jsonFilePath);
-            dynamic reservations = JsonConvert.DeserializeObject(jsonText);
+            string json = File.ReadAllText("DataSources/Tours.json");
+            dataList = JsonConvert.DeserializeObject<List<TourModel>>(json);
             Console.WriteLine($"Reservation IDs voor tour met ID {selectedTourIdInt}:");
 
 
-            foreach (var reservation in reservations)
+            foreach (var tour in dataList)
             {
-                if (reservation.tour_number == selectedTourIdInt)
+                if (tour.tourId == selectedTourIdInt)
                 {
-                    Console.WriteLine(Convert.ToString(reservation.reservation_id));
-                    reservationIDS.Add(Convert.ToString(reservation.reservation_id));
+                    Console.WriteLine(Convert.ToString(tour.tourId));
+                    reservationIDS.Add(Convert.ToString(tour.tourId));
                 }
             }
 
@@ -187,9 +187,9 @@ class Staff
             {
                 case "s":
                     {
-                        foreach (Tour tour in listoftours)
+                        foreach (TourModel tour in listoftours)
                         {
-                            if (tour.tour_id == selectedTourIdInt)
+                            if (tour.tourId == selectedTourIdInt)
                             {
                                 // Program program = new Program();
                                 // program.writeToStartedToursJson(tour.parttakers, Convert.ToString(tour.tourStartTime));
@@ -232,7 +232,7 @@ class Staff
         {
             foreach (TourModel tour in tours)
             {
-                
+
                 if (tour.tourId == tourId)
                 {
                     // check if tour is full
@@ -240,7 +240,7 @@ class Staff
                     {
                         selectedTime = Convert.ToDateTime(tour.dateTime);
                         Visitor newClient = new Visitor(barcode, selectedTime, tourId);
-                        
+
                         Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
                     }
                     else
@@ -269,7 +269,7 @@ class Staff
         {
             foreach (TourModel tour in tours)
             {
-                
+
                 if (tour.tourId == tourId)
                 {
                     // check if tour is full
@@ -277,7 +277,7 @@ class Staff
                     {
                         selectedTime = Convert.ToDateTime(tour.dateTime);
                         Visitor newClient = new Visitor(barcode, selectedTime, tourId);
-                        
+
                         Console.WriteLine($"Succesvol aangemeld bij de rondleiding van {(newClient.tourTime).ToString("dd-M-yyyy HH:mm")}\n");
                     }
                     else

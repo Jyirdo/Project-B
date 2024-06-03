@@ -51,9 +51,9 @@ public class BaseLogic
         BaseAccess.WriteAll(items);
     }
 
-    public static void AssignGuide()
-    {
-        GuideModel.
-    }
+    // public static void AssignGuide()
+    // {
+    //     GuideModel.
+    // }
 
 }
