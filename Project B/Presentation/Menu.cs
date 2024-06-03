@@ -4,6 +4,7 @@ public class Menu
     {
         while (true)
         {
+            CreateJson.CheckTours();
             int currenthour = Convert.ToInt16(DateTime.Now.ToString("HH"));
             Console.Write(Greeting.ShowGreeting(currenthour));
             Console.WriteLine("scan de barcode op uw entreebewijs en druk op ENTER.");
@@ -12,7 +13,7 @@ public class Menu
             string input = Console.ReadLine();
             long.TryParse(input, out long barcode);
             if (Tour.CheckIfReservation(barcode) == true)
-            {   
+            {
                 Console.Clear();
                 SubMenu(barcode);
             }
@@ -110,7 +111,7 @@ public class Menu
     {
         while (true)
         {
-            Console.WriteLine("Geef uw personeelscode op:"); 
+            Console.WriteLine("Geef uw personeelscode op:");
             Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
             string staffcode = Console.ReadLine();
 
