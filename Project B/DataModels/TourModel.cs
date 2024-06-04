@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 public class TourModel
 {
-    [JsonProperty("tourId")]
+    [JsonProperty("tour_id")]
     public int tourId { get; set; }
 
     [JsonProperty("tourStartTime")]
@@ -10,21 +10,18 @@ public class TourModel
     [JsonProperty("parttakers")]
     public int parttakers { get; set; }
 
-    [JsonProperty("opentourspots")]
-    public bool openTourSpots { get; set; }
-
     [JsonProperty("limit")]
     public int limit { get; set; }
 
-    [JsonProperty("tourVisitorList")]
-    public List<Visitor> tourVisitorList { get; set; }
+    [JsonProperty("guide")]
+    public GuideModel guide { get; set; }
 
-    public TourModel(int tour_id, DateTime time, int part_takers, bool openSpots, int tour_limit)
+    [JsonProperty("tourVisitorList")]
+    public List<Visitor> tourVisitorList { get; set; } = new();
+
+    public TourModel(int tourid, DateTime datetime)
     {
-        tourId = tour_id;
-        dateTime = time;
-        parttakers = part_takers;
-        openTourSpots = openSpots;
-        limit = tour_limit;
+        tourId = tourid;
+        dateTime = datetime;
     }
 }
