@@ -146,6 +146,11 @@ public class Menu
                                     StaffMenu();
                                     break;
                                 }
+                            case "a":
+                                {
+                                    Advise.CreateAdvise();
+                                    break;
+                                }
                             case "l":
                                 {
                                     Console.WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen aan de rondleiding");
