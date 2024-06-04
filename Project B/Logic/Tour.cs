@@ -102,6 +102,11 @@ public class Tour
                     }
                 }
             }
+            else if (input.ToLower() == "q")
+            {
+                Console.Clear();
+                Menu.MainMenu();
+            }
             else
             {
                 Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.\n");
