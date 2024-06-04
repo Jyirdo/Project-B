@@ -30,7 +30,14 @@ public class Tour
         {
             if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
             {
-                Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m");
+                if (currentTourID < 10)
+                {
+                    Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                }
+                else
+                {
+                    Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                }
                 currentTourID++;
             }
             else
