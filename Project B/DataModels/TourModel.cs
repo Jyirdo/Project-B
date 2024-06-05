@@ -11,7 +11,7 @@ public class TourModel
     public int parttakers { get; set; }
 
     [JsonProperty("limit")]
-    public int limit { get; set; }
+    public int limit { get; set; } = 13;
 
     [JsonProperty("guide")]
     public GuideModel guide { get; set; }
