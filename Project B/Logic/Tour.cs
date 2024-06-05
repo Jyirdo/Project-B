@@ -25,12 +25,19 @@ public class Tour
         currentTourID = 1;
         pastTourCounter = 0;
 
-        Console.WriteLine("\nBij deze rondleidingen kunt u zich op dit moment aanmelden:");
+        Console.WriteLine("Bij deze rondleidingen kunt u zich op dit moment aanmelden:");
         foreach (TourModel tour in tours)
         {
             if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
             {
-                Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m");
+                if (currentTourID < 10)
+                {
+                    Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                }
+                else
+                {
+                    Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                }
                 currentTourID++;
             }
             else
@@ -94,6 +101,11 @@ public class Tour
                         }
                     }
                 }
+            }
+            else if (input.ToLower() == "q")
+            {
+                Console.Clear();
+                Menu.MainMenu();
             }
             else
             {

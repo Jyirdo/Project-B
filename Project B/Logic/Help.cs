@@ -12,14 +12,13 @@ public class Help : IInput
     {
         if (OperatingSystem.IsWindows())
         {
-            using (SoundPlayer soundPlayer = new SoundPlayer())
+            using (SoundPlayer soundPlayer = new("DataSources/Jingle.wav"))
                 soundPlayer.Play();
         }
     }
 
     public string ShowHelp(string input) // Input null for normal function and string for testing.
     {
-
         PlayJingle();
         if (input == null)
         {
