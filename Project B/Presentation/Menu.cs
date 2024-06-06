@@ -145,11 +145,6 @@ public class Menu : Presentation
                                     StaffMenu();
                                     break;
                                 }
-                            case "a":
-                                {
-                                    Advise.CreateAdvise();
-                                    break;
-                                }
                             case "l":
                                 {
                                     WriteLine("Scan de barcode van de bezoeker die u wilt toevoegen aan de rondleiding");
@@ -186,7 +181,7 @@ public class Menu : Presentation
                             }
                         case "a":
                             {
-                                //Advise.CreateAdvise();
+                                Advise.CreateAdvise();
                                 break;
                             }
                         case "z":

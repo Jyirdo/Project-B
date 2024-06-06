@@ -20,4 +20,16 @@ public class BaseAccess
             writer.WriteLine(jsonString);
         }
     }
+    public static List<string[]> LoadAllCSV(string filepath)
+    {
+        string[] lines = File.ReadAllLines(filepath);
+        List<string[]> csvData = new List<string[]>();
+
+        foreach (string line in lines)
+        {
+            string[] values = line.Split(';');
+            csvData.Add(values);
+        }
+        return csvData;
+    }
 }

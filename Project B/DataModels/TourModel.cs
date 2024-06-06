@@ -19,6 +19,9 @@ public class TourModel
     [JsonProperty("tourVisitorList")]
     public List<Visitor> tourVisitorList { get; set; } = new();
 
+    [JsonProperty("tourStarted")]
+    public bool tourStarted { get; set; } = false;
+
     public TourModel(int tourid, DateTime datetime)
     {
         tourId = tourid;

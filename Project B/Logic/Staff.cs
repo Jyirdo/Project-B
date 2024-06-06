@@ -110,6 +110,7 @@ public class Staff
                 {
                     case "s":
                         {
+                            tour.tourStarted = true;
                             Console.WriteLine("De tour is succesvol gestart\n");
                             Menu.MainMenu();
                             break;
