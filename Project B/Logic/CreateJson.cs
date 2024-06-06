@@ -5,10 +5,10 @@ using System.IO;
 
 public static class CreateJson
 {
-    public static string CheckTours()
+    public static DateTime currentDate = DateTime.Now.Date;
+    // Create new tours for the current day
+    static List<TourModel> CreateTours()
     {
-        List<TourModel> jsonList = BaseAccess.LoadAll();
-
         List<string> tourTimes = new List<string>
         {
             "10:20", "10:40", "11:00", "11:20", "12:00", "12:20", "12:40",
@@ -16,7 +16,31 @@ public static class CreateJson
             "15:20", "15:40", "16:00"
         };
 
-        DateTime currentDate = DateTime.Now.Date;
+        List<TourModel> newTourList = new List<TourModel>();
+        int tourNumber = 1;
+        foreach (string time in tourTimes)
+        {
+            DateTime tourDateTime = DateTime.ParseExact(currentDate.ToString("yyyy-MM-dd") + " " + time, "yyyy-MM-dd HH:mm", null);
+            TourModel newTour = new TourModel(tourNumber, tourDateTime);
+            newTourList.Add(newTour);
+            tourNumber++;
+        }
+        return newTourList;
+    }
+
+    public static string CheckTours()
+    {
+        List<TourModel> jsonList;
+        if (BaseAccess.LoadAll() == null)
+        {
+            var file = File.Create("DataSources/Tours.json");
+            file.Close();
+            BaseAccess.WriteAll(CreateTours());
+            return "New file successfully created";
+        }
+        else
+            jsonList = BaseAccess.LoadAll();
+
         bool isNewDay = false;
 
         foreach (TourModel tour in jsonList)
@@ -44,24 +68,9 @@ public static class CreateJson
 
                     File.Move(sourceFile, destinationFile);
 
-                    // Create new tours for the current day
-                    List<TourModel> newTourList = new List<TourModel>();
-                    int tourNumber = 1;
-                    foreach (string time in tourTimes)
-                    {
-                        DateTime tourDateTime = DateTime.ParseExact(currentDate.ToString("yyyy-MM-dd") + " " + time, "yyyy-MM-dd HH:mm", null);
-                        TourModel newTour = new TourModel(tourNumber, tourDateTime);
-                        newTourList.Add(newTour);
-                        tourNumber++;
-                    }
+                    BaseAccess.WriteAll(CreateTours());
 
-                    BaseAccess.WriteAll(newTourList);
-
-                    return "New file successfully created";
-                }
-                else
-                {
-                    return "File not found!";
+                    return "File successfully moved and updated";
                 }
             }
             catch (Exception ex)
