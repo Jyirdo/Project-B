@@ -2,92 +2,86 @@ using Newtonsoft.Json;
 
 public static class Advise
 {
-    private static List<TourModel> dataList;
-    static string latestStartedTour = "1-1-1970";
-    private static string GetPresenceData()
-    {
-        if (File.Exists("DataSources/Tours.json"))
-        {
-            // Use only information from the past month of tours, to keep information up to date.
-            KeepStartedToursUpToDate();
-
-            string json = File.ReadAllText("DataSources/Tours.json");
-            dataList = JsonConvert.DeserializeObject<List<TourModel>>(json);
-
-            if (dataList == null)
-            {
-                Console.WriteLine("The file 'Tours.json' is empty.");
-                return null;
-            }
-
-            return "";
-        }
-
-        else
-        {
-            Console.WriteLine("The file 'Tours.json' could not be found.");
-            return null;
-        }
-    }
-    private static void KeepStartedToursUpToDate()
-    {
-        string json = File.ReadAllText("DataSources/Tours.json");
-        List<TourModel> tempDataList = JsonConvert.DeserializeObject<List<TourModel>>(json);
-
-        foreach (var data in tempDataList)
-            if (data.dateTime > DateTime.Parse(latestStartedTour))
-                latestStartedTour = Convert.ToString(data.dateTime);
-
-        List<TourModel> startedList = JsonConvert.DeserializeObject<List<TourModel>>(File.ReadAllText("DataSources/Tours.json"));
-        startedList = startedList.Where(start => start.dateTime > DateTime.Parse(latestStartedTour).AddDays(-30)).ToList();
-        string updatedStartedTours = JsonConvert.SerializeObject(startedList, Formatting.Indented);
-        File.WriteAllText("DataSources/Tours.json", updatedStartedTours);
-    }
-
     public static void CreateAdvise()
     {
-        List<string> timeListLarge = new List<string>();
-        List<string> timeListSmall = new List<string>();
-        string present = GetPresenceData();
-        if (present == null)
+        List<string[]> present = BaseAccess.LoadAllCSV("DataSources/parttakers.csv");
+        if (present == null || present.Count == 0)
+        {
+            Console.WriteLine("CSV niet gevonden.");
             return;
-
-        // Add day(s) and time(s) where there are more then 10 people or less then 5 to list.
-        // This program checks by day (e.g. "Thursday") and not by date.
-        foreach (TourModel item in dataList)
-        {
-            if (item.parttakers > 10)
-                timeListLarge.Add(item.dateTime.ToString($"dddd 'om' HH:mm"));
-
-            else if (item.parttakers < 5)
-                timeListSmall.Add(item.dateTime.ToString($"dddd 'om' HH:mm"));
         }
 
-        Dictionary<string, int> timeDictLarge = new Dictionary<string, int>();
-        Dictionary<string, int> timeDictSmall = new Dictionary<string, int>();
+        string[] headers = present[0];
+        Dictionary<string, List<int>[]> parttakers = new();
 
-        // Add to a dict the day and time and the amount of times that day and time has more then 10 visitors or less then 5.
-        foreach (string time in timeListLarge.Distinct().ToList())
+        foreach (string[] row in present.Skip(1)) // Skip header
         {
-            int count = timeListLarge.Count(item => item == time);
-            timeDictLarge.Add(time, count);
+            if (row.Length == 0) continue;
+
+            string dateStr = row[0];
+
+            if (DateTime.TryParse(dateStr, out DateTime date))
+            {
+                string dayOfWeek = date.DayOfWeek.ToString();
+
+                if (!parttakers.ContainsKey(dayOfWeek))
+                {
+                    parttakers[dayOfWeek] = new List<int>[headers.Length - 1];
+                    for (int i = 0; i < headers.Length - 1; i++)
+                    {
+                        parttakers[dayOfWeek][i] = new List<int>();
+                    }
+                }
+
+                for (int i = 1; i < row.Length && i < headers.Length; i++)
+                {
+                    if (int.TryParse(row[i], out int participants))
+                    {
+                        parttakers[dayOfWeek][i - 1].Add(participants);
+                    }
+                }
+            }
         }
 
-        foreach (string time in timeListSmall.Distinct().ToList())
+        Dictionary<string, int> timeDictLarge = new();
+        Dictionary<string, int> timeDictSmall = new();
+
+        foreach (var day in parttakers)
         {
-            int count = timeListSmall.Count(item => item == time);
-            timeDictSmall.Add(time, count);
+            for (int i = 0; i < day.Value.Length; i++)
+            {
+                List<int> participantsList = day.Value[i];
+                participantsList.Sort();
+                int count = participantsList.Count;
+                int median = count % 2 == 0
+                    ? (participantsList[count / 2 - 1] + participantsList[count / 2]) / 2
+                    : participantsList[count / 2];
+
+                string timeKey = $"{day.Key} {headers[i + 1]}";
+                if (median < 5)
+                {
+                    if (!timeDictSmall.ContainsKey(timeKey))
+                        timeDictSmall[timeKey] = 0;
+                    timeDictSmall[timeKey]++;
+                }
+                else if (median > 10)
+                {
+                    if (!timeDictLarge.ContainsKey(timeKey))
+                        timeDictLarge[timeKey] = 0;
+                    timeDictLarge[timeKey]++;
+                }
+            }
         }
 
-        // If the amount of times a certain day and time has too little or too much visitors exceeds twice in a month, suggest extra tour.
         using (StreamWriter writer = new StreamWriter("DataSources/Advise.txt", false))
         {
             foreach (KeyValuePair<string, int> kvp in timeDictLarge)
             {
-                if (kvp.Value >= 2)
+                if (kvp.Value >= 9)
                 {
-                    Console.WriteLine($"Er wordt aangeraden om extra rondleidingen te geven op {kvp.Key}.");
-                    writer.WriteLine($"Er wordt aangeraden om extra rondleidingen te geven op {kvp.Key}.");
+                    string message = $"Er wordt aangeraden om extra rondleidingen te geven op {kvp.Key}.";
+                    Console.WriteLine(message);
+                    writer.WriteLine(message);
                 }
             }
 
@@ -96,18 +90,17 @@ public static class Advise
 
             foreach (KeyValuePair<string, int> kvp in timeDictSmall)
             {
-                if (kvp.Value >= 2)
+                if (kvp.Value <= 5)
                 {
-                    Console.WriteLine($"Er wordt aangeraden om minder rondleidingen te geven op {kvp.Key}.");
-                    writer.WriteLine($"Er wordt aangeraden om minder rondleidingen te geven op {kvp.Key}.");
+                    string message = $"Er wordt aangeraden om minder rondleidingen te geven op {kvp.Key}.";
+                    Console.WriteLine(message);
+                    writer.WriteLine(message);
                 }
             }
 
             writer.WriteLine("\nAdvise created on:");
             writer.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy")}");
+            Console.WriteLine("Alleen een streep? Dan is er momenteel geen advies");
         }
-
-
-
     }
 }
