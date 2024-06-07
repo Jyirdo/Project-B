@@ -35,6 +35,7 @@ public class Tour
                         lowestTourId = tour.tourId;
                         firstLoop = false;
                     }
+
                     Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
                 }
                 else if (DateTime.Now.Hour >= 16)
@@ -58,7 +59,12 @@ public class Tour
 
             else if (StaffMenuEdition == true)
             {
-                Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                string tourStartedMessage;
+                if (tour.tourStarted == true)
+                    tourStartedMessage = "\x1b[32;1m || Deze rondleiding is gestart.\x1b[0m";
+                else
+                    tourStartedMessage = "";
+                Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) {tourStartedMessage}");
             }
 
         }
@@ -162,5 +168,18 @@ public class Tour
             }
         }
         return "U heeft nog geen tour ingepland\n";
+    }
+
+    public static string CheckIfTourIsStarted(int tourid)
+    {
+        List<TourModel> tours = BaseAccess.LoadAll();
+        foreach (TourModel tour in tours)
+        {
+            if (tour.tourId == tourid && tour.tourStarted == true)
+            {
+                return $"\x1b[31;1mDeze rondleiding is al gestart en kan niet worden aangepast.\x1b[0m";
+            }
+        }
+        return null;
     }
 }

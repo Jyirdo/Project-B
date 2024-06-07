@@ -125,41 +125,49 @@ public class Menu : Presentation
             string tourId = ReadLine();
             if (int.TryParse(tourId, out int tourIdInt))
             {
-                while (true)
+                if (Tour.CheckIfTourIsStarted(tourIdInt) != null)
                 {
-                    Console.Clear();
-                    WriteLine($"\x1b[35m\x1b[1mU heeft rondleiding {tourIdInt} geselecteerd.\x1b[0m");
-                    WriteLine($"Toets \x1b[33m'L'\x1b[0m en druk ENTER om een bezoeker handmatig toe te voegen aan rondleiding \x1b[35m\x1b[1m{tourIdInt}\x1b[0m.");
-                    WriteLine($"Toets \x1b[33m'C'\x1b[0m en druk ENTER om de bezoekers in rondleiding \x1b[35m\x1b[1m{tourIdInt}\x1b[0m te checken.");
-                    WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-                    string input = ReadLine();
-                    Console.Clear();
-                    switch (input.ToLower())
+                    Console.WriteLine(Tour.CheckIfTourIsStarted(tourIdInt));
+                    StaffMenu();
+                }
+                else
+                {
+                    while (true)
                     {
-                        case "q":
-                            {
-                                Console.Clear();
-                                StaffMenu();
-                                break;
-                            }
-                        case "l":
-                            {
-                                WriteLine($"Scan de barcode van de bezoeker die u handmatig wilt toevoegen aan rondleiding {tourIdInt}:");
-                                WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-                                string input1 = ReadLine();
-                                WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
-                                break;
-                            }
-                        case "c":
-                            {
-                                Staff.SelectTourAndCheckTour(tourIdInt);
-                                break;
-                            }
-                        default:
-                            {
-                                WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
-                                continue;
-                            }
+                        Console.Clear();
+                        WriteLine($"\x1b[35m\x1b[1mU heeft rondleiding {tourIdInt} geselecteerd.\x1b[0m");
+                        WriteLine($"Toets \x1b[33m'L'\x1b[0m en druk ENTER om een bezoeker handmatig toe te voegen aan rondleiding \x1b[35m\x1b[1m{tourIdInt}\x1b[0m.");
+                        WriteLine($"Toets \x1b[33m'C'\x1b[0m en druk ENTER om de bezoekers in rondleiding \x1b[35m\x1b[1m{tourIdInt}\x1b[0m te checken.");
+                        WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                        string input = ReadLine();
+                        Console.Clear();
+                        switch (input.ToLower())
+                        {
+                            case "q":
+                                {
+                                    Console.Clear();
+                                    StaffMenu();
+                                    break;
+                                }
+                            case "l":
+                                {
+                                    WriteLine($"Scan de barcode van de bezoeker die u handmatig wilt toevoegen aan rondleiding {tourIdInt}:");
+                                    WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                                    string input1 = ReadLine();
+                                    WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
+                                    break;
+                                }
+                            case "c":
+                                {
+                                    Staff.SelectTourAndCheckTour(tourIdInt);
+                                    break;
+                                }
+                            default:
+                                {
+                                    WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+                                    continue;
+                                }
+                        }
                     }
                 }
             }
