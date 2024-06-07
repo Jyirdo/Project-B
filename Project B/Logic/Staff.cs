@@ -128,7 +128,7 @@ public class Staff
 
                             BaseAccess.WriteAll(tours2);
 
-                            Console.WriteLine("De tour is succesvol gestart\n");
+                            Console.WriteLine("De rondleiding is succesvol gestart\n");
 
                             Menu.MainMenu();
                             break;

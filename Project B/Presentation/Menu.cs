@@ -123,7 +123,7 @@ public class Menu : Presentation
             WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan naar het hoofdmenu.");
 
             string tourId = ReadLine();
-            if (int.TryParse(tourId, out int tourIdInt))
+            if (int.TryParse(tourId, out int tourIdInt) && tourIdInt > 0 && tourIdInt <= BaseAccess.LoadAll().Count())
             {
                 if (Tour.CheckIfTourIsStarted(tourIdInt) != null)
                 {
@@ -190,6 +190,12 @@ public class Menu : Presentation
                         {
                             Environment.Exit(0);
                             break;
+                        }
+                    default:
+                        {
+                            Console.Clear();
+                            WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
+                            continue;
                         }
                 }
             }

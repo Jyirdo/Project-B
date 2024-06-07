@@ -20,7 +20,7 @@ public class Tour
 
     public static int Load_Tours(bool StaffMenuEdition)
     {
-        List<TourModel> tours = baseLogic.GetAllTours();
+        List<TourModel> tours = BaseAccess.LoadAll();
         int lowestTourId = 1;
         bool firstLoop = true;
 
@@ -153,6 +153,7 @@ public class Tour
         }
     }
 
+
     public static string CancelReservation(string barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
@@ -177,6 +178,7 @@ public class Tour
         {
             if (tour.tourId == tourid && tour.tourStarted == true)
             {
+                Console.Clear();
                 return $"\x1b[31;1mDeze rondleiding is al gestart en kan niet worden aangepast.\x1b[0m";
             }
         }
