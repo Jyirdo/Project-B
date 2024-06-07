@@ -22,6 +22,7 @@ public class Menu : Presentation
             }
             else if (Staff.CorrectStaffCode(input.Trim()) == true)
             {
+                Console.Clear();
                 Menu.StaffMenu();
             }
             else if (Visitor.HasTicket(input.Trim()))
@@ -114,7 +115,6 @@ public class Menu : Presentation
     {
         while (true)
         {
-            Console.Clear();
             WriteLine("\x1b[1mMEDEWERKERSMENU\x1b[0m");
             Tour.Load_Tours(true);
             WriteLine("\x1b[35m\x1b[1mVoer de ID in van de rondleiding waarvan u de opties wilt zien en druk ENTER.\x1b[0m\n \nAndere opties:");
