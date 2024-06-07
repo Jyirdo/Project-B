@@ -23,7 +23,11 @@ public class Help : IInput
         if (input == null)
         {
             if (GetInput() == "q")
+            {
+                Console.Clear();
                 return null;
+            }
+
         }
         else if (input is string)
         {

@@ -3,20 +3,13 @@ using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
 public class Staff
 {
-    public static List<string> staffCodes = new List<string>();
+    public static List<string> staffCodes = new();
     public static List<string> scannedIDS = new();
     private static BaseLogic baseLogic = new BaseLogic();
 
     public static bool CorrectStaffCode(string staffcode)
     {
-        using (StreamReader reader = new StreamReader("DataSources/staff_codes.txt"))
-        {
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                staffCodes.Add(line);
-            }
-        }
+        staffCodes = BaseAccess.loadAllStaffCodes();
         if (staffCodes.Contains(staffcode))
         {
             return true;
@@ -24,10 +17,11 @@ public class Staff
         return false;
     }
 
-    public static List<string> CheckPresence(List<string> reservations)
+    public static List<string> CheckPresence(List<string> reservations, int tourID)
     {
         while (true)
         {
+            Console.WriteLine("Scan een barcode. Druk op 'Q' om terug te gaan of op 'K' als u klaar bent:");
             string checkPresence = Console.ReadLine();
             if (checkPresence.ToLower() == "q")
             {
@@ -39,12 +33,18 @@ public class Staff
             }
             else
             {
-                if (long.TryParse(checkPresence, out long barcode))
+                if (long.TryParse(checkPresence, out _))
                 {
-                    if (reservations.Contains(Convert.ToString(barcode)))
+                    if (BaseAccess.GetVisitorInTour(tourID, checkPresence.Trim()))
                     {
                         scannedIDS.Add(checkPresence);
-                        reservations.Remove(Convert.ToString(barcode));
+                        reservations.Remove(Convert.ToString(checkPresence.Trim()));
+                        Console.WriteLine($"{checkPresence} is gecontroleerd.");
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Dat is geen correcte barcode.");
                         continue;
                     }
                 }
@@ -79,7 +79,7 @@ public class Staff
 
 
             CheckThePresence:
-                List<string> presenceList = CheckPresence(reservationIDS);
+                List<string> presenceList = CheckPresence(reservationIDS, tourId);
 
                 foreach (string scanned in scannedIDS)
                     presenceList.Remove(scanned);
@@ -99,18 +99,19 @@ public class Staff
                     {
                         int enumerator = 1;
                         Console.WriteLine($"{enumerator}. ({notpresent})");
-                        Add_Remove.Remove(new Visitor(Convert.ToInt64(notpresent)), tourId);
+                        Add_Remove.Remove(new Visitor(notpresent), tourId);
                         enumerator++;
                     }
                 }
 
                 Console.WriteLine("Druk op 'S' om de tour te starten.");
-                Console.WriteLine("Druk op 'Q' om terug te gaan.");
+                Console.WriteLine("Druk op 'Q' om terug te gaan en verder te scannen.");
                 switch (Console.ReadLine().ToLower())
                 {
                     case "s":
                         {
                             tour.tourStarted = true;
+                            BaseAccess.WriteAll(tours);
                             Console.WriteLine("De tour is succesvol gestart\n");
                             Menu.MainMenu();
                             break;
@@ -126,8 +127,6 @@ public class Staff
                         }
                 }
             }
-            else
-                Console.WriteLine("Ongeldige tour ID. Probeer opnieuw.");
         }
     }
 
@@ -137,7 +136,7 @@ public class Staff
 
         while (true)
         {
-            if (long.TryParse(input, out long barcode))
+            if (long.TryParse(input, out _))
             {
                 foreach (TourModel tour in tours)
                 {
@@ -146,8 +145,8 @@ public class Staff
                         // check if tour is full
                         if (tour.parttakers < tour.limit)
                         {
-                            Add_Remove.Add(new Visitor(barcode), tourId);
-                            return $"{barcode} succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n";
+                            Add_Remove.Add(new Visitor(input.Trim()), tourId);
+                            return $"{input.Trim()} succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n";
                         }
                         else
                         {
