@@ -32,4 +32,59 @@ public class BaseAccess
         }
         return csvData;
     }
+
+    public static List<string> loadAllStaffCodes()
+    {
+        List<string> staffCodes = new();
+
+        using (StreamReader reader = new StreamReader("DataSources/staff_codes.txt"))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                staffCodes.Add(line);
+            }
+        }
+
+        return staffCodes;
+    }
+
+    public static List<string> loadAllVisitorCodes()
+    {
+        List<string> visitorCodes = new();
+
+        if (!File.Exists("DataSources/visitor_codes.txt"))
+            Console.WriteLine("visitor_codes.txt ontbreekt. Graag assistentie zoeken.");
+        else
+        {
+            using (StreamReader reader = new StreamReader("DataSources/visitor_codes.txt"))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    visitorCodes.Add(line);
+                }
+            }
+        }
+
+        return visitorCodes;
+    }
+
+    public static bool GetVisitorInTour(int selectedTour, string barcode)
+    {
+        if (File.Exists("DataSources/Tours.json"))
+        {
+            string json = File.ReadAllText("DataSources/Tours.json");
+            var convertedJson = JsonConvert.DeserializeObject<List<TourModel>>(json);
+            foreach (TourModel model in convertedJson)
+            {
+                if (model.tourId == selectedTour)
+                    foreach (Visitor visitor in model.tourVisitorList)
+                        if (visitor.barcode == barcode)
+                            return true;
+            }
+        }
+        return false;
+    }
 }
+
