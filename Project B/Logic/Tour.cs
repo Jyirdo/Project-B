@@ -7,6 +7,7 @@ public class Tour
     public static int limit;
 
     public static int currentTourID = 1;
+    public static int pastTourCounter;
     private static BaseLogic baseLogic = new BaseLogic();
 
     public Tour(int id, DateTime time)
@@ -98,25 +99,22 @@ public class Tour
     public static string ChooseTour(string barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
+
         while (true)
         {
             string input = Console.ReadLine();
+
             if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 && chosenTourID < currentTourID)
-            Console.Clear();
             {
+                chosenTourID += pastTourCounter;
                 foreach (TourModel tour in tours)
                 {
-                    if (tour.tourId == chosenTourID)
+                    for (int i = 1; i <= currentTourID; i++)
                     {
-                        if (tour.parttakers < tour.limit && tour.tourStarted == false)
+                        if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                         {
                             Add_Remove.Add(new Visitor(barcode), tour.tourId);
-                            return $"Succesvol aangemeld bij rondleiding {tour.tourId} van \x1b[32m{tour.dateTime.ToString("HH:mm")}\x1b[0m\n";
-                        }
-                        else
-                        {
-                            Console.WriteLine("U heeft een incorrect of ongeldig rondleidingsnummer opgegeven, probeer het opnieuw.\n");
-                            return SelectTour.SelectATour(barcode);
+                            return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                         }
                     }
                 }
