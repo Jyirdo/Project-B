@@ -29,7 +29,9 @@ public class Staff
             }
             if (checkPresence.ToLower() == "k")
             {
-                return reservations;
+                Console.Clear();
+                List<string> reservations2 = reservations;
+                return reservations2;
             }
             else
             {
@@ -39,12 +41,20 @@ public class Staff
                     {
                         scannedIDS.Add(checkPresence);
                         reservations.Remove(Convert.ToString(checkPresence.Trim()));
-                        Console.WriteLine($"{checkPresence} is gecontroleerd.");
+                        Console.WriteLine($"\x1b[32;1m{checkPresence} is gecontroleerd.\x1b[0m");
                         continue;
                     }
                     else
                     {
-                        Console.WriteLine("Dat is geen correcte barcode.");
+                        string tourTime = Tour.GetTourTime(checkPresence, true);
+                        if (tourTime != "U heeft nog geen rondleiding geboekt\n")
+                        {
+                            Console.WriteLine($"\x1b[36;1mDeze bezoeker heeft zich aangemeld bij een \x1b[36;1;4mandere rondleiding\x1b[0m\x1b[36;1m (van {tourTime})\x1b[0m");
+                            Console.WriteLine("\x1b[31;1mDus dat is een incorrecte barcode.\x1b[0m\n");
+                        }
+                        else
+                            Console.WriteLine("\x1b[31;1mDat is een incorrecte barcode.\x1b[0m");
+
                         continue;
                     }
                 }
@@ -63,14 +73,14 @@ public class Staff
         scannedIDS.Clear();
         List<string> reservationIDS = new List<string>();
         // Controleer of de ingevoerde tour ID geldig is
-        List<TourModel> tours = baseLogic.GetAllTours();
+        List<TourModel> tours = BaseAccess.LoadAll();
 
         foreach (TourModel tour in tours)
         {
             if (tour.tourId == tourId)
             {
                 // Hier worden reservation ID's voor de geselecteerde tour geprint
-                Console.WriteLine($"Bezoeker barcode(s) voor tour met ID {tourId}:");
+                Console.WriteLine($"Bezoeker barcode(s) voor tour met ID \x1b[35m\x1b[1m{tourId}\x1b[0m:");
                 foreach (Visitor visitor in tour.tourVisitorList)
                 {
                     Console.WriteLine(visitor.barcode);
@@ -94,27 +104,34 @@ public class Staff
                 }
                 else if (presenceList.Count() > 0)
                 {
-                    Console.WriteLine("Deze ID's zijn afwezig:");
+                    Console.WriteLine("\x1b[1mDeze ID's zijn afwezig:\x1b[0m\n");
                     foreach (string notpresent in presenceList)
-                    {
-                        int enumerator = 1;
-                        Console.WriteLine($"{enumerator}. ({notpresent})");
-                        Add_Remove.Remove(new Visitor(notpresent), tourId);
-                        enumerator++;
-                    }
-                }
+                        Console.WriteLine($"{notpresent}");
+                    Console.WriteLine($"Aantal mensen afwezig: {presenceList.Count}.\n");
 
+                }
                 Console.WriteLine("Druk op \x1b[32m'S'\x1b[0m om de tour te starten.");
                 Console.WriteLine("Druk op \x1b[31m'Q'\x1b[0m om terug te gaan en verder te scannen.");
                 switch (Console.ReadLine().ToLower())
                 {
                     case "s":
                         {
-                            tour.tourStarted = true;
-                            BaseAccess.WriteAll(tours);
-                            Console.WriteLine("De tour is succesvol gestart\n");
+                            foreach (string notpresent in presenceList)
+                                Add_Remove.Remove(new Visitor(notpresent), tourId);
+
+                            List<TourModel> tours2 = BaseAccess.LoadAll();
+                            TourModel tourToUpdate = tours2.FirstOrDefault(t => t.tourId == tour.tourId);
+
+                            if (tourToUpdate != null)
+                                tourToUpdate.tourStarted = true;
+
+                            BaseAccess.WriteAll(tours2);
+
+                            Console.WriteLine("De rondleiding is succesvol gestart\n");
+
                             Menu.MainMenu();
                             break;
+
                         }
                     case "q":
                         {
