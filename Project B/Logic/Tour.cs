@@ -18,58 +18,40 @@ public class Tour
         limit = 13;
     }
 
-    public static int Load_Tours(bool StaffMenuEdition)
+    public static void Load_Tours(bool staffLogin)
     {
-        List<TourModel> tours = BaseAccess.LoadAll();
-        int lowestTourId = 1;
-        bool firstLoop = true;
+        List<TourModel> tours = baseLogic.GetAllTours();
+        currentTourID = 1;
+        pastTourCounter = 0;
 
         foreach (TourModel tour in tours)
         {
-            if (StaffMenuEdition == false)
+            if (staffLogin)
             {
-                if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit && tour.tourStarted == false)
-                {
-                    if (firstLoop == true)
-                    {
-                        lowestTourId = tour.tourId;
-                        firstLoop = false;
-                    }
-
-                    Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
-                }
-                else if (DateTime.Now.Hour >= 16)
-                {
-                    lowestTourId = 420;
-                    Console.WriteLine("\n\x1b[36;1mU kunt op dit tijdstip geen rondleidingen meer volgen, excuses voor het ongemak.\x1b[0m\n");
-
-                    Console.Write("4.\r");
-                    Thread.Sleep(1000);
-                    Console.Write("3.\r");
-                    Thread.Sleep(1000);
-                    Console.Write("2.\r");
-                    Thread.Sleep(1000);
-                    Console.Write("1.\r");
-                    Thread.Sleep(1000);
-
-                    Console.Clear();
-                    Menu.MainMenu();
-                }
+                Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
             }
-
-            else if (StaffMenuEdition == true)
+            else
             {
-                string tourStartedMessage;
-                if (tour.tourStarted == true)
-                    tourStartedMessage = "\x1b[32;1m || Deze rondleiding is gestart.\x1b[0m";
+                if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
+                {
+                    if (currentTourID < 10)
+                    {
+                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                    }
+                    currentTourID++;
+                }
                 else
-                    tourStartedMessage = "";
-                Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) {tourStartedMessage}");
+                {
+                    pastTourCounter++;
+                    continue;
+                }
             }
 
         }
-
-        return lowestTourId;
     }
 
     public static string CheckIfReservation(string barcode)
@@ -113,15 +95,14 @@ public class Tour
         return "U heeft nog geen rondleiding geboekt\n";
     }
 
-    public static string ChooseTour(string barcode, int lowestTourId)
+    public static string ChooseTour(string barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
         while (true)
         {
             string input = Console.ReadLine();
+            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 && chosenTourID < currentTourID)
             Console.Clear();
-
-            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= lowestTourId && chosenTourID <= tours[tours.Count - 1].tourId)
             {
                 foreach (TourModel tour in tours)
                 {
@@ -147,7 +128,7 @@ public class Tour
             }
             else
             {
-                Console.WriteLine("U heeft een incorrect rondleidingsnummer opgegeven, probeer het opnieuw.\n");
+                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
                 return SelectTour.SelectATour(barcode);
             }
         }
