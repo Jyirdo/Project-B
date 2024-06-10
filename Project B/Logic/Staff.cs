@@ -1,3 +1,4 @@
+namespace ProjectB;
 using System.Data;
 using Newtonsoft.Json;
 // Sometime in the future make these methods static somehow
@@ -128,8 +129,6 @@ public class Staff
                             BaseAccess.WriteAll(tours2);
 
                             Console.WriteLine("De rondleiding is succesvol gestart\n");
-
-                            Menu.MainMenu();
                             break;
 
                         }

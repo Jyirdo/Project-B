@@ -1,3 +1,5 @@
+namespace ProjectB;
+
 public class Tour
 {
     public int tourId;
@@ -122,7 +124,7 @@ public class Tour
             else if (input.ToLower() == "q")
             {
                 Console.Clear();
-                Menu.MainMenu();
+                return "";
             }
             else
             {

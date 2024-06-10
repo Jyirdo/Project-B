@@ -1,3 +1,5 @@
+namespace ProjectB;
+
 public static class Add_Remove
 {
     static private BaseLogic baseLogic = new BaseLogic();

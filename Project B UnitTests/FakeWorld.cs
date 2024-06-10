@@ -1,4 +1,6 @@
-﻿public class FakeWorld : IWorld
+﻿namespace ProjectB;
+
+public class FakeWorld : IWorld
 {
     private DateTime? _now = null;
 
@@ -14,7 +16,7 @@
     {
         LinesWritten.Add(line);
     }
-
+    
     public List<string> LinesToRead { get; set; } = new();
 
     public string ReadLine()

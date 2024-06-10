@@ -1,3 +1,4 @@
+namespace ProjectB;
 using System.Media;
 
 public class Help : IInput

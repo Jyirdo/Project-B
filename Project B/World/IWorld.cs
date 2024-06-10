@@ -1,4 +1,6 @@
-﻿public interface IWorld
+﻿namespace ProjectB;
+
+public interface IWorld
 {
     DateTime Now { get; }
 
