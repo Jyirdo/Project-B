@@ -19,40 +19,39 @@ public class Tour
         limit = 13;
     }
 
-    public static int Load_Tours(bool StaffMenuEdition)
+    public static void Load_Tours(bool staffLogin)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
+        currentTourID = 1;
         pastTourCounter = 0;
-        int lowestTourId = 1;
-        bool firstLoop = true;
 
         foreach (TourModel tour in tours)
         {
-            if (StaffMenuEdition == false)
-            {
-                if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit && tour.tourStarted == false)
-                {
-                    if (firstLoop == true)
-                    {
-                        lowestTourId = tour.tourId;
-                        firstLoop = false;
-                    }
-                    Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
-                }
-            }
-
-            else if (StaffMenuEdition == true)
+            if (staffLogin)
             {
                 Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
             }
             else
             {
-                pastTourCounter++;
-                continue;
+                if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
+                {
+                    if (currentTourID < 10)
+                    {
+                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                    }
+                    currentTourID++;
+                }
+                else
+                {
+                    pastTourCounter++;
+                    continue;
+                }
             }
         }
-
-        return lowestTourId;
     }
 
     public static string CheckIfReservation(string barcode)
@@ -92,14 +91,13 @@ public class Tour
         return "U heeft nog geen rondleiding geboekt\n";
     }
 
-    public static string ChooseTour(string barcode, int lowestTourId)
+    public static string ChooseTour(string barcode)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
         while (true)
         {
             string input = Console.ReadLine();
-
-            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= lowestTourId)
+            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 && chosenTourID < currentTourID)
             {
                 chosenTourID += pastTourCounter;
                 foreach (TourModel tour in tours)
@@ -121,7 +119,7 @@ public class Tour
             }
             else
             {
-                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.\n");
+                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
                 return SelectTour.SelectATour(barcode);
             }
         }

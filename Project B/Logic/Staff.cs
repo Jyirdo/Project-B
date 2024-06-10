@@ -21,7 +21,7 @@ public class Staff
     {
         while (true)
         {
-            Console.WriteLine("Scan een barcode. Druk op 'Q' om terug te gaan of op 'K' als u klaar bent:");
+            Console.WriteLine("Scan een barcode. Druk op \x1b[31m'Q'\x1b[0m om terug te gaan of op \x1b[32m'K'\x1b[0m als u klaar bent:");
             string checkPresence = Console.ReadLine();
             if (checkPresence.ToLower() == "q")
             {
@@ -104,8 +104,8 @@ public class Staff
                     }
                 }
 
-                Console.WriteLine("Druk op 'S' om de tour te starten.");
-                Console.WriteLine("Druk op 'Q' om terug te gaan en verder te scannen.");
+                Console.WriteLine("Druk op \x1b[32m'S'\x1b[0m om de tour te starten.");
+                Console.WriteLine("Druk op \x1b[31m'Q'\x1b[0m om terug te gaan en verder te scannen.");
                 switch (Console.ReadLine().ToLower())
                 {
                     case "s":
