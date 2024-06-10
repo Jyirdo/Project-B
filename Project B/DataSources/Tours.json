@@ -83,15 +83,11 @@
   {
     "tour_id": 10,
     "tourStartTime": "2024-06-10T13:20:00",
-    "parttakers": 1,
+    "parttakers": 0,
     "limit": 13,
     "guide": null,
-    "tourVisitorList": [
-      {
-        "barcode": "123"
-      }
-    ],
-    "tourStarted": true
+    "tourVisitorList": [],
+    "tourStarted": false
   },
   {
     "tour_id": 11,
