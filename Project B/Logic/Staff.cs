@@ -30,7 +30,7 @@ public class Staff
             }
             if (checkPresence.ToLower() == "k")
             {
-                Console.Clear();
+                //Console.Clear();
                 List<string> reservations2 = reservations;
                 return reservations2;
             }

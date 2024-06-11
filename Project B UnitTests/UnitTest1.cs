@@ -217,16 +217,15 @@ public class UnitTest1
     [TestMethod]
     public void SysteemTestTourReserveren()
     {
-        FakeWorld fakeworld = new();
-        Menu.World = fakeworld;
-        int tourId = 1;
-        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
-        Tour tour = new Tour(tourId, time);
+        FakeWorld world = new()
+        {
+            LinesToRead = new() { "123", "1" }
+        };
+        TestMenu menu = new(world);
+        menu.MainMenu();
 
-        fakeworld.LinesToRead.Add("1");
-        fakeworld.LinesToRead.Add("1");
-        string actual = fakeworld.LinesWritten.Last();
-        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+        string actual = world.LinesWritten.Last();
+        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m05-06-2024 10:20:00\x1b[0m\n";
         Assert.AreEqual(expected, actual);
     }
 }

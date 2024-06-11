@@ -25,7 +25,7 @@ public class Help : IInput
         {
             if (GetInput() == "q")
             {
-                Console.Clear();
+                //Console.Clear();
                 return null;
             }
 
