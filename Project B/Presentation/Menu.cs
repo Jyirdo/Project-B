@@ -23,7 +23,20 @@ public class Menu : Presentation
             else if (Staff.CorrectStaffCode(input.Trim()) == true)
             {
                 Console.Clear();
-                Menu.StaffMenu();
+                Console.WriteLine("Voer het wachtwoord in of toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                string password = "hetdepot2024!";
+                string password_input = ReadLine();
+
+                if (password_input == password)
+                {
+                    Console.Clear();
+                    StaffMenu();
+                }
+                else
+                {
+                    Console.Clear();
+                    MainMenu();
+                }
             }
             else if (Visitor.HasTicket(input.Trim()))
             {
@@ -189,6 +202,7 @@ public class Menu : Presentation
                         }
                     case "a":
                         {
+                            Console.Clear();
                             Advise.CreateAdvise();
                             break;
                         }
