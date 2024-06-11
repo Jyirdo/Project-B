@@ -11,53 +11,46 @@ public class TestMenu
 
     // public void MainMenu()
     // {
-    //     while (true)
+    //     string input = World.ReadLine();
+
+    //     if (Visitor.HasTicket(input.Trim()))
     //     {
-    //         string input = World.ReadLine();
-
-    //         if (Visitor.HasTicket(input.Trim()))
-    //         {
-    //             World.WriteLine("kek");
-    //             //Console.Clear();
-    //             World.WriteLine(TestSelectTour.SelectATour(input.Trim(), World));
-    //             //Console.Clear();
-
-    //         }
+    //         World.WriteLine("kek");
+    //         //Console.Clear();
+    //         World.WriteLine(TestSelectTour.SelectATour(input.Trim(), World));
+    //         //Console.Clear();
     //     }
     // }
 
     public void MainMenu()
     {
-
         CreateJson.CheckTours();
         int currenthour = Convert.ToInt16(DateTime.Now.ToString("HH"));
         World.WriteLine($"\x1b[1m{Greeting.ShowGreeting(currenthour)}scan de barcode op uw entreebewijs of medewerkerspas en druk op ENTER.\x1b[0m");
         World.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-        
+
         string input = World.ReadLine();
-        
         if (TestTour.CheckIfReservation(input.Trim()) == "true")
         {
             //Console.Clear();
-            //SubMenu(input.Trim());
+            // SubMenu(input.Trim());
         }
         else if (TestTour.CheckIfReservation(input.Trim()) != "true" && TestTour.CheckIfReservation(input.Trim()) != "false")
         {
-            Console.WriteLine(TestTour.CheckIfReservation(input.Trim()));
+            World.WriteLine(TestTour.CheckIfReservation(input.Trim()));
         }
         else if (Staff.CorrectStaffCode(input.Trim()) == true)
         {
             //Console.Clear();
-            //StaffMenu();
+            // StaffMenu();
         }
         else if (Visitor.HasTicket(input.Trim()))
         {
-            World.WriteLine("kek");
             //Console.Clear();
             World.WriteLine(TestSelectTour.SelectATour(input.Trim(), World));
-            // World.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
-            // World.ReadLine();
-            //Console.Clear();
+            Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+            Console.ReadLine();
+            // Console.Clear();
         }
         else
         {
@@ -74,115 +67,54 @@ public class TestMenu
                     }
             }
         }
-        // while (true)
-        // {
-        //     CreateJson.CheckTours();
-        //     int currenthour = Convert.ToInt16(DateTime.Now.ToString("HH"));
-        //     World.WriteLine($"\x1b[1m{Greeting.ShowGreeting(currenthour)}scan de barcode op uw entreebewijs of medewerkerspas en druk op ENTER.\x1b[0m");
-        //     World.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-
-            
-        //     if (TestTour.CheckIfReservation(input.Trim()) == "true")
-        //     {
-        //         //Console.Clear();
-        //         //SubMenu(input.Trim());
-        //     }
-        //     else if (TestTour.CheckIfReservation(input.Trim()) != "true" && TestTour.CheckIfReservation(input.Trim()) != "false")
-        //     {
-        //         Console.WriteLine(TestTour.CheckIfReservation(input.Trim()));
-        //         continue;
-        //     }
-        //     else if (Staff.CorrectStaffCode(input.Trim()) == true)
-        //     {
-        //         //Console.Clear();
-        //         //StaffMenu();
-        //     }
-        //     else if (Visitor.HasTicket(input.Trim()))
-        //     {
-        //         World.WriteLine("kek");
-        //         //Console.Clear();
-        //         World.WriteLine(TestSelectTour.SelectATour(input.Trim(), World));
-        //         // World.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
-        //         // World.ReadLine();
-        //         //Console.Clear();
-        //         continue;
-        //     }
-        //     else
-        //     {
-        //         switch (input.ToLower().Trim())
-        //         {
-        //             case "h":
-        //                 {
-        //                     Help helpMenu = new();
-        //                     //Console.Clear();
-        //                     World.WriteLine("Er komt hulp aan, een ogenblik geduld.");
-        //                     World.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-        //                     helpMenu.ShowHelp(null);
-        //                     break;
-        //                 }
-        //             default:
-        //                 {
-        //                     World.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
-        //                     continue;
-        //                 }
-        //         }
-        //     }
-        // }
+        
     }
 
-    // public void SubMenu(string barcode)
-    // {
-    //     while (true)
-    //     {
-    //         World.WriteLine(Tour.GetTourTime(barcode, false));
-    //         World.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
-    //         World.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-    //         World.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
-    //         string input2 = World.ReadLine();
-    //         switch (input2.ToLower())
-    //         {
-    //             case "a":
-    //                 {
-    //                     World.WriteLine(Tour.CancelReservation(barcode));
-    //                     World.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
-    //                     Console.ReadLine();
-    //                     //Console.Clear();
-    //                     MainMenu();
-    //                     break;
-    //                 }
-    //             case "h":
-    //                 {
+    public void SubMenu(string barcode)
+    {
+        
+        World.WriteLine(Tour.GetTourTime(barcode, false));
+        World.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
+        World.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
+        World.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
+        string input2 = World.ReadLine();
+        switch (input2.ToLower())
+        {
+            case "a":
+                {
+                    World.WriteLine(TestTour.CancelReservation(barcode));
+                    // World.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+                    // Console.ReadLine();
+                    // Console.Clear();
+                    //MainMenu();
+                    break;
+                }
+            case "h":
+                {
 
-    //                     World.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
-    //                     World.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
-    //                     Help helpMenu = new();
-    //                 Start:
-    //                     string message = helpMenu.ShowHelp(null);
-    //                     if (message != null)
-    //                         goto Start;
-    //                     //Console.Clear();
-    //                     break;
-    //                 }
-    //             case "p":
-    //                 {
-    //                     //Console.Clear();
-    //                     StaffMenu();
-    //                     break;
-    //                 }
-    //             case "q":
-    //                 {
-    //                     //Console.Clear();
-    //                     MainMenu();
-    //                     break;
-    //                 }
-    //             default:
-    //                 {
-    //                     World.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.\n");
-    //                     continue;
-    //                 }
-    //         }
-    //     }
-    // }
+                    World.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
+                    World.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
+                    Help helpMenu = new();
+                Start:
+                    string message = helpMenu.ShowHelp(null);
+                    if (message != null)
+                        goto Start;
+                    //Console.Clear();
+                    break;
+                }
+            case "q":
+                {
+                    //Console.Clear();
+                    MainMenu();
+                    break;
+                }
+            // default:
+            //     {
+            //         World.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.\n");
+            //         continue;
+            //     }
+        }
+    }
 
     // public void StaffMenu()
     // {
@@ -274,5 +206,4 @@ public class TestMenu
     //         }
     //     }
     // }
-
 }

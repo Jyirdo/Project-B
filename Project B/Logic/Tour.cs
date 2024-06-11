@@ -29,33 +29,30 @@ public class Tour
 
         foreach (TourModel tour in tours)
         {
-            Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
-
-            // if (staffLogin)
-            // {
-            //     Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
-            // }
-            // else
-            // {
-            //     if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
-            //     {
-            //         if (currentTourID < 10)
-            //         {
-            //             Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
-            //         }
-            //         else
-            //         {
-            //             Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
-            //         }
-            //         currentTourID++;
-            //     }
-            //     else
-            //     {
-            //         pastTourCounter++;
-            //         continue;
-            //     }
-            // }
-
+            if (staffLogin)
+            {
+                Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+            }
+            else
+            {
+                if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
+                {
+                    if (currentTourID < 10)
+                    {
+                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                    }
+                    currentTourID++;
+                }
+                else
+                {
+                    pastTourCounter++;
+                    continue;
+                }
+            }
         }
     }
 
@@ -115,17 +112,15 @@ public class Tour
                 {
                     if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                     {
-                        Add_Remove.Add(new Visitor(barcode), tour.tourId);
-                        return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+                        for (int i = 1; i <= currentTourID; i++)
+                        {
+                            if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
+                            {
+                                Add_Remove.Add(new Visitor(barcode), tour.tourId);
+                                return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+                            }
+                        }
                     }
-                    // for (int i = 1; i <= currentTourID; i++)
-                    // {
-                    //     if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
-                    //     {
-                    //         Add_Remove.Add(new Visitor(barcode), tour.tourId);
-                    //         return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
-                    //     }
-                    // }
                 }
             }
             else if (input.ToLower() == "q")
