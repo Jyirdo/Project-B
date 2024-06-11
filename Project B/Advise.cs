@@ -100,7 +100,7 @@ public static class Advise
 
             writer.WriteLine("\nAdvise created on:");
             writer.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy")}");
-            Console.WriteLine("Alleen een streep? Dan is er momenteel geen advies");
+            Console.WriteLine("Alleen een streep? Dan is er momenteel geen advies\n");
         }
     }
 }
