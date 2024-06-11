@@ -140,7 +140,9 @@ public class Staff
                             BaseAccess.WriteAll(tours2);
 
                             Console.WriteLine("\x1b[32;1mDe rondleiding is succesvol gestart.\x1b[0m\n");
-
+                            Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+                            Console.ReadLine();
+                            Console.Clear();
                             Menu.MainMenu();
                             break;
 
