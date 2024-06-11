@@ -225,7 +225,7 @@ public class UnitTest1
         menu.MainMenu();
 
         string actual = world.LinesWritten.Last();
-        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m05-06-2024 10:20:00\x1b[0m\n";
+        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m11-6-2024 10:20\x1b[0m\n";
         Assert.AreEqual(expected, actual);
     }
 }

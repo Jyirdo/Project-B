@@ -76,7 +76,6 @@ public class TestTour
                     if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                     {
                         Add_Remove.Add(new Visitor(barcode), tour.tourId);
-                        World.WriteLine($"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n");
                         return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                     }
                 }
