@@ -32,8 +32,7 @@ public class TestMenu
         string input = World.ReadLine();
         if (TestTour.CheckIfReservation(input.Trim()) == "true")
         {
-            //Console.Clear();
-            // SubMenu(input.Trim());
+            SubMenu(input.Trim());
         }
         else if (TestTour.CheckIfReservation(input.Trim()) != "true" && TestTour.CheckIfReservation(input.Trim()) != "false")
         {
@@ -48,8 +47,6 @@ public class TestMenu
         {
             //Console.Clear();
             World.WriteLine(TestSelectTour.SelectATour(input.Trim(), World));
-            Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
-            Console.ReadLine();
             // Console.Clear();
         }
         else
@@ -83,9 +80,6 @@ public class TestMenu
             case "a":
                 {
                     World.WriteLine(TestTour.CancelReservation(barcode));
-                    // World.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
-                    // Console.ReadLine();
-                    // Console.Clear();
                     //MainMenu();
                     break;
                 }
