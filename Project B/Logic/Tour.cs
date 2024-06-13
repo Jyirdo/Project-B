@@ -90,7 +90,7 @@ public class Tour
                     {
                         return tour.dateTime.ToString("dd-M-yyyy HH:mm");
                     }
-                    else return $"U heeft een rondleiding geboekt om \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+                    else return $"U heeft een rondleiding geboekt om \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm:ss")}\x1b[0m\n";
                 }
             }
         }
