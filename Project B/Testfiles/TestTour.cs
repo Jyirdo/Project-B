@@ -65,32 +65,27 @@ public class TestTour
     {
         List<TourModel> tours = baseLogic.GetAllTours();
 
-        while (true)
-        {
-            string input = World.ReadLine();
+        string input = World.ReadLine();
 
-            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 )
+        if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 )
+        {
+            foreach (TourModel tour in tours)
             {
-                foreach (TourModel tour in tours)
+                if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                 {
-                    if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
-                    {
-                        Add_Remove.Add(new Visitor(barcode), tour.tourId);
-                        return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
-                    }
+                    Add_Remove.Add(new Visitor(barcode), tour.tourId);
+                    return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
                 }
             }
-            else if (input.ToLower() == "q")
-            {
-                Console.Clear();
-                return "";
-            }
-            else
-            {
-                Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
-                return SelectTour.SelectATour(barcode);
-            }
         }
+        else if (input.ToLower() == "q")
+        {
+            Console.Clear();
+            return "";
+        }
+        Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
+        return SelectTour.SelectATour(barcode);
+        
     }
 
 
