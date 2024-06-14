@@ -3,7 +3,7 @@ namespace ProjectB;
 public class TestTour
 {
     private static BaseLogic baseLogic = new BaseLogic();
-
+    
     public readonly IWorld World;
 
     public TestTour(IWorld world)
