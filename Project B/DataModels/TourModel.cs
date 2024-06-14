@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+
 public class TourModel
 {
     [JsonProperty("tour_id")]

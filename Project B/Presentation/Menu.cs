@@ -2,9 +2,7 @@ namespace ProjectB;
 
 public class Menu
 {
-
     public readonly IWorld World;
-
     public Menu(IWorld world)
     {
         World = world;

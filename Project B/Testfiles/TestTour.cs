@@ -3,16 +3,14 @@ namespace ProjectB;
 public class TestTour
 {
     private static BaseLogic baseLogic = new BaseLogic();
-    
     public int currentTourID = 1;
     public int pastTourCounter;
     public readonly IWorld World;
-
     public TestTour(IWorld world)
     {
         World = world;
     }
-    public void Load_Tours(bool staffLogin)
+    public void Load_Tours(bool _)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
 
@@ -116,10 +114,8 @@ public class TestTour
             return "";
         }
         Console.WriteLine("U heeft een incorrect tournummer opgegeven, probeer het opnieuw.");
-        return SelectTour.SelectATour(barcode);
-        
+        return SelectTour.SelectATour(barcode);        
     }
-
 
     public static string CancelReservation(string barcode)
     {

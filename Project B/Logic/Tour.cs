@@ -75,7 +75,6 @@ public class Tour
                     continue;
                 }
             }
-
         }
     }
 

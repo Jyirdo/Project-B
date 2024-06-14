@@ -3,7 +3,6 @@ namespace ProjectB;
 public class TestMenu
 {
     public readonly IWorld World;
-
     public TestMenu(IWorld world)
     {
         World = world;
