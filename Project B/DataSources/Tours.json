@@ -2,11 +2,11 @@
   {
     "tour_id": 1,
     "tourStartTime": "2024-06-14T10:20:00",
-    "parttakers": 0,
+    "parttakers": 1,
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "tourStarted": true
+    "tourStarted": false
   },
   {
     "tour_id": 2,
@@ -15,7 +15,7 @@
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "tourStarted": true
+    "tourStarted": false
   },
   {
     "tour_id": 3,
@@ -24,7 +24,7 @@
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "tourStarted": true
+    "tourStarted": false
   },
   {
     "tour_id": 4,

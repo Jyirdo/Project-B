@@ -1,7 +1,5 @@
 namespace ProjectB;
-using System.Data;
-using Newtonsoft.Json;
-// Sometime in the future make these methods static somehow
+
 public class Staff
 {
     public static List<string> staffCodes = new();
@@ -92,7 +90,6 @@ public class Staff
         scannedIDS.Clear();
         // Controleer of de ingevoerde tour ID geldig is
         List<TourModel> tours = BaseAccess.LoadAll();
-
 
         foreach (TourModel tour in tours)
         {

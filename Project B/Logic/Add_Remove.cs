@@ -2,9 +2,6 @@ namespace ProjectB;
 
 public static class Add_Remove
 {
-    static private BaseLogic baseLogic = new BaseLogic();
-    private static List<Visitor> fakeTourVisitorList = new List<Visitor>();
-
     public static void Remove(Visitor visitor, int tourNumber)
     {
         BaseLogic logic = new BaseLogic();

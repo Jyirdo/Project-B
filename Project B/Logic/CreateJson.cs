@@ -1,5 +1,4 @@
 namespace ProjectB;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,9 +15,9 @@ public static class CreateJson
             "12:40", "13:00", "13:20", "13:40", "14:00", "14:20", "14:40",
             "15:00", "15:20", "15:40", "16:00"
         };
-
         List<TourModel> newTourList = new List<TourModel>();
         int tourNumber = 1;
+
         foreach (string time in tourTimes)
         {
             DateTime tourDateTime = DateTime.ParseExact(currentDate.ToString("yyyy-MM-dd") + " " + time, "yyyy-MM-dd HH:mm", null);
@@ -79,7 +78,6 @@ public static class CreateJson
                 return $"An error occurred: {ex.Message}";
             }
         }
-
         return "No new day detected or something went wrong";
     }
 }
