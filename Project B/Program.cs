@@ -4,9 +4,7 @@ public static class Program
 {
     public static void Main()
     {
-        RealWorld world = new();
-        Menu menu = new(world);
-        menu.MainMenu();
+        Menu.MainMenu();
     }
     // public static void Main()
     // {

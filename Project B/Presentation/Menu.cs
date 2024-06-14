@@ -10,7 +10,7 @@ public class Menu
         World = world;
     }
 
-    public void MainMenu()
+    public static void MainMenu()
     {
         while (true)
         {
@@ -22,7 +22,7 @@ public class Menu
             string input = Console.ReadLine();
             if (Tour.CheckIfReservation(input.Trim()) == "true")
             {
-                //Console.Clear();
+                Console.Clear();
                 SubMenu(input.Trim());
             }
             else if (Tour.CheckIfReservation(input.Trim()) != "true" && Tour.CheckIfReservation(input.Trim()) != "false")
@@ -32,7 +32,6 @@ public class Menu
             }
             else if (Staff.CorrectStaffCode(input.Trim()) == true)
             {
-                //Console.Clear();
                 Console.Clear();
                 Console.WriteLine("Voer het wachtwoord in of toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
                 string password = "hetdepot2024!";
@@ -51,11 +50,11 @@ public class Menu
             }
             else if (Visitor.HasTicket(input.Trim()))
             {
-                //Console.Clear();
+                Console.Clear();
                 Console.WriteLine(SelectTour.SelectATour(input.Trim()));
                 Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
                 Console.ReadLine();
-                //Console.Clear();
+                Console.Clear();
                 continue;
             }
             else
@@ -65,7 +64,7 @@ public class Menu
                     case "h":
                         {
                             Help helpMenu = new();
-                            //Console.Clear();
+                            Console.Clear();
                             Console.WriteLine("Er komt hulp aan, een ogenblik geduld.");
                             Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
                             helpMenu.ShowHelp(null);
@@ -81,29 +80,29 @@ public class Menu
         }
     }
 
-    public void SubMenu(string barcode)
+    public static void SubMenu(string barcode)
     {
         while (true)
         {
             Console.WriteLine(Tour.GetTourTime(barcode, false));
             Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
             Console.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
-            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
+            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het hoofdmenu.");
             string input2 = Console.ReadLine();
             switch (input2.ToLower())
             {
                 case "a":
                     {
                         Console.WriteLine(Tour.CancelReservation(barcode));
-                        Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+                        Console.WriteLine("\nToets 'ENTER' om terug te gaan naar het hoofdmenu.");
                         Console.ReadLine();
-                        //Console.Clear();
+                        Console.Clear();
                         MainMenu();
                         break;
                     }
                 case "h":
                     {
-
+                        Console.Clear();
                         Console.WriteLine("Er komt iemand aan om u te helpen, een ogenblik geduld alstublieft.");
                         Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
                         Help helpMenu = new();
@@ -111,18 +110,18 @@ public class Menu
                         string message = helpMenu.ShowHelp(null);
                         if (message != null)
                             goto Start;
-                        //Console.Clear();
+                        Console.Clear();
                         break;
                     }
                 case "p":
                     {
-                        //Console.Clear();
+                        Console.Clear();
                         StaffMenu();
                         break;
                     }
                 case "q":
                     {
-                        //Console.Clear();
+                        Console.Clear();
                         MainMenu();
                         break;
                     }
@@ -135,7 +134,7 @@ public class Menu
         }
     }
 
-    public void StaffMenu()
+    public static void StaffMenu()
     {
         while (true)
         {
@@ -158,18 +157,18 @@ public class Menu
                 {
                     while (true)
                     {
-                        //Console.Clear();
+                        Console.Clear();
                         Console.WriteLine($"\x1b[35m\x1b[1mU heeft rondleiding {tourIdInt} geselecteerd.\x1b[0m");
                         Console.WriteLine($"Toets \x1b[33m'L'\x1b[0m en druk ENTER om een bezoeker handmatig toe te voegen aan rondleiding \x1b[35m\x1b[1m{tourIdInt}\x1b[0m.");
                         Console.WriteLine($"Toets \x1b[33m'C'\x1b[0m en druk ENTER om de bezoekers in rondleiding \x1b[35m\x1b[1m{tourIdInt}\x1b[0m te checken.");
                         Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
                         string input = Console.ReadLine();
-                        //Console.Clear();
+                        Console.Clear();
                         switch (input.ToLower())
                         {
                             case "q":
                                 {
-                                    //Console.Clear();
+                                    Console.Clear();
                                     StaffMenu();
                                     break;
                                 }
@@ -201,12 +200,13 @@ public class Menu
                 {
                     case "q":
                         {
-                            //Console.Clear();
+                            Console.Clear();
                             MainMenu();
                             break;
                         }
                     case "a":
                         {
+                            Console.Clear();
                             Advise.CreateAdvise();
                             break;
                         }
@@ -217,7 +217,7 @@ public class Menu
                         }
                     default:
                         {
-                            //Console.Clear();
+                            Console.Clear();
                             Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                             continue;
                         }

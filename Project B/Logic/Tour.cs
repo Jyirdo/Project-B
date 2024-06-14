@@ -23,27 +23,49 @@ public class Tour
 
     public static void Load_Tours(bool staffLogin)
     {
-        List<TourModel> tours = baseLogic.GetAllTours();
+        List<TourModel> tours = BaseAccess.LoadAll();
         currentTourID = 1;
         pastTourCounter = 0;
 
         foreach (TourModel tour in tours)
         {
+            tours = BaseAccess.LoadAll();
             if (staffLogin)
             {
-                Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                string startedMessage = "";
+                string warningMessage = "";
+
+                if (tour.tourStarted == true)
+                    startedMessage = "\x1b[32;1m|| Deze rondleiding is gestart.\x1b[0m";
+
+                else if (tour.tourStarted == false && tour.parttakers == 0 && tour.dateTime < DateTime.Now)
+                    warningMessage = "\x1b[33;1m|| Deze rondleiding is niet gestart en de starttijd is al geweest, maar er zijn 0 deelnemers.\x1b[0m";
+
+                else if (tour.tourStarted == false && tour.dateTime < DateTime.Now)
+                    warningMessage = $"\x1b[31;1m|| Let op!: De starttijd van deze rondleiding is al geweest, maar deze rondleiding is nog niet gestart. ({tour.parttakers} deelnemer(s) wachten.)\x1b[0m";
+
+                Console.WriteLine($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) {warningMessage}{startedMessage}");
             }
             else
             {
-                if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit)
+                if (DateTime.Now.Hour > tours[tours.Count - 1].dateTime.Hour)
+                {
+                    Console.WriteLine("De laatste rondleiding is al geweest, u kunt zich niet meer aanmelden bij een rondleiding. Excuses voor het ongemak.\n");
+                    Console.WriteLine("Toets 'ENTER' om terug te gaan naar het hoofdmenu.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    Menu.MainMenu();
+                    break;
+                }
+                else if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit && tour.tourStarted == false)
                 {
                     if (currentTourID < 10)
                     {
-                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                        Console.WriteLine($"\x1b[34;1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
                     }
                     else
                     {
-                        Console.WriteLine($"\x1b[34m\x1b[1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                        Console.WriteLine($"\x1b[34;1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
                     }
                     currentTourID++;
                 }
@@ -53,6 +75,7 @@ public class Tour
                     continue;
                 }
             }
+
         }
     }
 

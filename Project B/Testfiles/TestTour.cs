@@ -28,12 +28,11 @@ public class TestTour
         currentTourID = 1;
         pastTourCounter = 0;
 
-
         foreach (TourModel tour in tours)
         {
             tours = BaseAccess.LoadAll();
-            
-            if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit && tour.tourStarted == false)
+            // if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit && tour.tourStarted == false)
+            if (tour.parttakers != tour.limit && tour.tourStarted == false)
             {
                 if (currentTourID < 10)
                 {
