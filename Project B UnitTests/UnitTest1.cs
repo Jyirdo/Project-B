@@ -225,4 +225,19 @@ public class UnitTest1
         string expected = $"Uw tour van \x1b[32m{DateTime.Today.ToString("dd-M-yyyy")} 10:20:00\x1b[0m is geannuleerd. Nog een prettige dag verder!";
         Assert.AreEqual(expected, actual);
     }
+
+    // [TestMethod]
+    // public void SysteemTestGidsLogin()
+    // {
+    //     FakeWorld world = new()
+    //     {
+    //         LinesToRead = new() { "1234567891011", "hetdepot2024!" }
+    //     };
+    //     TestMenu menu = new(world);
+    //     menu.MainMenu();
+
+    //     string actual = world.LinesWritten.Last();
+    //     string expected = $"Uw tour van \x1b[32m{DateTime.Today.ToString("dd-M-yyyy")} 10:20:00\x1b[0m is geannuleerd. Nog een prettige dag verder!";
+    //     Assert.AreEqual(expected, actual);
+    // }
 }
