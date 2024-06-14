@@ -127,7 +127,7 @@ public class Tour
         {
             string input = Console.ReadLine();
 
-            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 )
+            if (int.TryParse(input, out int chosenTourID) && chosenTourID >= 0 && chosenTourID < currentTourID)
             {
                 chosenTourID += pastTourCounter;
                 foreach (TourModel tour in tours)

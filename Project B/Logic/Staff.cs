@@ -183,7 +183,7 @@ public class Staff
                         else
                         {
                             Console.WriteLine("Deze tour is helaas vol, probeer een andere tour.\n");
-                            continue;
+                            Menu.StaffMenu();
                         }
                     }
                     else
