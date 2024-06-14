@@ -97,15 +97,16 @@ public class UnitTest1
     public void TestAddLastMinuteVisitor()
     {
         int tourId = 1;
-        string input = "2";
+        string barcode = "2";
         string date = DateTime.Now.ToString("yyyy/MM/dd") + "T10:20";
         DateTime time = DateTime.Parse(date);
         Tour tour = new Tour(tourId, time);
 
-        string expected = $"{input} succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
-        string actual = Staff.AddLastMinuteVisitor(tourId, input);
+        string expected = $"{barcode} succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
+        string actual = Staff.AddLastMinuteVisitor(tourId, barcode);
 
         Assert.AreEqual(expected, actual);
+        Add_Remove.Remove(new Visitor(barcode), 1);
     }
 
     [TestMethod]
@@ -118,6 +119,7 @@ public class UnitTest1
         string actual = Tour.CheckIfReservation(barcode);
 
         Assert.AreEqual(expected, actual);
+        Add_Remove.Remove(new Visitor(barcode), 1);
     }
 
     [TestMethod]
@@ -146,6 +148,7 @@ public class UnitTest1
         string actual = Tour.GetTourTime(barcode, false);
 
         Assert.AreEqual(expected, actual);
+        Add_Remove.Remove(new Visitor(barcode), 1);
     }
 
     [TestMethod]
@@ -174,6 +177,7 @@ public class UnitTest1
         string actual = Tour.CancelReservation(barcode);
 
         Assert.AreEqual(expected, actual);
+        Add_Remove.Remove(new Visitor(barcode), 1);
     }
 
     [TestMethod]
