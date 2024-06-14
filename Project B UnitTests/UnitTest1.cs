@@ -1,21 +1,8 @@
+namespace ProjectB;
+
 [TestClass]
 public class UnitTest1
 {
-    [TestMethod]
-    public void TestMethod1()
-    {
-    }
-
-    [TestMethod]
-    public void VisitorTest()
-    {
-        long expectedBarcode = 1234567890;
-
-        Visitor visitor = new Visitor(expectedBarcode);
-
-        Assert.AreEqual(expectedBarcode, visitor.barcode);
-    }
-
     [TestMethod]
     public void TestShowGreeting_Night()
     {
@@ -68,7 +55,7 @@ public class UnitTest1
 
         Assert.AreEqual("Goedenavond, ", resultEvening);
         Assert.AreEqual("Goedennacht, ", resultNight);
-        Assert.AreEqual("Goedennacht, ", resultNight);
+        Assert.AreEqual("Goedennacht, ", resultNight2);
     }
 
     [TestMethod]
@@ -84,24 +71,10 @@ public class UnitTest1
         Assert.AreEqual("Welkom, ", resultInvalid2);
     }
 
-    // [TestMethod]
-    // public void TestChooseTour()
-    // {
-    //     int tourId = 1;
-    //     long barcode = 1;
-    //     DateTime time = DateTime.Parse("2024-04-10T10:20:00");
-    //     Tour tour = new Tour(tourId, time);
-
-    //     string expected = $"Succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
-    //     string actual = Tour.ChooseTour(barcode, "1");
-
-    //     Assert.AreEqual(expected, actual);
-    // }
-
     [TestMethod]
     public void TestCorrectStaffCode_True()
     {
-        string staffcode = "1234567891011";
+        string staffcode = "456";
 
         bool expected = true;
         bool actual = Staff.CorrectStaffCode(staffcode);
@@ -125,7 +98,8 @@ public class UnitTest1
     {
         int tourId = 1;
         string input = "2";
-        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T10:20";
+        DateTime time = DateTime.Parse(date);
         Tour tour = new Tour(tourId, time);
 
         string expected = $"{input} succesvol aangemeld bij de rondleiding van {tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\n";
@@ -137,11 +111,11 @@ public class UnitTest1
     [TestMethod]
     public void TestCheckIfReservation_True()
     {
-        long barcode = 3;
+        string barcode = "3";
         Add_Remove.Add(new Visitor(barcode), 1);
 
-        bool expected = true;
-        bool actual = Tour.CheckIfReservation(barcode);
+        string expected = "true";
+        string actual = Tour.CheckIfReservation(barcode);
 
         Assert.AreEqual(expected, actual);
     }
@@ -149,11 +123,11 @@ public class UnitTest1
     [TestMethod]
     public void TestCheckIfReservation_False()
     {
-        long barcode = 00000000;
+        string barcode = "0000000000";
         Add_Remove.Remove(new Visitor(barcode), 1);
 
-        bool expected = false;
-        bool actual = Tour.CheckIfReservation(barcode);
+        string expected = "false";
+        string actual = Tour.CheckIfReservation(barcode);
 
         Assert.AreEqual(expected, actual);
     }
@@ -161,14 +135,15 @@ public class UnitTest1
     [TestMethod]
     public void TestGetTourTime_True()
     {
-        long barcode = 4;
+        string barcode = "4";
         int tourId = 1;
         Add_Remove.Add(new Visitor(barcode), tourId);
-        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T10:20";
+        DateTime time = DateTime.Parse(date);
         Tour tour = new Tour(tourId, time);
 
-        string expected = $"{tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}";
-        string actual = Tour.GetTourTime(barcode);
+        string expected = $"U heeft een rondleiding geboekt om \x1b[32m{tour.tourStartTime}\x1b[0m\n";
+        string actual = Tour.GetTourTime(barcode, false);
 
         Assert.AreEqual(expected, actual);
     }
@@ -176,11 +151,11 @@ public class UnitTest1
     [TestMethod]
     public void TestGetTourTime_False()
     {
-        long barcode = 5;
+        string barcode = "5";
         Tour.CancelReservation(barcode);
 
-        string expected = "U heeft geen rondleiding geboekt";
-        string actual = Tour.GetTourTime(barcode);
+        string expected = "U heeft nog geen rondleiding geboekt\n";
+        string actual = Tour.GetTourTime(barcode, false);
 
         Assert.AreEqual(expected, actual);
     }
@@ -188,13 +163,14 @@ public class UnitTest1
     [TestMethod]
     public void TestCancelReservation_True()
     {
-        long barcode = 6;
+        string barcode = "6";
         int tourId = 1;
         Add_Remove.Add(new Visitor(barcode), tourId);
-        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T10:20";
+        DateTime time = DateTime.Parse(date);
         Tour tour = new Tour(tourId, time);
 
-        string expected = $"Uw tour van {tour.tourStartTime} is geannuleerd";
+        string expected = $"Uw tour van \x1b[32m{tour.tourStartTime}\x1b[0m is geannuleerd. Nog een prettige dag verder!";
         string actual = Tour.CancelReservation(barcode);
 
         Assert.AreEqual(expected, actual);
@@ -203,10 +179,10 @@ public class UnitTest1
     [TestMethod]
     public void TestCancelReservation_False()
     {
-        long barcode = 7;
+        string barcode = "7";
         Tour.CancelReservation(barcode);
 
-        string expected = "U heeft nog geen tour ingepland";
+        string expected = "U heeft nog geen tour ingepland\n";
         string actual = Tour.CancelReservation(barcode);
 
         Assert.AreEqual(expected, actual);
@@ -215,17 +191,53 @@ public class UnitTest1
     [TestMethod]
     public void SysteemTestTourReserveren()
     {
-        FakeWorld fakeworld = new();
-        Program.World = fakeworld;
-        int tourId = 1;
-        DateTime time = DateTime.Parse("2024-04-10T10:20:00");
-        Tour tour = new Tour(tourId, time);
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T10:20:00";
+        FakeWorld world = new()
+        {
+            LinesToRead = new() { "123", "1" }
+        };
+        TestMenu menu = new(world);
+        menu.MainMenu();
 
-        fakeworld.LinesToRead.Add("1");
-        fakeworld.LinesToRead.Add("1");
-        string actual = fakeworld.LinesWritten.Last();
-        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.tourStartTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+        string actual = world.LinesWritten.Last();
+        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m{DateTime.Today.ToString("dd-M-yyyy")} 10:20\x1b[0m\n";
+        Assert.AreEqual(expected, actual);
+        
+        Visitor visitor= new Visitor("123");
+        Add_Remove.Remove(visitor, 1);
+    }
+
+    [TestMethod]
+    public void SysteemTestTourAnnuleren()
+    {
+        Visitor visitor= new Visitor("123");
+        Add_Remove.Add(visitor, 1);
+
+        FakeWorld world = new()
+        {
+            LinesToRead = new() { "a" }
+        };
+        TestMenu menu = new(world);
+        menu.SubMenu("123");
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T10:20:00";
+
+        string actual = world.LinesWritten.Last();
+        string expected = $"Uw tour van \x1b[32m{DateTime.Today.ToString("dd-M-yyyy")} 10:20:00\x1b[0m is geannuleerd. Nog een prettige dag verder!";
         Assert.AreEqual(expected, actual);
     }
 
+    // [TestMethod]
+    // public void SysteemTestGidsLogin()
+    // {
+    //     FakeWorld world = new()
+    //     {
+    //         LinesToRead = new() { "1234567891011", "hetdepot2024!" }
+    //     };
+    //     TestMenu menu = new(world);
+    //     menu.MainMenu();
+
+    //     string actual = world.LinesWritten.Last();
+    //     string expected = $"Uw tour van \x1b[32m{DateTime.Today.ToString("dd-M-yyyy")} 10:20:00\x1b[0m is geannuleerd. Nog een prettige dag verder!";
+    //     Assert.AreEqual(expected, actual);
+    // }
 }

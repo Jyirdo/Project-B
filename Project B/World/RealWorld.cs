@@ -1,4 +1,6 @@
-﻿public class RealWorld : IWorld
+﻿namespace ProjectB;
+
+public class RealWorld : IWorld
 {
     public DateTime Now
     {

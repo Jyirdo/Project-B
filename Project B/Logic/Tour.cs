@@ -1,3 +1,5 @@
+namespace ProjectB;
+
 public class Tour
 {
     public int tourId;
@@ -74,7 +76,6 @@ public class Tour
                     continue;
                 }
             }
-
         }
     }
 
@@ -132,12 +133,15 @@ public class Tour
                 chosenTourID += pastTourCounter;
                 foreach (TourModel tour in tours)
                 {
-                    for (int i = 1; i <= currentTourID; i++)
+                    if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
                     {
-                        if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
+                        for (int i = 1; i <= currentTourID; i++)
                         {
-                            Add_Remove.Add(new Visitor(barcode), tour.tourId);
-                            return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+                            if (tour.tourId == chosenTourID && tour.parttakers < tour.limit)
+                            {
+                                Add_Remove.Add(new Visitor(barcode), tour.tourId);
+                                return $"Succesvol aangemeld bij de rondleiding van \x1b[32m{tour.dateTime.ToString("dd-M-yyyy HH:mm")}\x1b[0m\n";
+                            }
                         }
                     }
                 }
@@ -145,7 +149,7 @@ public class Tour
             else if (input.ToLower() == "q")
             {
                 Console.Clear();
-                Menu.MainMenu();
+                return "";
             }
             else
             {

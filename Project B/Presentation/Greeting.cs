@@ -1,3 +1,5 @@
+namespace ProjectB;
+
 public class Greeting
 {
     public static string ShowGreeting(int currentHour)

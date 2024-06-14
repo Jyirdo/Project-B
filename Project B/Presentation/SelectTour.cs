@@ -1,4 +1,6 @@
-public class SelectTour : Presentation
+namespace ProjectB;
+
+public class SelectTour
 {
     public static string SelectATour(string barcode)
     {

@@ -1,3 +1,5 @@
+namespace ProjectB;
+
 public class BaseLogic
 {
     protected static List<TourModel> _items;

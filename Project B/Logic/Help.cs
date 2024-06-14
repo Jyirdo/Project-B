@@ -1,3 +1,4 @@
+namespace ProjectB;
 using System.Media;
 
 public class Help : IInput
@@ -24,7 +25,7 @@ public class Help : IInput
         {
             if (GetInput() == "q")
             {
-                Console.Clear();
+                //Console.Clear();
                 return null;
             }
 
