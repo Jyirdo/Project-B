@@ -4,19 +4,52 @@ public class TestTour
 {
     private static BaseLogic baseLogic = new BaseLogic();
     
+    public int currentTourID = 1;
+    public int pastTourCounter;
     public readonly IWorld World;
 
     public TestTour(IWorld world)
     {
         World = world;
     }
-    public static void Load_Tours(bool staffLogin)
+    public void Load_Tours(bool staffLogin)
     {
         List<TourModel> tours = baseLogic.GetAllTours();
 
         foreach (TourModel tour in tours)
         {
-            Console.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+            World.WriteLine($"\x1b[34m\x1b[1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+        }
+    }
+
+    public void TestLoad_Tours()
+    {
+        List<TourModel> tours = BaseAccess.LoadAll();
+        currentTourID = 1;
+        pastTourCounter = 0;
+
+
+        foreach (TourModel tour in tours)
+        {
+            tours = BaseAccess.LoadAll();
+            
+            if (tour.dateTime > DateTime.Now && tour.parttakers != tour.limit && tour.tourStarted == false)
+            {
+                if (currentTourID < 10)
+                {
+                    World.WriteLine($"\x1b[34;1m{currentTourID}\x1b[0m:  Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                }
+                else
+                {
+                    World.WriteLine($"\x1b[34;1m{currentTourID}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers})");
+                }
+                currentTourID++;
+            }
+            else
+            {
+                pastTourCounter++;
+                continue;
+            }
         }
     }
 

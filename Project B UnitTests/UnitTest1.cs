@@ -240,4 +240,52 @@ public class UnitTest1
     //     string expected = $"Uw tour van \x1b[32m{DateTime.Today.ToString("dd-M-yyyy")} 10:20:00\x1b[0m is geannuleerd. Nog een prettige dag verder!";
     //     Assert.AreEqual(expected, actual);
     // }
+
+    [TestMethod]
+    public void TestLoad_Tours()
+    {
+        FakeWorld world = new() {};
+        TestTour tour = new(world);
+        tour.TestLoad_Tours();
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T16:00:00";
+        DateTime time = DateTime.Parse(date);
+
+        string actual = world.LinesWritten.Last();
+        string expected = $"\x1b[34;1m{world.LinesWritten.Count()}\x1b[0m:  Rondleiding van \x1b[32m{time}\x1b[0m (Plaatsen over: 13)";
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void TestTourFull()
+    {
+        FakeWorld world = new() {};
+        TestTour tour = new(world);
+        tour.Load_Tours(false);
+        string date = DateTime.Now.ToString("yyyy/MM/dd") + "T16:00:00";
+        DateTime time = DateTime.Parse(date);
+
+        string actual = world.LinesWritten.Last(); 
+        string expected = $"\x1b[34m\x1b[1m{world.LinesWritten.Count()}\x1b[0m: Rondleiding van \x1b[32m{time}\x1b[0m (Plaatsen over: 13)";
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void TestHasTicket_True()
+    {
+        string barcode = "123";
+
+        bool actual = Visitor.HasTicket(barcode);
+        bool expected = true;
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void TestHasTicket_False()
+    {
+        string barcode = "111111";
+
+        bool actual = Visitor.HasTicket(barcode);
+        bool expected = false;
+        Assert.AreEqual(expected, actual);
+    }
 }
