@@ -148,7 +148,7 @@ public class Tour
             else if (input.ToLower() == "q")
             {
                 Console.Clear();
-                return "";
+                Menu.MainMenu();
             }
             else
             {
