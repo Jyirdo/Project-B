@@ -9,18 +9,6 @@ public class TestMenu
         World = world;
     }
 
-    // public void MainMenu()
-    // {
-    //     string input = World.ReadLine();
-
-    //     if (Visitor.HasTicket(input.Trim()))
-    //     {
-    //         //Console.Clear();
-    //         World.WriteLine(TestSelectTour.SelectATour(input.Trim(), World));
-    //         //Console.Clear();
-    //     }
-    // }
-
     public void MainMenu()
     {
         CreateJson.CheckTours();
@@ -39,8 +27,21 @@ public class TestMenu
         }
         else if (Staff.CorrectStaffCode(input.Trim()) == true)
         {
-            //Console.Clear();
-            // StaffMenu();
+            // Console.Clear();
+            World.WriteLine("Voer het wachtwoord in of toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+            string password = "hetdepot2024!";
+            string password_input = World.ReadLine();
+
+            if (password_input == password)
+            {
+                // Console.Clear();
+                StaffMenu();
+            }
+            else
+            {
+                // Console.Clear();
+                MainMenu();
+            }
         }
         else if (Visitor.HasTicket(input.Trim()))
         {
@@ -66,6 +67,21 @@ public class TestMenu
                     //MainMenu();
                     break;
                 }
+        }
+    }
+
+    public void StaffMenu()
+    {
+        while (true)
+        {
+            World.WriteLine("\x1b[1mMEDEWERKERSMENU\x1b[0m");
+            TestTour tour = new(World);
+            tour.TestLoad_Tours();
+            World.WriteLine("\x1b[35m\x1b[1mVoer de ID in van de rondleiding waarvan u de opties wilt zien en druk ENTER.\x1b[0m\n \nAndere opties:");
+            World.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER voor advies over rondleidingen.");
+            World.WriteLine("Toets \x1b[31m'Z'\x1b[0m en druk ENTER om het programma af te sluiten.");
+            World.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan naar het hoofdmenu.");
+            break;
         }
     }
 }
