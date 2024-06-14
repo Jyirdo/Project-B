@@ -32,10 +32,11 @@ public class Menu
             }
             else if (Staff.CorrectStaffCode(input.Trim()) == true)
             {
+                //Console.Clear();
                 Console.Clear();
                 Console.WriteLine("Voer het wachtwoord in of toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
                 string password = "hetdepot2024!";
-                string password_input = ReadLine();
+                string password_input = Console.ReadLine();
 
                 if (password_input == password)
                 {
@@ -84,12 +85,11 @@ public class Menu
     {
         while (true)
         {
-            WriteLine(Tour.GetTourTime(barcode, false));
-            WriteLine("\x1b[1mOpties:\x1b[0m");
-            WriteLine("Toets \x1b[33m'A'\x1b[0m en druk 'ENTER' om uw rondleiding te annuleren.");
-            WriteLine("Toets \x1b[33m'H'\x1b[0m en druk 'ENTER' voor hulp.");
-            WriteLine("Toets \x1b[31m'Q'\x1b[0m en 'ENTER' om terug te gaan naar het menu.");
-            string input2 = ReadLine();
+            Console.WriteLine(Tour.GetTourTime(barcode, false));
+            Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER om uw rondleiding te annuleren.");
+            Console.WriteLine("Toets \x1b[33m'H'\x1b[0m en druk ENTER voor hulp.");
+            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en ENTER om terug te gaan naar het menu.");
+            string input2 = Console.ReadLine();
             switch (input2.ToLower())
             {
                 case "a":
@@ -139,14 +139,12 @@ public class Menu
     {
         while (true)
         {
-            WriteLine("\x1b[1mMEDEWERKERSMENU\x1b[0m\n");
-            WriteLine("\x1b[33;1mAls u zich in dit menu bevind en u bent geen medewerker, verzoeken wij u vriendelijk om dit menu te verlaten door op \x1b[31m'Q'\x1b[0;33;1m en 'ENTER' te drukken.\x1b[0m\n");
-            WriteLine("\x1b[35;1mRondleidingen:\x1b[0m");
+            Console.WriteLine("\x1b[1mMEDEWERKERSMENU\x1b[0m");
             Tour.Load_Tours(true);
-            WriteLine("\n\x1b[35m\x1b[1mVoer de ID in van de rondleiding als u de aanwezigheid wil controleren of als u handmatig een bezoeker wil toevoegen en druk 'ENTER'.\x1b[0m\n \nAndere opties:");
-            WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER voor advies over rondleidingen.");
-            WriteLine("Toets \x1b[31m'Z'\x1b[0m en druk ENTER om het programma af te sluiten.");
-            WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan naar het hoofdmenu.");
+            Console.WriteLine("\x1b[35m\x1b[1mVoer de ID in van de rondleiding waarvan u de opties wilt zien en druk ENTER.\x1b[0m\n \nAndere opties:");
+            Console.WriteLine("Toets \x1b[33m'A'\x1b[0m en druk ENTER voor advies over rondleidingen.");
+            Console.WriteLine("Toets \x1b[31m'Z'\x1b[0m en druk ENTER om het programma af te sluiten.");
+            Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan naar het hoofdmenu.");
 
             string tourId = Console.ReadLine();
             if (int.TryParse(tourId, out int tourIdInt) && tourIdInt > 0 && tourIdInt <= BaseAccess.LoadAll().Count())
@@ -177,11 +175,10 @@ public class Menu
                                 }
                             case "l":
                                 {
-                                    WriteLine($"Scan de barcode van de bezoeker die u handmatig wilt toevoegen aan rondleiding {tourIdInt}:");
-                                    WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
-                                    string input1 = ReadLine();
-                                    WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
-                                    StaffMenu();
+                                    Console.WriteLine($"Scan de barcode van de bezoeker die u handmatig wilt toevoegen aan rondleiding {tourIdInt}:");
+                                    Console.WriteLine("Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan.");
+                                    string input1 = Console.ReadLine();
+                                    Console.WriteLine(Staff.AddLastMinuteVisitor(tourIdInt, input1));
                                     break;
                                 }
                             case "c":
@@ -191,8 +188,7 @@ public class Menu
                                 }
                             default:
                                 {
-                                    Console.Clear();
-                                    WriteLine("\x1b[31;1mU heeft een incorrecte invoer opgegeven, probeer het opnieuw.\x1b[0m\n");
+                                    Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                                     continue;
                                 }
                         }
@@ -211,7 +207,6 @@ public class Menu
                         }
                     case "a":
                         {
-                            Console.Clear();
                             Advise.CreateAdvise();
                             break;
                         }
@@ -222,9 +217,8 @@ public class Menu
                         }
                     default:
                         {
-
-                            Console.Clear();
-                            WriteLine("\x1b[31;1mU heeft een incorrecte invoer opgegeven, probeer het opnieuw.\x1b[0m\n");
+                            //Console.Clear();
+                            Console.WriteLine("U heeft een incorrecte invoer opgegeven, probeer het opnieuw.");
                             continue;
                         }
                 }
