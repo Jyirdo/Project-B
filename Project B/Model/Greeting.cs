@@ -1,6 +1,6 @@
 namespace ProjectB;
 
-class Greeting
+public class Greeting
 {
     public static string ShowGreeting()
     {
