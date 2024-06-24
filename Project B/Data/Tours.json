@@ -25,7 +25,11 @@
     "parttakers": 0,
     "limit": 13,
     "guide": null,
-    "tourVisitorList": [],
+    "tourVisitorList": [
+      {
+        "barcode": "123"
+      }
+    ],
     "reservationsList": [],
     "tourStarted": false
   },
@@ -86,9 +90,7 @@
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "reservationsList": [      {
-      "barcode": "123"
-    }],
+    "reservationsList": [],
     "tourStarted": false
   },
   {

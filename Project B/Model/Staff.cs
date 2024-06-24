@@ -26,7 +26,7 @@ public class Staff
     {
         List<string> VisitorsList = new List<string>();
         foreach (Visitor visitor in VisitorsWithReservation)
-            VisitorsList.Add($"> {visitor.barcode}");
+            VisitorsList.Add(visitor.barcode);
 
         string[] Reservations = VisitorsList.ToArray();
         return Reservations;
@@ -35,10 +35,7 @@ public class Staff
     public static void CheckPresence(int tourID)
     {
         List<Visitor> VisitorsWithReservation = new List<Visitor>();
-        List<Visitor> VisitorTourList = new List<Visitor>();
-        List<string> reservationsList = new List<string>();
         DateTime TourStartTime = Program.World.Now;
-        string[] Reservations;
 
         foreach (TourModel tour in tours)
         {
@@ -51,18 +48,17 @@ public class Staff
                 TourStartTime = tour.dateTime;
             }
         }
-
-        Reservations = GetVisitorsInTour(VisitorsWithReservation);
+        string[] Reservations = GetVisitorsInTour(VisitorsWithReservation);
 
         while(true)
         {
-            string PresentVisitorBarcode = CheckPresenceMenu.Show(Reservations, TourStartTime);
+            string PresentVisitorBarcode = StaffCheckPresence.Show(Reservations, TourStartTime);
 
             switch (PresentVisitorBarcode.ToLower())
             {
                 case "q":
                 {
-                    StaffController.StartTourMenu(tourID);
+                    StaffController.TourSelectedMenu(tourID);
                     break;
                 }
                 case "k":
@@ -72,22 +68,24 @@ public class Staff
                 }
                 default:
                 {
-                    if (reservationsList.Contains("> " + PresentVisitorBarcode))
+                    if (Reservations.Length != 0 && Reservations.Contains(PresentVisitorBarcode))
                     {
-                        foreach (Visitor visitor in VisitorsWithReservation)
-                        {
-                            reservationsList.Remove(visitor.barcode);
-                            VisitorTourList.Add(visitor);
-                            AddRemove.AddToTourlist(visitor, tourID);
-                            AddRemove.RemoveFromReservations(visitor, tourID);
-                        }
+                        AddRemove.AddToTourlist(new Visitor(PresentVisitorBarcode), tourID);
+                        AddRemove.RemoveFromReservations(new Visitor(PresentVisitorBarcode), tourID);
+                        VisitorsWithReservation.Remove(new Visitor(PresentVisitorBarcode));
+                        CheckPresence(tourID);
                     }
-                    Reservations = reservationsList.ToArray();
-                    break;
+                    else
+                    {
+                        Console.WriteLine("Dat was de laatste");
+                        StaffTourStarted.Show();
+                    }
                 }
+                break;
             }
         }
     }
+}
     
     // public static List<Visitor> CheckPresence(List<Visitor> reservations, DateTime tourStartTime, int tourID)
     // {
@@ -213,4 +211,3 @@ public class Staff
     //         }
     //     }
     // }
-}

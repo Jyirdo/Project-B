@@ -6,6 +6,7 @@ public static class Program
 
     public static void Main()
     {
-        MenuController.Start();
+        // MenuController.Start();
+        StaffController.SelectionMenu();
     }
 }
