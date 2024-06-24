@@ -5,7 +5,7 @@ using System.IO;
 
 public static class CreateJson
 {
-    public static DateTime currentDate = DateTime.Now.Date;
+    public static DateTime currentDate = Program.World.Now.Date;
     // Create new tours for the current day
     static List<TourModel> CreateTours()
     {
@@ -31,15 +31,15 @@ public static class CreateJson
     public static string CheckTours()
     {
         List<TourModel> jsonList;
-        if (BaseAccess.LoadAll() == null)
+        if (BaseAccess.LoadTours() == null)
         {
-            var file = File.Create("DataSources/Tours.json");
+            var file = File.Create("Data/Tours.json");
             file.Close();
             BaseAccess.WriteAll(CreateTours());
             return "New file successfully created";
         }
         else
-            jsonList = BaseAccess.LoadAll();
+            jsonList = BaseAccess.LoadTours();
 
         bool isNewDay = false;
 
@@ -56,10 +56,10 @@ public static class CreateJson
         {
             try
             {
-                string sourceFile = "DataSources/Tours.json";
+                string sourceFile = "Data/Tours.json";
                 if (File.Exists(sourceFile))
                 {
-                    string destinationDirectory = "DataSources/PreviousJsons";
+                    string destinationDirectory = "Data/PreviousJsons";
                     string destinationFileName = $"Tours-on-{jsonList[0].dateTime:yyyy-MM-dd}.json";
                     string destinationFile = Path.Combine(destinationDirectory, destinationFileName);
 

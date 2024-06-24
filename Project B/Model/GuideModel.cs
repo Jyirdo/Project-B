@@ -1,3 +1,4 @@
+namespace ProjectB;
 using Newtonsoft.Json;
 
 public class GuideModel

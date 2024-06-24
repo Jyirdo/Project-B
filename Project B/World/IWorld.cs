@@ -9,6 +9,6 @@ public interface IWorld
     string ReadLine();
 
     string ReadAllText(string path);
-
+    
     void WriteAllText(string path, string contents);
 }

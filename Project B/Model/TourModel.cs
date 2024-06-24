@@ -1,3 +1,4 @@
+namespace ProjectB;
 using Newtonsoft.Json;
 
 public class TourModel
@@ -18,7 +19,10 @@ public class TourModel
     public GuideModel guide { get; set; }
 
     [JsonProperty("tourVisitorList")]
-    public List<Visitor> tourVisitorList { get; set; } = new();
+    public List<Visitor> visitorList { get; set; } = new();
+
+    [JsonProperty("reservationsList")]
+    public List<Visitor> reservationsList { get; set; } = new();
 
     [JsonProperty("tourStarted")]
     public bool tourStarted { get; set; } = false;

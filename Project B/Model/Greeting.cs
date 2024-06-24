@@ -1,27 +1,28 @@
 namespace ProjectB;
 
-public class Greeting
+class Greeting
 {
-    public static string ShowGreeting(int currentHour)
+    public static string ShowGreeting()
     {
+        int CurrentHour = Program.World.Now.Hour;
         // Find out what time it is and greet the user appropriatly
-        if (currentHour < 6 && currentHour >= 0)
+        if (CurrentHour < 6 && CurrentHour >= 0)
         {
             return "Goedennacht, ";
         }
-        else if (currentHour < 12 && currentHour >= 0)
+        else if (CurrentHour < 12 && CurrentHour >= 0)
         {
             return "Goedemorgen, ";
         }
-        else if (currentHour < 18 && currentHour >= 0)
+        else if (CurrentHour < 18 && CurrentHour >= 0)
         {
             return "Goedemiddag, ";
         }
-        else if (currentHour < 24 && currentHour >= 0)
+        else if (CurrentHour < 24 && CurrentHour >= 0)
         {
             return "Goedenavond, ";
         }
-        else if (currentHour == 24 && currentHour >= 0)
+        else if (CurrentHour == 24 && CurrentHour >= 0)
         {
             return "Goedennacht, ";
         }

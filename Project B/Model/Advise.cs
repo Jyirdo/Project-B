@@ -1,11 +1,16 @@
+namespace ProjectB;
+
 public static class Advise
 {
     public static void CreateAdvise()
     {
-        List<string[]> present = BaseAccess.LoadAllCSV("DataSources/parttakers.csv");
+        Dictionary<string, int> timeDictLarge = new();
+        Dictionary<string, int> timeDictSmall = new();
+        List<string[]> present = BaseAccess.LoadAllCSV();
+
         if (present == null || present.Count == 0)
         {
-            Console.WriteLine("CSV niet gevonden.");
+            MissingFile.ShowCSV();
             return;
         }
 
@@ -41,8 +46,6 @@ public static class Advise
             }
         }
 
-        Dictionary<string, int> timeDictLarge = new();
-        Dictionary<string, int> timeDictSmall = new();
 
         foreach (var day in parttakers)
         {
@@ -70,35 +73,6 @@ public static class Advise
                 }
             }
         }
-
-        using (StreamWriter writer = new StreamWriter("DataSources/Advise.txt", false))
-        {
-            foreach (KeyValuePair<string, int> kvp in timeDictLarge)
-            {
-                if (kvp.Value >= 9)
-                {
-                    string message = $"Er wordt aangeraden om extra rondleidingen te geven op {kvp.Key}.";
-                    Console.WriteLine(message);
-                    writer.WriteLine(message);
-                }
-            }
-
-            Console.WriteLine("-------------------------------------------------------------------------");
-            writer.WriteLine("-------------------------------------------------------------------------");
-
-            foreach (KeyValuePair<string, int> kvp in timeDictSmall)
-            {
-                if (kvp.Value <= 5)
-                {
-                    string message = $"Er wordt aangeraden om minder rondleidingen te geven op {kvp.Key}.";
-                    Console.WriteLine(message);
-                    writer.WriteLine(message);
-                }
-            }
-
-            writer.WriteLine("\nAdvise created on:");
-            writer.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy")}");
-            Console.WriteLine("Alleen een streep? Dan is er momenteel geen advies\n");
-        }
+        BaseAccess.WriteAdvice(timeDictLarge, timeDictSmall);
     }
 }
