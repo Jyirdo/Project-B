@@ -38,6 +38,12 @@ public static class VisitorController
                 }
             }
         }
+        // visitor already participated with a tour
+        else if (Tour.VisitorWithTour(visitor))
+        {
+            VisitorAlreadyParticipatedInTour.Show();
+            MenuController.Start();
+        }
         // visitor did not yet make a reservation for a tour
         else
         {

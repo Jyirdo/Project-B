@@ -66,7 +66,7 @@ public static class StaffController
         {
             case "c":
             {
-                Staff.CheckPresence(tourID);
+                Staff.SelectTourAndCheckTour(tourID);
                 break;
             }
             case "q":

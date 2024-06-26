@@ -23,10 +23,10 @@ public class Tour
 
     public static string[] ShowTours(bool staffLogin)
     {
-        List<TourModel> tours = BaseAccess.LoadTours();
         currentTourID = 1;
         pastTourCounter = 0;
         List<string> ToursList = new List<string>();
+        List<TourModel> tours = BaseAccess.LoadTours();
 
         foreach (TourModel tour in tours)
         {
@@ -79,7 +79,6 @@ public class Tour
     public static bool VisitorWithReservation(Visitor visitor)
     {
         List<TourModel> tours = BaseAccess.LoadTours();
-
         foreach (TourModel tour in tours)
         {
             foreach (Visitor vis in tour.reservationsList)
@@ -93,10 +92,25 @@ public class Tour
         return false;
     }
 
+    public static bool VisitorWithTour(Visitor visitor)
+    {
+        List<TourModel> tours = BaseAccess.LoadTours();
+        foreach (TourModel tour in tours)
+        {
+            foreach (Visitor vis in tour.visitorList)
+            {
+                if (visitor.barcode == vis.barcode)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static string GetTourTime(Visitor visitor, bool staffEdition)
     {
         List<TourModel> tours = BaseAccess.LoadTours();
-
         foreach (TourModel tour in tours)
         {
             foreach (Visitor vis in tour.reservationsList)
@@ -120,7 +134,6 @@ public class Tour
     public static string MakeReservation(Visitor visitor, int tourID)
     {
         List<TourModel> tours = BaseAccess.LoadTours();
-
         while (true)
         {
             if (tourID >= 0 && tourID < currentTourID)
@@ -149,7 +162,6 @@ public class Tour
     public static string CancelReservation(Visitor visitor)
     {
         List<TourModel> tours = BaseAccess.LoadTours();
-
         foreach (TourModel tour in tours)
         {
             foreach (Visitor vis in tour.reservationsList)
@@ -167,7 +179,6 @@ public class Tour
     public static string CheckIfTourStarted(int tourid)
     {
         List<TourModel> tours = BaseAccess.LoadTours();
-
         foreach (TourModel tour in tours)
         {
             if (tour.tourId == tourid && tour.tourStarted == true)

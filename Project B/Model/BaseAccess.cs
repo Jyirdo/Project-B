@@ -92,7 +92,7 @@ public static class BaseAccess
             foreach (TourModel model in convertedJson)
             {
                 if (model.tourId == selectedTour)
-                    foreach (Visitor visitor in model.visitorList)
+                    foreach (Visitor visitor in model.reservationsList)
                         if (visitor.barcode == barcode)
                             return true;
             }

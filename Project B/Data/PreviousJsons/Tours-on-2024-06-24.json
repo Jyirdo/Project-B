@@ -1,7 +1,7 @@
 [
   {
     "tour_id": 1,
-    "tourStartTime": "2024-06-26T10:20:00",
+    "tourStartTime": "2024-06-24T10:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -11,48 +11,27 @@
   },
   {
     "tour_id": 2,
-    "tourStartTime": "2024-06-26T10:40:00",
-    "parttakers": 3,
+    "tourStartTime": "2024-06-24T10:40:00",
+    "parttakers": 0,
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "reservationsList": [
-      {
-        "barcode": "1160559176559"
-      },
-      {
-        "barcode": "5149968365453"
-      },
-      {
-        "barcode": "5912997400794"
-      }
-    ],
+    "reservationsList": [],
     "tourStarted": false
   },
   {
     "tour_id": 3,
-    "tourStartTime": "2024-06-26T11:00:00",
-    "parttakers": 1,
+    "tourStartTime": "2024-06-24T11:00:00",
+    "parttakers": 0,
     "limit": 13,
     "guide": null,
-    "tourVisitorList": [
-      {
-        "barcode": "123"
-      },
-      {
-        "barcode": "456"
-      }
-    ],
-    "reservationsList": [
-      {
-        "barcode": "9723557215174"
-      }
-    ],
-    "tourStarted": true
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
   },
   {
     "tour_id": 4,
-    "tourStartTime": "2024-06-26T11:20:00",
+    "tourStartTime": "2024-06-24T11:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -62,7 +41,7 @@
   },
   {
     "tour_id": 5,
-    "tourStartTime": "2024-06-26T11:40:00",
+    "tourStartTime": "2024-06-24T11:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -72,7 +51,7 @@
   },
   {
     "tour_id": 6,
-    "tourStartTime": "2024-06-26T12:00:00",
+    "tourStartTime": "2024-06-24T12:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -82,7 +61,7 @@
   },
   {
     "tour_id": 7,
-    "tourStartTime": "2024-06-26T12:20:00",
+    "tourStartTime": "2024-06-24T12:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -92,7 +71,7 @@
   },
   {
     "tour_id": 8,
-    "tourStartTime": "2024-06-26T12:40:00",
+    "tourStartTime": "2024-06-24T12:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -102,7 +81,7 @@
   },
   {
     "tour_id": 9,
-    "tourStartTime": "2024-06-26T13:00:00",
+    "tourStartTime": "2024-06-24T13:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -112,7 +91,7 @@
   },
   {
     "tour_id": 10,
-    "tourStartTime": "2024-06-26T13:20:00",
+    "tourStartTime": "2024-06-24T13:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -122,7 +101,7 @@
   },
   {
     "tour_id": 11,
-    "tourStartTime": "2024-06-26T13:40:00",
+    "tourStartTime": "2024-06-24T13:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -132,7 +111,7 @@
   },
   {
     "tour_id": 12,
-    "tourStartTime": "2024-06-26T14:00:00",
+    "tourStartTime": "2024-06-24T14:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -142,7 +121,7 @@
   },
   {
     "tour_id": 13,
-    "tourStartTime": "2024-06-26T14:20:00",
+    "tourStartTime": "2024-06-24T14:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -152,7 +131,7 @@
   },
   {
     "tour_id": 14,
-    "tourStartTime": "2024-06-26T14:40:00",
+    "tourStartTime": "2024-06-24T14:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -162,7 +141,7 @@
   },
   {
     "tour_id": 15,
-    "tourStartTime": "2024-06-26T15:00:00",
+    "tourStartTime": "2024-06-24T15:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -172,7 +151,7 @@
   },
   {
     "tour_id": 16,
-    "tourStartTime": "2024-06-26T15:20:00",
+    "tourStartTime": "2024-06-24T15:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -182,7 +161,7 @@
   },
   {
     "tour_id": 17,
-    "tourStartTime": "2024-06-26T15:40:00",
+    "tourStartTime": "2024-06-24T15:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -192,7 +171,7 @@
   },
   {
     "tour_id": 18,
-    "tourStartTime": "2024-06-26T16:00:00",
+    "tourStartTime": "2024-06-24T16:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
