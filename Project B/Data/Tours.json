@@ -16,17 +16,7 @@
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "reservationsList": [
-      {
-        "barcode": "1160559176559"
-      },
-      {
-        "barcode": "5149968365453"
-      },
-      {
-        "barcode": "5912997400794"
-      }
-    ],
+    "reservationsList": [],
     "tourStarted": false
   },
   {
@@ -35,20 +25,9 @@
     "parttakers": 1,
     "limit": 13,
     "guide": null,
-    "tourVisitorList": [
-      {
-        "barcode": "123"
-      },
-      {
-        "barcode": "456"
-      }
-    ],
-    "reservationsList": [
-      {
-        "barcode": "9723557215174"
-      }
-    ],
-    "tourStarted": true
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
   },
   {
     "tour_id": 4,
