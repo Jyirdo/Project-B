@@ -97,7 +97,7 @@ public class Tour
         List<TourModel> tours = BaseAccess.LoadTours();
         foreach (TourModel tour in tours)
         {
-            foreach (Visitor vis in tour.visitorList)
+            foreach (Visitor vis in tour.tourVisitorList)
             {
                 if (visitor.barcode == vis.barcode)
                 {

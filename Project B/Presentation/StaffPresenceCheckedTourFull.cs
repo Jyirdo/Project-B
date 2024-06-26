@@ -1,6 +1,6 @@
 namespace ProjectB;
 
-public class StaffPresenceChecked : View
+public class StaffPresenceCheckedTourFull : View
 {
     public static string Show()
     {

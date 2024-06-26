@@ -12,17 +12,36 @@
   {
     "tour_id": 2,
     "tourStartTime": "2024-06-26T10:40:00",
-    "parttakers": 3,
+    "parttakers": 13,
     "limit": 13,
     "guide": null,
-    "tourVisitorList": [],
+    "tourVisitorList": [
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      }
+    ],
     "reservationsList": [],
     "tourStarted": false
   },
   {
     "tour_id": 3,
     "tourStartTime": "2024-06-26T11:00:00",
-    "parttakers": 1,
+    "parttakers": 0,
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],

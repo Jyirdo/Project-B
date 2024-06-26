@@ -98,9 +98,9 @@ public class Staff
                 List<Visitor> presenceList = CheckPresence(tour.reservationsList, tour.dateTime, tourID);
 
                 foreach (string scanned in scannedIDS)
-                    foreach (Visitor visitor in tour.reservationsList)
-                        if (visitor.barcode == scanned)
-                            presenceList.Remove(visitor);
+                    foreach (Visitor vis in tour.reservationsList)
+                        if (vis.barcode == scanned)
+                            presenceList.Remove(vis);
 
                 if (presenceList == null)
                 {
@@ -118,76 +118,64 @@ public class Staff
                     string[] presenceListArray = presenceListString.ToArray();
                     AllNotPresent.Show(presenceListArray);
                 }
-                string input = StaffPresenceChecked.Show();
-                switch (input.ToLower())
+                
+                TourAboutToStartWithOptionForExtraVisitors:
+                string input = "";
+                if (tour.limit - tour.parttakers != 0)
                 {
-                    case "s":
-                        {
-                            foreach (Visitor notpresent in presenceList)
-                                AddRemove.RemoveFromReservations(notpresent, tourID);
-
-                            List<TourModel> tours2 = BaseAccess.LoadTours();
-                            TourModel tourToUpdate = tours2.FirstOrDefault(t => t.tourId == tour.tourId);
-
-                            if (tourToUpdate != null)
-                                tourToUpdate.tourStarted = true;
-
-                            BaseAccess.WriteAll(tours2);
-                            StaffTourStarted.Show();
-                            MenuController.Start();
-                            break;
-                        }
-                    case "q":
-                        {
-                            goto CheckThePresence;
-                        }
-                    default:
-                        {
-                            WrongInput.Show();
-                            break;
-                        }
-                }
-            }
-        }
-    }
-
-    public static string AddLastMinuteVisitor(int tourId, string input)
-    {
-        while (true)
-        {
-            if (long.TryParse(input, out _))
-            {
-                foreach (TourModel tour in tours)
-                {
-                    if (tour.tourId == tourId)
+                    input = StaffPresenceCheckedTourNotFull.Show(tour.parttakers, tour.limit);
+                    Visitor visitor = new Visitor(input);
+                    if (visitor.CorrectVisitorCode())
                     {
-                        // check if tour is full
-                        if (tour.parttakers < tour.limit)
+                        if (tour.tourVisitorList.Contains(visitor))
                         {
-                            AddRemove.AddToTourlist(new Visitor(input.Trim()), tourId);
-                            return $"{input.Trim()} succesvol aangemeld bij de rondleiding van {(tour.dateTime).ToString("dd-M-yyyy HH:mm")}\n";
+                            Console.WriteLine("Dat mag niet");
                         }
                         else
                         {
-                            TourFull.Show();
-                            StaffController.SelectionMenu();
+                            AddRemove.AddToTourlist(visitor, tourID);
                         }
-                    }
-                    else
-                    {
-                        WrongInput.Show();
-                        continue;
+                        foreach (TourModel item in tours)
+                        {
+                            AddRemove.RemoveFromReservations(visitor, item.tourId);
+                        }
+                        StaffCheckPresenceSucces.Show(visitor.barcode);
+                        goto TourAboutToStartWithOptionForExtraVisitors;
                     }
                 }
-            }
-            else if (input.ToLower() == "q")
-            {
-                return "";
-            }
-            else
-            {
-                WrongInput.Show();
-                continue;
+                else
+                {
+                    TourAboutToStart:
+                    input = StaffPresenceCheckedTourFull.Show();
+                    switch (input.ToLower())
+                    {
+                        case "s":
+                            {
+                                foreach (Visitor notpresent in presenceList)
+                                    AddRemove.RemoveFromReservations(notpresent, tourID);
+
+                                List<TourModel> tours2 = BaseAccess.LoadTours();
+                                TourModel tourToUpdate = tours2.FirstOrDefault(t => t.tourId == tour.tourId);
+
+                                if (tourToUpdate != null)
+                                    tourToUpdate.tourStarted = true;
+
+                                BaseAccess.WriteAll(tours2);
+                                StaffTourStarted.Show();
+                                MenuController.Start();
+                                break;
+                            }
+                        case "q":
+                            {
+                                goto CheckThePresence;
+                            }
+                        default:
+                            {
+                                WrongInput.Show();
+                                goto TourAboutToStart;
+                            }
+                    }
+                }
             }
         }
     }

@@ -33,12 +33,12 @@ public static class AddRemove
         {
             if (tour.tourId == tourNumber)
             {
-                foreach (Visitor existingVisitor in tour.visitorList)
+                foreach (Visitor existingVisitor in tour.tourVisitorList)
                 if (existingVisitor.barcode == visitor.barcode)
                     visitorsToRemove.Add(existingVisitor);
             }
-            tour.visitorList.RemoveAll(visitorsToRemove.Contains);
-            tour.parttakers = tour.visitorList.Count();
+            tour.tourVisitorList.RemoveAll(visitorsToRemove.Contains);
+            tour.parttakers = tour.tourVisitorList.Count();
         }
 
         BaseAccess.WriteAll(tours);
@@ -67,8 +67,8 @@ public static class AddRemove
         {
             if (tour.tourId == tourNumber)
             {
-                tour.visitorList.Add(visitor);
-                tour.parttakers = tour.visitorList.Count();
+                tour.tourVisitorList.Add(visitor);
+                tour.parttakers = tour.tourVisitorList.Count();
                 BaseAccess.WriteAll(tours);
             }
         }
