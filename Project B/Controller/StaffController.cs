@@ -25,7 +25,7 @@ public static class StaffController
 
         if (int.TryParse(input, out int tourID) && tourID > 0 && tourID < 19)
         {
-            TourSelectedMenu(tourID);
+            Staff.SelectTourAndCheckTour(tourID);
         }
         else
         {
@@ -54,31 +54,6 @@ public static class StaffController
                     SelectionMenu();
                     break;
                 }
-            }
-        }
-    }
-
-    public static void TourSelectedMenu(int tourID)
-    {
-        string option = StaffTourSelected.Show(tourID);
-
-        switch (option.ToLower())
-        {
-            case "c":
-            {
-                Staff.SelectTourAndCheckTour(tourID);
-                break;
-            }
-            case "q":
-            {
-                SelectionMenu();
-                break;
-            }
-            default:
-            {
-                WrongInput.Show();
-                TourSelectedMenu(tourID);
-                break;
             }
         }
     }

@@ -10,7 +10,7 @@ public class TourModel
     public DateTime dateTime { get; set; }
 
     [JsonProperty("parttakers")]
-    public int parttakers { get; set; } = 0;
+    public int parttakers { get; set; }
 
     [JsonProperty("limit")]
     public int limit { get; set; } = 13;
