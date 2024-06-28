@@ -1,0 +1,201 @@
+[
+  {
+    "tour_id": 1,
+    "tourStartTime": "2024-06-26T10:20:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 2,
+    "tourStartTime": "2024-06-26T10:40:00",
+    "parttakers": 13,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      },
+      {
+        "barcode": "123"
+      }
+    ],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 3,
+    "tourStartTime": "2024-06-26T11:00:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 4,
+    "tourStartTime": "2024-06-26T11:20:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 5,
+    "tourStartTime": "2024-06-26T11:40:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 6,
+    "tourStartTime": "2024-06-26T12:00:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 7,
+    "tourStartTime": "2024-06-26T12:20:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 8,
+    "tourStartTime": "2024-06-26T12:40:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 9,
+    "tourStartTime": "2024-06-26T13:00:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 10,
+    "tourStartTime": "2024-06-26T13:20:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 11,
+    "tourStartTime": "2024-06-26T13:40:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 12,
+    "tourStartTime": "2024-06-26T14:00:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 13,
+    "tourStartTime": "2024-06-26T14:20:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 14,
+    "tourStartTime": "2024-06-26T14:40:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 15,
+    "tourStartTime": "2024-06-26T15:00:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 16,
+    "tourStartTime": "2024-06-26T15:20:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 17,
+    "tourStartTime": "2024-06-26T15:40:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  },
+  {
+    "tour_id": 18,
+    "tourStartTime": "2024-06-26T16:00:00",
+    "parttakers": 0,
+    "limit": 13,
+    "guide": null,
+    "tourVisitorList": [],
+    "reservationsList": [],
+    "tourStarted": false
+  }
+]
