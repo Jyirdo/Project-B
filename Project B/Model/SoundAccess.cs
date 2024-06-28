@@ -34,22 +34,6 @@ public static class SoundAccess
             }
         }
     }
-
-    public static void PlayDenied()
-    {
-        if (OperatingSystem.IsWindows())
-        {
-            try
-            {
-                SoundPlayer soundPlayer = new("Data/Denied.wav");
-                soundPlayer.Play();
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-    }
 }
 
 
