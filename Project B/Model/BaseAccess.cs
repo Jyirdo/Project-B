@@ -127,5 +127,29 @@ public static class BaseAccess
             writer.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy")}");
         }
     }
+
+    public static List<string> loadAllGuideInfo()
+    {
+        List<string> visitorCodes = new();
+        List<string> exceptionCodes = new();
+
+        try
+        {
+            StreamReader reader = new StreamReader("Data/GuideInfo.txt");
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    visitorCodes.Add(line);
+                }
+            }
+            return visitorCodes;
+        }
+        catch (Exception ex)
+        {
+            exceptionCodes.Add(ex.Message);
+            return exceptionCodes;
+        }
+    }
 }
 
