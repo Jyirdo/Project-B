@@ -9,19 +9,15 @@ public class GuideModel
     [JsonProperty("name")]
     public string Name { get; set; }
 
-    [JsonProperty("roster")]
-    public List<(DateTime, DateTime)> Roster { get; set; }
+    [JsonProperty("shift")]
+    public Tuple<DateTime, DateTime> Shift { get; set; }
     // Tuple item1 is starttime and item2 is endtime
 
-    [JsonProperty("tours_assigned")]
-    public List<TourModel> toursAssigned { get; set; }
-
-    public GuideModel(string guideid, string name, List<(DateTime, DateTime)> roster, List<TourModel> toursassigned)
+    public GuideModel(string guideid, string name, Tuple<DateTime, DateTime> shift)
     {
         GuideId = guideid;
         Name = name;
-        Roster = roster;
-        toursAssigned = toursassigned;
+        Shift = shift;
     }
 
 }
