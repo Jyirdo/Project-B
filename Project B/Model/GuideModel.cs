@@ -14,9 +14,9 @@ public class GuideModel
     // Tuple item1 is starttime and item2 is endtime
 
     [JsonProperty("tours_assigned")]
-    public List<TourModel> toursAssigned { get; set; }
+    public List<Tour> toursAssigned { get; set; }
 
-    public GuideModel(string guideid, string name, List<(DateTime, DateTime)> roster, List<TourModel> toursassigned)
+    public GuideModel(string guideid, string name, List<(DateTime, DateTime)> roster, List<Tour> toursassigned)
     {
         GuideId = guideid;
         Name = name;

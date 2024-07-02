@@ -1,19 +1,17 @@
 namespace ProjectB;
 
-public class Visitor
+public class Visitor : Barcodable
 {
-    public string barcode;
-
-    public Visitor(string barcode1)
+    public Visitor(string barcode)
     {
-        barcode = barcode1;
+        Barcode = barcode;
     }
 
     public bool CorrectVisitorCode()
     {
         List<string> VisitorCodes = BaseAccess.loadAllVisitorCodes();
 
-        if (VisitorCodes.Contains(barcode))
+        if (VisitorCodes.Contains(Barcode))
         {
             return true;
         }
