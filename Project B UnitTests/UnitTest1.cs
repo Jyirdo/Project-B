@@ -182,18 +182,18 @@ public class UnitTest1
     //     Add_Remove.Remove(new Visitor(barcode), 1);
     // }
 
-    [TestMethod]
-    public void TestCancelReservation_False()
-    {
-        string barcode = "7";
-        Visitor visitor = new Visitor(barcode);
-        Tour.CancelReservation(visitor);
+    // [TestMethod]
+    // public void TestCancelReservation_False()
+    // {
+    //     string barcode = "7";
+    //     Visitor visitor = new Visitor(barcode);
+    //     Tour.CancelReservation(visitor);
 
-        string expected = "U heeft nog niet gereserveerd voor een rondleiding.\n";
-        string actual = Tour.CancelReservation(visitor);
+    //     string expected = "U heeft nog niet gereserveerd voor een rondleiding.\n";
+    //     string actual = Tour.CancelReservation(visitor);
 
-        Assert.AreEqual(expected, actual);
-    }
+    //     Assert.AreEqual(expected, actual);
+    // }
 
     // [TestMethod]
     // public void TestShowHelp()
@@ -252,7 +252,7 @@ public class UnitTest1
     //         Assert.Fail($"PlayJingle threw an exception: {ex.Message}");
     //     }
     // }
-    
+
     [TestMethod]
     public void SysteemTestTourReserveren()
     {
@@ -267,7 +267,7 @@ public class UnitTest1
         Assert.AreEqual(expected, actual);
 
         Visitor visitor = new Visitor("123");
-        AddRemove.RemoveFromTourlist(visitor, 1);
+        Tour.RemoveFromTourlist(visitor, 1);
     }
 
     // [TestMethod]

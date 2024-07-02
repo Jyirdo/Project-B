@@ -14,8 +14,12 @@ public static class VisitorController
             {
                 case "a":
                 {
-                    string message = Tour.CancelReservation(visitor);
-                    VisitorCancelReservation.Show(message);
+                    (DateTime tourStartTime, bool success) = Tour.CancelReservation(visitor);
+
+                    if (success)
+                        VisitorCancelReservation.Show(tourStartTime);
+                    else
+                        NoReservationYet.Show();
                     break;
                 }
                 case "h":
@@ -38,7 +42,7 @@ public static class VisitorController
                 }
             }
         }
-        // visitor already participated with a tour
+        // visitor already participated in a tour
         else if (Tour.VisitorWithTour(visitor))
         {
             VisitorAlreadyParticipatedInTour.Show();
@@ -51,8 +55,13 @@ public static class VisitorController
 
             if (int.TryParse(input, out int tourID))
             {
-                string message = Tour.MakeReservation(visitor, tourID);
-                VisitorMakeReservationSucces.Show(message);
+                (DateTime tourStartTime, bool success) = Tour.MakeReservation(visitor, tourID);
+
+                if (success)
+                    VisitorMakeReservationSucces.Show(tourStartTime);
+                else
+                    NoReservationYet.Show();
+
                 MenuController.Start();
             }
 

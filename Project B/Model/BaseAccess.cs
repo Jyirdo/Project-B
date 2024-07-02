@@ -3,17 +3,17 @@ using Newtonsoft.Json;
 
 public static class BaseAccess
 {
-    public static List<TourModel> LoadTours()
+    public static List<Tour> LoadTours()
     {
         if (File.Exists("Data/Tours.json"))
         {
             string json = Program.World.ReadAllText("Data/Tours.json");
-            return JsonConvert.DeserializeObject<List<TourModel>>(json);
+            return JsonConvert.DeserializeObject<List<Tour>>(json);
         }
         else return null;
     }
 
-    public static void WriteAll(List<TourModel> tour)
+    public static void WriteAll(List<Tour> tour)
     {
         string jsonString = JsonConvert.SerializeObject(tour, Formatting.Indented);
         using (StreamWriter writer = new("Data/Tours.json"))
@@ -88,12 +88,12 @@ public static class BaseAccess
         if (File.Exists("Data/Tours.json"))
         {
             string json = Program.World.ReadAllText("Data/Tours.json");
-            var convertedJson = JsonConvert.DeserializeObject<List<TourModel>>(json);
-            foreach (TourModel model in convertedJson)
+            var convertedJson = JsonConvert.DeserializeObject<List<Tour>>(json);
+            foreach (Tour model in convertedJson)
             {
                 if (model.tourId == selectedTour)
                     foreach (Visitor visitor in model.reservationsList)
-                        if (visitor.barcode == barcode)
+                        if (visitor.Barcode == barcode)
                             return true;
             }
         }
