@@ -9,14 +9,9 @@ public class GuideModel
     [JsonProperty("name")]
     public string Name { get; set; }
 
-    [JsonProperty("shift")]
-    public Tuple<DateTime, DateTime> Shift { get; set; }
-    // Tuple item1 is starttime and item2 is endtime
-
-    public GuideModel(string guideid, string name, Tuple<DateTime, DateTime> shift)
+    public GuideModel(string guideid, string name)
     {
         GuideId = guideid;
         Name = name;
-        Shift = shift;
     }
 }
