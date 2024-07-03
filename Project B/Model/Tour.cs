@@ -44,7 +44,15 @@ public class Tour
                 else if (tour.tourStarted == false && tour.dateTime < Program.World.Now)
                     warningMessage = $"\x1b[31;1m|| Let op!: De starttijd van deze rondleiding is al geweest, maar deze rondleiding is nog niet gestart. ({tour.parttakers} deelnemer(s) wachten.)\x1b[0m";
 
-                ToursList.Add($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) {warningMessage}{startedMessage}");
+                if (tour.guide == null)
+                {
+                    ToursList.Add($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) (Gids: geen) {warningMessage}{startedMessage}");
+                }    
+                else
+                {
+                    ToursList.Add($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.dateTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) (Gids: {tour.guide.Name}) {warningMessage}{startedMessage}");
+                }
+                
             }
             else
             {

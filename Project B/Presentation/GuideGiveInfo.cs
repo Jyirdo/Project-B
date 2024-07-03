@@ -7,6 +7,11 @@ class GuideGiveInfo : View
         WriteLine("Dit is een ongeldig tourId.");
     }
 
+    public static void ShowOngeldigGuideId()
+    {
+        WriteLine("Dit is een ongeldig gidsId.");
+    }
+
     public static void ShowNoGuideInTour()
     {
         WriteLine("Deze gids is niet gekoppeld aan deze tour.");

@@ -13,9 +13,9 @@ public class Staff
 
     public bool CorrectStaffCode()
     {
-        List<string> staffBarodes = BaseAccess.loadAllStaffCodes();
+        Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
 
-        if (staffBarodes.Contains(StaffBarode))
+        if (guideinfo.ContainsKey(StaffBarode))
         {
             return true;
         }
@@ -287,27 +287,44 @@ public class Staff
     {
         Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
         string tourID = GuideGetInfo.ShowTourIdAdd();
-        string guideCode = GuideGetInfo.ShowGuideCode();
 
         if (int.TryParse(tourID, out int ID))
         {
             List<TourModel> tours = BaseAccess.LoadTours();
-            foreach (TourModel tour in tours)
+            if (ID > 0 && ID < tours.Count())
             {
-                if (tour.tourId == ID)
+                foreach (TourModel tour in tours)
                 {
-                    if (tour.guide == null)
+                    if (tour.tourId == ID)
                     {
-                        GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
-                        AddRemove.AddGuide(guide, ID);
-                        GuideGiveInfo.ShowGuideAdded(guideinfo[$"{guideCode}"].Item1, tour.tourId);
-                    }
-                    else
-                    {
-                        GuideGiveInfo.ShowAlreadyGuideInTour();
-                        StaffController.SelectionMenu();
+                        if (tour.guide == null)
+                        {
+                            string guideCode = GuideGetInfo.ShowGuideCode();
+                            if (guideinfo.ContainsKey(guideCode) == true)
+                            {
+                                GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
+                                AddRemove.AddGuide(guide, ID);
+                                GuideGiveInfo.ShowGuideAdded(guideinfo[$"{guideCode}"].Item1, tour.tourId);
+                            }
+                            else
+                            {
+                                GuideGiveInfo.ShowOngeldigGuideId();
+                                StaffController.SelectionMenu();
+                            }
+                            
+                        }
+                        else
+                        {
+                            GuideGiveInfo.ShowAlreadyGuideInTour();
+                            StaffController.SelectionMenu();
+                        }
                     }
                 }
+            }
+            else
+            {
+                GuideGiveInfo.ShowOngeldigeTourId();
+                StaffController.SelectionMenu(); 
             }
         }
         else
@@ -321,28 +338,44 @@ public class Staff
     {
         Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
         string tourID = GuideGetInfo.ShowTourIdRemove();
-        string guideCode = GuideGetInfo.ShowGuideCode();
 
         if (int.TryParse(tourID, out int ID))
         {
             List<TourModel> tours = BaseAccess.LoadTours();
-            foreach (TourModel tour in tours)
+            if (ID > 0 && ID < tours.Count())
             {
-                if (tour.tourId == ID)
+                foreach (TourModel tour in tours)
                 {
-                    if (tour.guide != null)
+                    if (tour.tourId == ID)
                     {
-                        GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
-                        AddRemove.RemoveGuide(guide, ID);
-                        GuideGiveInfo.ShowGuideRemoved(guideinfo[$"{guideCode}"].Item1, tour.tourId);
-                    }
-                    else
-                    {
-                        GuideGiveInfo.ShowNoGuideInTour();
-                        StaffController.SelectionMenu();
+                        if (tour.guide != null)
+                        {
+                            string guideCode = GuideGetInfo.ShowGuideCode();
+                            if (guideinfo.ContainsKey(guideCode) == true)
+                            {
+                                GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
+                                AddRemove.RemoveGuide(guide, ID);
+                                GuideGiveInfo.ShowGuideRemoved(guideinfo[$"{guideCode}"].Item1, tour.tourId);
+                            }
+                            else
+                            {
+                                GuideGiveInfo.ShowOngeldigGuideId();
+                                StaffController.SelectionMenu();
+                            }
+                        }
+                        else
+                        {
+                            GuideGiveInfo.ShowNoGuideInTour();
+                            StaffController.SelectionMenu();
+                        }
                     }
                 }
             }
+            else
+            {
+                GuideGiveInfo.ShowOngeldigeTourId();
+                StaffController.SelectionMenu();
+            } 
         }
         else
         {

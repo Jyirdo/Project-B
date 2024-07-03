@@ -35,30 +35,6 @@ public static class BaseAccess
         return csvData;
     }
 
-    public static List<string> loadAllStaffCodes()
-    {
-        List<string> staffCodes = new();
-        List<string> exceptionCodes = new();
-
-        try
-        {
-            StreamReader reader = new StreamReader("Data/staff_codes.txt");
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    staffCodes.Add(line);
-                }
-            }
-            return staffCodes;
-        }
-        catch (Exception ex)
-        {
-            exceptionCodes.Add(ex.Message);
-            return exceptionCodes;
-        }
-    }
-
     public static List<string> loadAllVisitorCodes()
     {
         List<string> visitorCodes = new();
