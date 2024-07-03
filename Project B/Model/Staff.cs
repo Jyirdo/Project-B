@@ -302,7 +302,7 @@ public class Staff : Barcodable
                             if (guideinfo.ContainsKey(guideCode) == true)
                             {
                                 GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
-                                AddRemove.AddGuide(guide, ID);
+                                AddGuide(guide, ID);
                                 GuideGiveInfo.ShowGuideAdded(guideinfo[$"{guideCode}"].Item1, tour.tourId);
                             }
                             else
@@ -350,7 +350,7 @@ public class Staff : Barcodable
                         if (tour.guide != null)
                         {
                             GuideGiveInfo.ShowGuideRemoved(tour.guide.Name, tour.tourId);
-                            AddRemove.RemoveGuide(ID);
+                            RemoveGuide(ID);
                         }
                         else
                         {
@@ -370,6 +370,34 @@ public class Staff : Barcodable
         {
             GuideGiveInfo.ShowOngeldigeTourId();
             StaffController.SelectionMenu();
+        }
+    }
+
+    public static void AddGuide(GuideModel guide, int tourID)
+    {
+        List<Tour> tours = BaseAccess.LoadTours();
+
+        foreach (Tour tour in tours)
+        {
+            if (tour.tourId == tourID)
+            {
+                tour.guide = guide;
+                BaseAccess.WriteAll(tours);
+            }
+        }
+    }
+
+    public static void RemoveGuide(int tourID)
+    {
+        List<Tour> tours = BaseAccess.LoadTours();
+
+        foreach (Tour tour in tours)
+        {
+            if (tour.tourId == tourID)
+            {
+                tour.guide = null;
+                BaseAccess.WriteAll(tours);
+            }
         }
     }
 }
