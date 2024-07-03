@@ -88,19 +88,15 @@ public static class AddRemove
         }
     }
 
-    public static void RemoveGuide(GuideModel guide, int tourID)
+    public static void RemoveGuide(int tourID)
     {
         List<TourModel> tours = BaseAccess.LoadTours();
-        List<GuideModel> guidesToRemove = new List<GuideModel>();
 
         foreach (TourModel tour in tours)
         {
             if (tour.tourId == tourID)
             {
-                if (guide.Name == tour.guide.Name)
-                {
-                    tour.guide = null;
-                }
+                tour.guide = null;
                 BaseAccess.WriteAll(tours);
             }
         }

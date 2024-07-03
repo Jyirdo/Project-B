@@ -350,18 +350,8 @@ public class Staff
                     {
                         if (tour.guide != null)
                         {
-                            string guideCode = GuideGetInfo.ShowGuideCode();
-                            if (guideinfo.ContainsKey(guideCode) == true)
-                            {
-                                GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
-                                AddRemove.RemoveGuide(guide, ID);
-                                GuideGiveInfo.ShowGuideRemoved(guideinfo[$"{guideCode}"].Item1, tour.tourId);
-                            }
-                            else
-                            {
-                                GuideGiveInfo.ShowOngeldigGuideId();
-                                StaffController.SelectionMenu();
-                            }
+                            GuideGiveInfo.ShowGuideRemoved(tour.guide.Name, tour.tourId);
+                            AddRemove.RemoveGuide(ID);
                         }
                         else
                         {
