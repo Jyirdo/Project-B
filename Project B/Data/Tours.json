@@ -4,14 +4,7 @@
     "tourStartTime": "2024-07-03T10:20:00",
     "parttakers": 0,
     "limit": 13,
-    "guide": {
-      "guide_id": "456",
-      "name": "Job",
-      "shift": {
-        "Item1": "2024-07-03T10:30:00",
-        "Item2": "2024-07-03T17:00:00"
-      }
-    },
+    "guide": null,
     "tourVisitorList": [],
     "reservationsList": [],
     "tourStarted": false

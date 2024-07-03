@@ -15,10 +15,12 @@ public static class MenuController
             if (staff.CorrectStaffCode())
             {
                 StaffController.Login(input);
+                break;
             }
             if (visitor.CorrectVisitorCode())
             {
                 VisitorController.Login(input);
+                break;
             }
             else if (input.ToLower() == "h")
             {
