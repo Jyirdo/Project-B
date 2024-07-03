@@ -35,30 +35,6 @@ public static class BaseAccess
         return csvData;
     }
 
-    public static List<string> loadAllStaffCodes()
-    {
-        List<string> staffCodes = new();
-        List<string> exceptionCodes = new();
-
-        try
-        {
-            StreamReader reader = new StreamReader("Data/staff_codes.txt");
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    staffCodes.Add(line);
-                }
-            }
-            return staffCodes;
-        }
-        catch (Exception ex)
-        {
-            exceptionCodes.Add(ex.Message);
-            return exceptionCodes;
-        }
-    }
-
     public static List<string> loadAllVisitorCodes()
     {
         List<string> visitorCodes = new();
@@ -125,6 +101,30 @@ public static class BaseAccess
 
             writer.WriteLine("\nAdvise created on:");
             writer.WriteLine($"{DateTime.Now.ToString("dd-MM-yyyy")}");
+        }
+    }
+
+    public static List<string> loadAllGuideInfo()
+    {
+        List<string> visitorCodes = new();
+        List<string> exceptionCodes = new();
+
+        try
+        {
+            StreamReader reader = new StreamReader("Data/GuideInfo.txt");
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    visitorCodes.Add(line);
+                }
+            }
+            return visitorCodes;
+        }
+        catch (Exception ex)
+        {
+            exceptionCodes.Add(ex.Message);
+            return exceptionCodes;
         }
     }
 }

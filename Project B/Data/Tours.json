@@ -2,15 +2,11 @@
   {
     "tour_id": 1,
     "tourStartTime": "2024-07-03T10:20:00",
-    "parttakers": 1,
+    "parttakers": 0,
     "limit": 13,
     "guide": null,
     "tourVisitorList": [],
-    "reservationsList": [
-      {
-        "Barcode": "123"
-      }
-    ],
+    "reservationsList": [],
     "tourStarted": false
   },
   {

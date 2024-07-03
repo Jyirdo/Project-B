@@ -30,6 +30,18 @@ public static class StaffController
         {
             switch (input.ToLower())
             {
+                case "t":
+                {
+                    Staff.AddGuideToTour();
+                    SelectionMenu();
+                    break;
+                }
+                case "v":
+                {
+                    Staff.RemoveGuideFromTour();
+                    SelectionMenu();
+                    break;
+                }
                 case "a":
                 {
                     Advise.CreateAdvise();
