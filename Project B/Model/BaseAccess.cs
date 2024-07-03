@@ -5,12 +5,8 @@ public static class BaseAccess
 {
     public static List<Tour> LoadTours()
     {
-        if (File.Exists("Data/Tours.json"))
-        {
-            string json = Program.World.ReadAllText("Data/Tours.json");
-            return JsonConvert.DeserializeObject<List<Tour>>(json);
-        }
-        else return null;
+        string json = Program.World.ReadAllText("Data/Tours.json");
+        return JsonConvert.DeserializeObject<List<Tour>>(json);
     }
 
     public static void WriteAll(List<Tour> tour)
