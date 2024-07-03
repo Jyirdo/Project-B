@@ -1,17 +1,24 @@
 [
   {
     "tour_id": 1,
-    "tourStartTime": "2024-07-02T10:20:00",
+    "tourStartTime": "2024-07-03T10:20:00",
     "parttakers": 0,
     "limit": 13,
-    "guide": null,
+    "guide": {
+      "guide_id": "456",
+      "name": "Job",
+      "shift": {
+        "Item1": "2024-07-03T10:30:00",
+        "Item2": "2024-07-03T17:00:00"
+      }
+    },
     "tourVisitorList": [],
     "reservationsList": [],
     "tourStarted": false
   },
   {
     "tour_id": 2,
-    "tourStartTime": "2024-07-02T10:40:00",
+    "tourStartTime": "2024-07-03T10:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -21,7 +28,7 @@
   },
   {
     "tour_id": 3,
-    "tourStartTime": "2024-07-02T11:00:00",
+    "tourStartTime": "2024-07-03T11:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -31,7 +38,7 @@
   },
   {
     "tour_id": 4,
-    "tourStartTime": "2024-07-02T11:20:00",
+    "tourStartTime": "2024-07-03T11:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -41,7 +48,7 @@
   },
   {
     "tour_id": 5,
-    "tourStartTime": "2024-07-02T11:40:00",
+    "tourStartTime": "2024-07-03T11:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -51,7 +58,7 @@
   },
   {
     "tour_id": 6,
-    "tourStartTime": "2024-07-02T12:00:00",
+    "tourStartTime": "2024-07-03T12:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -61,7 +68,7 @@
   },
   {
     "tour_id": 7,
-    "tourStartTime": "2024-07-02T12:20:00",
+    "tourStartTime": "2024-07-03T12:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -71,7 +78,7 @@
   },
   {
     "tour_id": 8,
-    "tourStartTime": "2024-07-02T12:40:00",
+    "tourStartTime": "2024-07-03T12:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -81,7 +88,7 @@
   },
   {
     "tour_id": 9,
-    "tourStartTime": "2024-07-02T13:00:00",
+    "tourStartTime": "2024-07-03T13:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -91,7 +98,7 @@
   },
   {
     "tour_id": 10,
-    "tourStartTime": "2024-07-02T13:20:00",
+    "tourStartTime": "2024-07-03T13:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -101,7 +108,7 @@
   },
   {
     "tour_id": 11,
-    "tourStartTime": "2024-07-02T13:40:00",
+    "tourStartTime": "2024-07-03T13:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -111,7 +118,7 @@
   },
   {
     "tour_id": 12,
-    "tourStartTime": "2024-07-02T14:00:00",
+    "tourStartTime": "2024-07-03T14:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -121,7 +128,7 @@
   },
   {
     "tour_id": 13,
-    "tourStartTime": "2024-07-02T14:20:00",
+    "tourStartTime": "2024-07-03T14:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -131,7 +138,7 @@
   },
   {
     "tour_id": 14,
-    "tourStartTime": "2024-07-02T14:40:00",
+    "tourStartTime": "2024-07-03T14:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -141,7 +148,7 @@
   },
   {
     "tour_id": 15,
-    "tourStartTime": "2024-07-02T15:00:00",
+    "tourStartTime": "2024-07-03T15:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -151,7 +158,7 @@
   },
   {
     "tour_id": 16,
-    "tourStartTime": "2024-07-02T15:20:00",
+    "tourStartTime": "2024-07-03T15:20:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -161,7 +168,7 @@
   },
   {
     "tour_id": 17,
-    "tourStartTime": "2024-07-02T15:40:00",
+    "tourStartTime": "2024-07-03T15:40:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
@@ -171,7 +178,7 @@
   },
   {
     "tour_id": 18,
-    "tourStartTime": "2024-07-02T16:00:00",
+    "tourStartTime": "2024-07-03T16:00:00",
     "parttakers": 0,
     "limit": 13,
     "guide": null,
