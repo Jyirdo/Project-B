@@ -6,7 +6,7 @@ public static class MenuController
     {
         while (true)
         {
-            CreateJson.CheckTours();
+            Tour.CheckTours();
             string input = Menu.Show().Trim();
 
             Staff staff = new Staff(input);

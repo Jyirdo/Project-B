@@ -1,21 +1,20 @@
 namespace ProjectB;
 
-public class Staff
+public class Staff : Barcodable
 {
-    public static List<TourModel> tours = BaseAccess.LoadTours();
+    public static List<Tour> tours = BaseAccess.LoadTours();
     public static List<string> scannedIDS = new();
-    public string StaffBarode;
 
-    public Staff(string staffBarcode)
+    public Staff(string barcode)
     {
-        StaffBarode = staffBarcode;
+        Barcode = barcode;
     }
 
     public bool CorrectStaffCode()
     {
         Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
 
-        if (guideinfo.ContainsKey(StaffBarode))
+        if (guideinfo.ContainsKey(Barcode))
         {
             return true;
         }
@@ -32,7 +31,7 @@ public class Staff
             reservationsCopyString.Clear();
             foreach (Visitor visitor in reservationsCopy)
             {
-                reservationsCopyString.Add(visitor.barcode);
+                reservationsCopyString.Add(visitor.Barcode);
             }
             string[] ReservationsArray = reservationsCopyString.ToArray();
 
@@ -54,14 +53,14 @@ public class Staff
                     {
                         scannedIDS.Add(checkPresence);
                         foreach (Visitor visitor in reservationsList)
-                            if (visitor.barcode == checkPresence)
+                            if (visitor.Barcode == checkPresence)
                             {
                                 reservationsCopy.Remove(visitor);
-                                foreach (TourModel tour in tours)
+                                foreach (Tour tour in tours)
                                 {
-                                    AddRemove.RemoveFromReservations(visitor, tour.tourId);
+                                    Tour.RemoveFromReservations(visitor, tour.tourId);
                                 }
-                                AddRemove.AddToTourlist(visitor, tourID);
+                                Tour.AddToTourlist(visitor, tourID);
                             }
                         SoundAccess.PlayAccepted();
                         StaffCheckPresenceSucces.Show(checkPresence);
@@ -93,20 +92,20 @@ public class Staff
 
     public static void SelectTourAndCheckTour(int tourID)
     {
-        List<TourModel> tours = BaseAccess.LoadTours();
+        List<Tour> tours = BaseAccess.LoadTours();
         scannedIDS.Clear();
-        foreach (TourModel tour in tours)
+        foreach (Tour tour in tours)
         {
             if (tour.tourId == tourID)
             {
                 if (tour.tourStarted == false)
                 {
                     CheckThePresence:
-                    List<Visitor> presenceList = CheckPresence(tour.reservationsList, tour.dateTime, tourID);
+                    List<Visitor> presenceList = CheckPresence(tour.reservationsList, tour.tourStartTime, tourID);
 
                     foreach (string scanned in scannedIDS)
                         foreach (Visitor vis in tour.reservationsList)
-                            if (vis.barcode == scanned)
+                            if (vis.Barcode == scanned)
                                 presenceList.Remove(vis);
 
                     if (presenceList == null)
@@ -121,14 +120,14 @@ public class Staff
                     {
                         List<string> presenceListString = new();
                         foreach (Visitor notpresent in presenceList)
-                            presenceListString.Add(notpresent.barcode);
+                            presenceListString.Add(notpresent.Barcode);
                         string[] presenceListArray = presenceListString.ToArray();
                         AllNotPresent.Show(presenceListArray);
                     }
 
                     TourAboutToStartWithOptionForExtraVisitors:
-                    List<TourModel> tours2 = BaseAccess.LoadTours();
-                    foreach (TourModel tour2 in tours2)
+                    List<Tour> tours2 = BaseAccess.LoadTours();
+                    foreach (Tour tour2 in tours2)
                     {
                         if (tour2.tourId == tourID)
                         {
@@ -141,16 +140,16 @@ public class Staff
                                     if(AddLastMinuteVisitor(tourID, visitor))
                                     {
                                         SoundAccess.PlayAccepted();
-                                        StaffCheckPresenceSucces.Show(visitor.barcode);
-                                        foreach (TourModel tour4 in tours)
+                                        StaffCheckPresenceSucces.Show(visitor.Barcode);
+                                        foreach (Tour tour4 in tours)
                                         {
-                                            AddRemove.RemoveFromReservations(visitor, tour4.tourId);
+                                            Tour.RemoveFromReservations(visitor, tour4.tourId);
                                         }
-                                        AddRemove.AddToTourlist(visitor, tourID);
+                                        Tour.AddToTourlist(visitor, tourID);
                                     }
                                     else
                                     {
-                                        StaffCheckPresenceDenied.Show(visitor.barcode, tour.dateTime.ToString("dd-M-yyyy HH:mm"));
+                                        StaffCheckPresenceDenied.Show(visitor.Barcode, tour.tourStartTime.ToString("dd-M-yyyy HH:mm"));
                                     }
                                     goto TourAboutToStartWithOptionForExtraVisitors;
                                 }
@@ -161,10 +160,10 @@ public class Staff
                                         case "s":
                                             {
                                             foreach (Visitor notpresent in presenceList)
-                                                AddRemove.RemoveFromReservations(notpresent, tourID);
+                                                Tour.RemoveFromReservations(notpresent, tourID);
 
-                                            List<TourModel> tours3 = BaseAccess.LoadTours();
-                                            foreach (TourModel tourToUpdate in tours3)
+                                            List<Tour> tours3 = BaseAccess.LoadTours();
+                                            foreach (Tour tourToUpdate in tours3)
                                             {
                                                 if (tourToUpdate.tourId == tourID)
                                                 {
@@ -197,10 +196,10 @@ public class Staff
                                     case "s":
                                         {
                                             foreach (Visitor notpresent in presenceList)
-                                                AddRemove.RemoveFromReservations(notpresent, tourID);
+                                                Tour.RemoveFromReservations(notpresent, tourID);
 
-                                            List<TourModel> tours3 = BaseAccess.LoadTours();
-                                            foreach (TourModel tourToUpdate in tours3)
+                                            List<Tour> tours3 = BaseAccess.LoadTours();
+                                            foreach (Tour tourToUpdate in tours3)
                                             {
                                                 if (tourToUpdate.tourId == tourID)
                                                 {
@@ -238,16 +237,16 @@ public class Staff
 
     public static bool AddLastMinuteVisitor(int tourID, Visitor visitor)
     {
-        List<TourModel> tours = BaseAccess.LoadTours();
+        List<Tour> tours = BaseAccess.LoadTours();
         while (true)
         {
-            foreach (TourModel tour in tours)
+            foreach (Tour tour in tours)
             {
                 if (tour.tourId == tourID)
                 {
                     foreach (Visitor vis in tour.tourVisitorList)
                     {
-                        if (vis.barcode == visitor.barcode)
+                        if (vis.Barcode == visitor.Barcode)
                         {
                             return false;
                         }
@@ -290,10 +289,10 @@ public class Staff
 
         if (int.TryParse(tourID, out int ID))
         {
-            List<TourModel> tours = BaseAccess.LoadTours();
+            List<Tour> tours = BaseAccess.LoadTours();
             if (ID > 0 && ID < tours.Count())
             {
-                foreach (TourModel tour in tours)
+                foreach (Tour tour in tours)
                 {
                     if (tour.tourId == ID)
                     {
@@ -341,10 +340,10 @@ public class Staff
 
         if (int.TryParse(tourID, out int ID))
         {
-            List<TourModel> tours = BaseAccess.LoadTours();
+            List<Tour> tours = BaseAccess.LoadTours();
             if (ID > 0 && ID < tours.Count())
             {
-                foreach (TourModel tour in tours)
+                foreach (Tour tour in tours)
                 {
                     if (tour.tourId == ID)
                     {

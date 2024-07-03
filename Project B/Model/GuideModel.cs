@@ -19,5 +19,4 @@ public class GuideModel
         Name = name;
         Shift = shift;
     }
-
 }
