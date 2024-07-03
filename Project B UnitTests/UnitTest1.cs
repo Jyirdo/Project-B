@@ -263,7 +263,7 @@ public class UnitTest1
             Files = new()
             {
                 { "Data/visitor_codes.txt", "123" },
-                { "Data/staff_codes.txt", "456" },
+                { "Data/GuideInfo.txt", "456 Job" },
                 { "Data/Tours.json", "[{\"tour_id\": 1, \"tourStartTime\": \"2024-07-02T10:20:00\", \"parttakers\": 1, \"limit\": 13, \"guide\": null, \"tourVisitorList\": [], \"reservationsList\": [], \"tourStarted\": false}]" }	
             }
         };
@@ -277,6 +277,94 @@ public class UnitTest1
 
         Visitor visitor = new Visitor("123");
         Tour.RemoveFromTourlist(visitor, 1);
+    }
+
+    [TestMethod]
+    public void UnitTestAddGuideToTour()
+    {
+        FakeWorld world = new()
+        {
+            Now = new DateTime(2024, 07, 02, 10, 0, 0),
+            LinesToRead = new() { "1", "456" },
+            Files = new()
+            {
+                { "Data/GuideInfo.txt", "456 Job" },
+                { "Data/Tours.json", "[{\"tour_id\": 1, \"tourStartTime\": \"2024-07-02T10:20:00\", \"parttakers\": 0, \"limit\": 13, \"guide\": null, \"tourVisitorList\": [], \"reservationsList\": [], \"tourStarted\": false}]" }	
+            }
+        };
+        Program.World = world;
+
+        Staff.AddGuideToTour();
+
+        string actual = world.LinesWritten.Last();
+        string expected = "Gids Job successvol toegevoegd aan tour 1.";
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void UnitTestRemoveGuideFromTour()
+    {
+        FakeWorld world = new()
+        {
+            Now = new DateTime(2024, 07, 02, 10, 0, 0),
+            LinesToRead = new() { "1" },
+            Files = new()
+            {
+                { "Data/GuideInfo.txt", "456 Job" },
+                { "Data/Tours.json", "[{\"tour_id\": 1, \"tourStartTime\": \"2024-07-02T10:20:00\", \"parttakers\": 0, \"limit\": 13, \"guide\":{\"guide_id\":\"456\",\"name\":\"Job\"}, \"tourVisitorList\": [], \"reservationsList\": [], \"tourStarted\": false}]" }	
+            }
+        };
+        Program.World = world;
+
+        Staff.RemoveGuideFromTour();
+
+        string actual = world.LinesWritten.Last();
+        string expected = "Gids Job successvol verwijderd van tour 1.";
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void SysteemTestAddGuideToTour()
+    {
+        FakeWorld world = new()
+        {
+            Now = new DateTime(2024, 07, 02, 10, 0, 0),
+            LinesToRead = new() { "456", "hetdepot2024!", "t", "1", "456", "z" },
+            Files = new()
+            {
+                { "Data/GuideInfo.txt", "456 Job" },
+                { "Data/Tours.json", "[{\"tour_id\": 1, \"tourStartTime\": \"2024-07-02T10:20:00\", \"parttakers\": 0, \"limit\": 13, \"guide\": null, \"tourVisitorList\": [], \"reservationsList\": [], \"tourStarted\": false}]" }	
+            }
+        };
+        Program.World = world;
+
+        Program.Main();
+
+        string actual = world.LinesWritten[13];
+        string expected = "Gids Job successvol toegevoegd aan tour 1.";
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void SysteemTestRemoveGuideFromTour()
+    {
+        FakeWorld world = new()
+        {
+            Now = new DateTime(2024, 06, 02, 10, 0, 0),
+            LinesToRead = new() { "456", "hetdepot2024!", "v", "1", "z" },
+            Files = new()
+            {
+                { "Data/GuideInfo.txt", "456 Job" },
+                { "Data/Tours.json", "[{\"tour_id\": 1, \"tourStartTime\": \"2024-06-02T10:20:00\", \"parttakers\": 0, \"limit\": 13, \"guide\":{\"guide_id\":\"456\",\"name\":\"Job\"}, \"tourVisitorList\": [], \"reservationsList\": [], \"tourStarted\": false}]" }	
+            }
+        };
+        Program.World = world;
+
+        Program.Main();
+
+        string actual = world.LinesWritten[12];
+        string expected = "Gids Job successvol verwijderd van tour 1.";
+        Assert.AreEqual(expected, actual);
     }
 
     // [TestMethod]

@@ -12,7 +12,7 @@ public class Staff : Barcodable
 
     public bool CorrectStaffCode()
     {
-        Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
+        Dictionary<string, string> guideinfo = GuideIdAndName();
 
         if (guideinfo.ContainsKey(Barcode))
         {
@@ -261,21 +261,15 @@ public class Staff : Barcodable
         }
     }
 
-    public static Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> GuideIdAndName()
+    public static Dictionary<string, string> GuideIdAndName()
     {
         List<string> guideinfo = BaseAccess.loadAllGuideInfo();
-        Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guide_info = new Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>>();
+        Dictionary<string, string> guide_info = new Dictionary<string, string>();
 
         foreach (string guide in guideinfo)
         {
             string[] info = guide.Split(" ");
-            
-            DateTime startshift = DateTime.Parse(info[2]);
-            DateTime endshift = DateTime.Parse(info[3]);
-            Tuple<DateTime, DateTime> shift = new(startshift, endshift);
-
-            Tuple<string, Tuple<DateTime, DateTime>> name_shift = new(info[1], shift);
-            guide_info.Add(info[0], name_shift);
+            guide_info.Add(info[0], info[1]);
         }
         
         
@@ -284,13 +278,13 @@ public class Staff : Barcodable
 
     public static void AddGuideToTour()
     {
-        Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
+        Dictionary<string, string> guideinfo = GuideIdAndName();
         string tourID = GuideGetInfo.ShowTourIdAdd();
 
         if (int.TryParse(tourID, out int ID))
         {
             List<Tour> tours = BaseAccess.LoadTours();
-            if (ID > 0 && ID < tours.Count())
+            if (ID > 0 && ID <= tours.Count())
             {
                 foreach (Tour tour in tours)
                 {
@@ -301,9 +295,9 @@ public class Staff : Barcodable
                             string guideCode = GuideGetInfo.ShowGuideCode();
                             if (guideinfo.ContainsKey(guideCode) == true)
                             {
-                                GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"].Item1, guideinfo[$"{guideCode}"].Item2);
+                                GuideModel guide = new($"{guideCode}", guideinfo[$"{guideCode}"]);
                                 AddGuide(guide, ID);
-                                GuideGiveInfo.ShowGuideAdded(guideinfo[$"{guideCode}"].Item1, tour.tourId);
+                                GuideGiveInfo.ShowGuideAdded(guideinfo[$"{guideCode}"], tour.tourId);
                             }
                             else
                             {
@@ -335,27 +329,25 @@ public class Staff : Barcodable
 
     public static void RemoveGuideFromTour()
     {
-        Dictionary<string, Tuple<string, Tuple<DateTime, DateTime>>> guideinfo = GuideIdAndName();
         string tourID = GuideGetInfo.ShowTourIdRemove();
-
         if (int.TryParse(tourID, out int ID))
         {
             List<Tour> tours = BaseAccess.LoadTours();
-            if (ID > 0 && ID < tours.Count())
+            if (ID > 0 && ID <= tours.Count())
             {
                 foreach (Tour tour in tours)
                 {
                     if (tour.tourId == ID)
                     {
-                        if (tour.guide != null)
-                        {
-                            GuideGiveInfo.ShowGuideRemoved(tour.guide.Name, tour.tourId);
-                            RemoveGuide(ID);
-                        }
-                        else
+                        if (tour.guide == null)
                         {
                             GuideGiveInfo.ShowNoGuideInTour();
                             StaffController.SelectionMenu();
+                        }
+                        else
+                        {
+                            GuideGiveInfo.ShowGuideRemoved(tour.guide.Name, tour.tourId);
+                            RemoveGuide(ID);
                         }
                     }
                 }
