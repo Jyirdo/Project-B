@@ -11,7 +11,6 @@ public static class StaffController
         if (password_input == password)
         {
             SelectionMenu();
-            MenuController.Start();
         }
         else
         {
@@ -40,7 +39,6 @@ public static class StaffController
                 }
                 case "z":
                 {
-                    Environment.Exit(0);
                     break;
                 }
                 case "q":

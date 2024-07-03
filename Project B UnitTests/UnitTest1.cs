@@ -258,12 +258,21 @@ public class UnitTest1
     {
         FakeWorld world = new()
         {
-            LinesToRead = new() { "123", "1" }
+            Now = new DateTime(2024, 07, 02, 10, 0, 0),
+            LinesToRead = new() { "123", "1", "s", "456", "hetdepot2024!", "z" },
+            Files = new()
+            {
+                { "Data/visitor_codes.txt", "123" },
+                { "Data/staff_codes.txt", "456" },
+                { "Data/Tours.json", "[{\"tour_id\": 1, \"tourStartTime\": \"2024-07-02T10:20:00\", \"parttakers\": 1, \"limit\": 13, \"guide\": null, \"tourVisitorList\": [], \"reservationsList\": [], \"tourStarted\": false}]" }	
+            }
         };
         Program.World = world;
 
+        Program.Main();
+
         string actual = world.LinesWritten.Last();
-        string expected = $"Succesvol aangemeld bij de rondleiding van \x1b[32m{Program.World.Now.ToString("dd-M-yyyy")} 10:20\x1b[0m\n";
+        string expected = $"Toets \x1b[31m'Q'\x1b[0m en druk ENTER om terug te gaan naar het hoofdmenu.";
         Assert.AreEqual(expected, actual);
 
         Visitor visitor = new Visitor("123");

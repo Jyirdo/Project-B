@@ -20,6 +20,7 @@ public static class VisitorController
                         VisitorCancelReservation.Show(tourStartTime);
                     else
                         NoReservationYet.Show();
+                    MenuController.Start();
                     break;
                 }
                 case "h":
@@ -61,7 +62,6 @@ public static class VisitorController
                     VisitorMakeReservationSucces.Show(tourStartTime);
                 else
                     NoReservationYet.Show();
-
                 MenuController.Start();
             }
 
