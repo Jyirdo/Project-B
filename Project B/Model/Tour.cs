@@ -135,7 +135,15 @@ public class Tour
                 else if (tour.tourStarted == false && tour.tourStartTime < Program.World.Now)
                     warningMessage = $"\x1b[31;1m|| Let op!: De starttijd van deze rondleiding is al geweest, maar deze rondleiding is nog niet gestart. ({tour.parttakers} deelnemer(s) wachten.)\x1b[0m";
 
-                ToursList.Add($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.tourStartTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) {warningMessage}{startedMessage}");
+                if (tour.guide == null)
+                {
+                    ToursList.Add($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.tourStartTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) (Gids: geen) {warningMessage}{startedMessage}");
+                }    
+                else
+                {
+                    ToursList.Add($"\x1b[34;1m{tour.tourId}\x1b[0m: Rondleiding van \x1b[32m{tour.tourStartTime}\x1b[0m (Plaatsen over: {tour.limit - tour.parttakers}) (Gids: \x1b[35m{tour.guide.Name}\x1b[0m) {warningMessage}{startedMessage}");
+                }
+                
             }
             else
             {
