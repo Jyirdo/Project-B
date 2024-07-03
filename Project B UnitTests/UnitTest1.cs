@@ -119,6 +119,7 @@ public class UnitTest1
     {
         FakeWorld world = new()
         {
+            Now = new DateTime(2024, 07, 02, 10, 0, 0),
             LinesToRead = new() { "123", "a", "", "456", "hetdepot2024!", "z" },
             Files = new()
             {
